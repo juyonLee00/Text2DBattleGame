@@ -4,12 +4,12 @@ namespace Text2DBattleGame
 {
     public enum Scene
     {
-        None, GameIntro, MyInfo
+        None, GameIntro, MyInfo, Battle
     }
 
     internal class Program
     {
-        private static Scene scene = Scene.None;
+        public static Scene scene = Scene.None;
 
         private static Character player;
 
@@ -34,6 +34,9 @@ namespace Text2DBattleGame
                     case Scene.MyInfo:
                         DisplayMyInfo();
                         break;
+                    case Scene.Battle:
+                        DisplayBattle.Display(player);
+                        break;
                 }
             }
         }
@@ -54,7 +57,7 @@ namespace Text2DBattleGame
             Console.WriteLine("이곳에서 전전으로 들어가기 전 활동을 할 수 있습니다.");
             Console.WriteLine();
             Console.WriteLine("1. 상태보기");
-            Console.WriteLine("2. 인벤토리");
+            Console.WriteLine("2. 전투시작");
             Console.WriteLine();
             Console.WriteLine("원하시는 행동을 입력해주세요.");
 
@@ -66,7 +69,7 @@ namespace Text2DBattleGame
                     break;
 
                 case 2:
-                    // 작업해보기
+                    scene = Scene.Battle;
                     break;
             }
         }
@@ -101,7 +104,7 @@ namespace Text2DBattleGame
 
         }
 
-        static int CheckValidInput(int min, int max)
+        static public int CheckValidInput(int min, int max)
         {
             while (true)
             {

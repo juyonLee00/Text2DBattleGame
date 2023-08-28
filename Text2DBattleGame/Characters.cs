@@ -24,7 +24,9 @@ namespace Text2DBattleGame
         public int Atk { get; set; }
         public int Def { get; set; }
         public int Hp { get; set; }
+        public int MaxHp { get; }
         public bool IsDead => Hp <= 0;
+        public int DungeonLevel { get; set; }
         public int Gold { get; }
         public int Exp { get; set; }
 
@@ -36,14 +38,14 @@ namespace Text2DBattleGame
             Atk = atk;
             Def = def;
             Hp = hp;
+            MaxHp = hp;
             Gold = gold;
             Exp = 0;
+            DungeonLevel = 1;
         }
         public void TakeDamage(int damage)
         {
             Hp -= damage;
-            if (IsDead) Console.WriteLine($"{Name}이(가) 죽었습니다.");
-            else Console.WriteLine($"{Name}이(가) {damage}의 데미지를 받았습니다. 남은 체력: {Hp}");
         }
     }
 
@@ -69,8 +71,6 @@ namespace Text2DBattleGame
         public void TakeDamage(int damage)
         {
             Hp -= damage;
-            if (IsDead) Console.WriteLine($"{Name}이(가) 죽었습니다.");
-            else Console.WriteLine($"{Name}이(가) {damage}의 데미지를 받았습니다. 남은 체력: {Hp}");
         }
     }
     public class Minion : Monster
@@ -86,12 +86,38 @@ namespace Text2DBattleGame
     {
         public CanonMinion() : base("대포미니언", 5, 25, 8, 3, 15) { }
     }
-    //public class CreateCharacter
-    //{
-    //    public static Monster CreateRandomMonster()
-    //    {
-    //        Random random = new Random();
-    //        int flag = random.Next()
-    //    }
-    //}
+
+    public class CreateCharacter
+    {
+        public static Monster[] CreateRandomMonster()
+        {
+            Monster monster = new Monster("zizon", 100, 1000, 99, 0, 0);
+
+            Random random = new Random();
+
+            int howMany = random.Next(1, 5);
+            Monster[] battleMonsters = new Monster[howMany];
+
+            for (int i = 0; i < howMany; i++)
+            {
+                int flag = random.Next(0, 3);
+                switch (flag)
+                {
+                    case 0:
+                        monster = new Minion();
+                        break;
+                    case 1:
+                        monster = new EmptinessBug();
+                        break;
+                    case 2:
+                        monster = new CanonMinion();
+                        break;
+                }
+
+                battleMonsters[i] = monster;
+            }
+
+            return battleMonsters;
+        }
+    }
 }
