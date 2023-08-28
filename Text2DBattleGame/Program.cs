@@ -58,7 +58,7 @@ internal class Program
         switch (input)
         {
             case 1:
-                DisplayMyInfo();
+                scene = Scene.MyInfo;
                 break;
 
             case 2:
@@ -87,7 +87,7 @@ internal class Program
         switch (input)
         {
             case 0:
-                DisplayGameIntro();
+                scene = Scene.GameIntro;
                 break;
         }
     }
