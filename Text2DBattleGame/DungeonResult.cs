@@ -43,7 +43,6 @@ namespace Text2DBattleGame
                 Console.WriteLine("눈앞이 깜깜해졌다.");
                 Console.WriteLine("소지금의 절반을 잃었다.");
                 Console.WriteLine($"{player.Gold} Gold");
-                player.Hp = player.MaxHp / 4;
                 player.Gold /= 2;
             }
             Console.WriteLine("");
