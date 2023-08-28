@@ -10,13 +10,14 @@ namespace Text2DBattleGame
 {
     internal class DungeonResult
     {
-        public void Result(Character player, List<Item> item, int alldamege, int gold)
+        //DungeonResult(player, getitemlist, savehp, saveexp, gold);
+        public void Result(Character player, List<Item> item, int savehp, int saveexp, int gold)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("Battle!! - Result");
             Console.ResetColor();
             Console.WriteLine("");
-            if (player.IsDead)
+            if (!player.IsDead)
             {
 
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -25,7 +26,7 @@ namespace Text2DBattleGame
                 Console.WriteLine("");
                 Console.WriteLine("던전에서 몬스터 n 마리를 잡았습니다.");
                 Console.WriteLine("[캐릭터 정보]");
-                LevelResult(player, alldamege);
+                LevelResult(player, savehp, saveexp);
                 GetItem(item, gold); //
 
             }
@@ -36,14 +37,14 @@ namespace Text2DBattleGame
                 Console.ResetColor();
                 Console.WriteLine("");
                 Console.WriteLine($"Lv.{player.Level} {player.Name} ");
-                Console.WriteLine($"HP.{player.Hp + alldamege} -> {player.Hp} ");
+                Console.WriteLine($"HP.{savehp} -> 0 ");
             }
             Console.WriteLine("");
             Console.WriteLine("0. 다음");
             Console.WriteLine("");
 
         }
-        public void LevelResult(Character player, int alldamege)
+        public void LevelResult(Character player, int savehp, int saveexp)
         {
             float upAtk = 1f; // 발제 에서는 0.5 였으나 기본 설정이 int 이기에 우선 1로 설정함
             float upDef = 2f;
@@ -81,16 +82,16 @@ namespace Text2DBattleGame
             if (levelup)
             {
                 Console.WriteLine($"Lv.{player.Level - 1} {player.Name} -> Lv.{player.Level} {player.Name} ");
-                Console.WriteLine($"HP.{player.Hp + alldamege} -> {player.Hp} ");
+                Console.WriteLine($"HP.{savehp} -> {player.Hp} ");
                 if (player.Level <= 4)
-                    Console.WriteLine($"Exp.{player.Exp - alldamege} -> {player.Exp} ");
+                    Console.WriteLine($"Exp.{player.Exp - saveexp} -> {player.Exp} ");//@@@@@@@exp 생각하고 수정 해야할듯
             }
             else
             {
                 Console.WriteLine($"Lv.{player.Level} {player.Name} ");
-                Console.WriteLine($"HP.{player.Hp + alldamege} -> {player.Hp} ");
+                Console.WriteLine($"HP.{player.Hp + saveexp} -> {player.Hp} ");
                 if (player.Level <= 4)
-                    Console.WriteLine($"Exp.{player.Exp - alldamege} -> {player.Exp} ");
+                    Console.WriteLine($"Exp.{player.Exp - saveexp} -> {player.Exp} ");
             }
 
         }

@@ -72,6 +72,17 @@ namespace Text2DBattleGame
         {
             Hp -= damage;
         }
+        public Item drop(string name, int atk, int def, int hp, int per)//체크
+        {
+            Random random = new Random();
+            int basic = random.Next(1, 100);
+            if (per >= basic)
+            {
+                Item item = new Item("name", atk, def, hp);
+                return item;
+            }
+            return null;
+        }
     }
     public class Minion : Monster
     {
