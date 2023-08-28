@@ -10,6 +10,12 @@ namespace Text2DBattleGame
     {
         public static void Display(Character player)
         {
+
+            int gold = player.Gold;
+            int savehp = player.Hp;
+            int saveexp = player.Exp;
+            List<Item> getlist = new List<Item> { };
+
             Console.Clear();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -34,6 +40,8 @@ namespace Text2DBattleGame
             Program.CheckValidInput(1, 1);
 
             int result = Battle(battleMonsters, player); //0이면 승리, 1이면 패배
+            DungeonResult.Result(player, getlist, savehp, saveexp, gold);
+
             if (result == 3) Program.scene = Scene.GameIntro;
 
         }
@@ -156,6 +164,9 @@ namespace Text2DBattleGame
             if (defender.IsDead)
             {
                 Console.WriteLine("Dead");
+                attacker.Exp += defender.Level;//경험치추가
+                attacker.Gold += defender.Gold;//골드추가
+
             }
             else
             {
