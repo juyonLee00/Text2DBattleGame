@@ -1,141 +1,121 @@
 using System;
 
-public enum Scene
+namespace Text2DBattleGame
 {
-    None, GameIntro, MyInfo
-}
-
-internal class Program
-{
-    private static Scene scene = Scene.None;
-
-    private static Character player;
-
-    static void Main(string[] args)
+    public enum Scene
     {
-        GameDataSetting();
-        Update();
+        None, GameIntro, MyInfo
     }
 
-    static void Update()
+    internal class Program
     {
-        while(true)
+        private static Scene scene = Scene.None;
+
+        private static Character player;
+
+        static void Main(string[] args)
         {
-            switch (scene)
+            GameDataSetting();
+            Update();
+        }
+
+        static void Update()
+        {
+            while (true)
             {
-                case Scene.None:
-                    DisplayGameIntro();
+                switch (scene)
+                {
+                    case Scene.None:
+                        DisplayGameIntro();
+                        break;
+                    case Scene.GameIntro:
+                        DisplayGameIntro();
+                        break;
+                    case Scene.MyInfo:
+                        DisplayMyInfo();
+                        break;
+                }
+            }
+        }
+
+        static void GameDataSetting()
+        {
+            // 캐릭터 정보 세팅
+            player = new Character("Chad", "전사", 1, 10, 5, 100, 1500);
+
+            // 아이템 정보 세팅
+        }
+
+        static void DisplayGameIntro()
+        {
+            Console.Clear();
+
+            Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
+            Console.WriteLine("이곳에서 전전으로 들어가기 전 활동을 할 수 있습니다.");
+            Console.WriteLine();
+            Console.WriteLine("1. 상태보기");
+            Console.WriteLine("2. 인벤토리");
+            Console.WriteLine();
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
+
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    scene = Scene.MyInfo;
                     break;
-                case Scene.GameIntro:
-                    DisplayGameIntro();
-                    break;
-                case Scene.MyInfo:
-                    DisplayMyInfo();
+
+                case 2:
+                    // 작업해보기
                     break;
             }
         }
-    }
 
-    static void GameDataSetting()
-    {
-        // 캐릭터 정보 세팅
-        player = new Character("Chad", "전사", 1, 10, 5, 100, 1500);
-
-        // 아이템 정보 세팅
-    }
-
-    static void DisplayGameIntro()
-    {
-        Console.Clear();
-
-        Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
-        Console.WriteLine("이곳에서 전전으로 들어가기 전 활동을 할 수 있습니다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 상태보기");
-        Console.WriteLine("2. 인벤토리");
-        Console.WriteLine();
-        Console.WriteLine("원하시는 행동을 입력해주세요.");
-
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        static void DisplayMyInfo()
         {
-            case 1:
-                scene = Scene.MyInfo;
-                break;
+            Console.Clear();
 
-            case 2:
-                // 작업해보기
-                break;
-        }
-    }
+            Console.WriteLine("상태보기");
+            Console.WriteLine("캐릭터의 정보르 표시합니다.");
+            Console.WriteLine();
+            Console.WriteLine($"Lv.{player.Level}");
+            Console.WriteLine($"{player.Name}({player.Job})");
+            Console.WriteLine($"공격력 :{player.Atk}");
+            Console.WriteLine($"방어력 : {player.Def}");
+            Console.WriteLine($"체력 : {player.Hp}");
+            Console.WriteLine($"Gold : {player.Gold} G");
+            Console.WriteLine();
+            Console.WriteLine("0. 나가기");
 
-    static void DisplayMyInfo()
-    {
-        Console.Clear();
-
-        Console.WriteLine("상태보기");
-        Console.WriteLine("캐릭터의 정보르 표시합니다.");
-        Console.WriteLine();
-        Console.WriteLine($"Lv.{player.Level}");
-        Console.WriteLine($"{player.Name}({player.Job})");
-        Console.WriteLine($"공격력 :{player.Atk}");
-        Console.WriteLine($"방어력 : {player.Def}");
-        Console.WriteLine($"체력 : {player.Hp}");
-        Console.WriteLine($"Gold : {player.Gold} G");
-        Console.WriteLine();
-        Console.WriteLine("0. 나가기");
-
-        int input = CheckValidInput(0, 0);
-        switch (input)
-        {
-            case 0:
-                scene = Scene.GameIntro;
-                break;
-        }
-    }
-
-    static void DisplayInventory()
-    {
-
-    }
-
-    static int CheckValidInput(int min, int max)
-    {
-        while (true)
-        {
-            string input = Console.ReadLine();
-
-            bool parseSuccess = int.TryParse(input, out var ret);
-            if (parseSuccess)
+            int input = CheckValidInput(0, 0);
+            switch (input)
             {
-                if (ret >= min && ret <= max)
-                    return ret;
+                case 0:
+                    scene = Scene.GameIntro;
+                    break;
             }
-
-            Console.WriteLine("잘못된 입력입니다.");
         }
-    }
-}
 
+        static void DisplayInventory()
+        {
 
-public class Character
-{
-    public string Name { get; }
-    public string Job { get; }
-    public int Level { get; }
-    public int Atk { get; }
-    public int Def { get; }
-    public int Hp { get; }
-    public int Gold { get; }
+        }
 
-    public Character(string name, string job, int level, int atk, int def, int hp, int gold)
-    {
-        Name = name;
-        Job = job;
-        Level = level;
-        Atk = atk;
-        Def = def;
-        Hp = hp;
-        Gold = gold;
+        static int CheckValidInput(int min, int max)
+        {
+            while (true)
+            {
+                string input = Console.ReadLine();
+
+                bool parseSuccess = int.TryParse(input, out var ret);
+                if (parseSuccess)
+                {
+                    if (ret >= min && ret <= max)
+                        return ret;
+                }
+
+                Console.WriteLine("잘못된 입력입니다.");
+            }
+        }
     }
 }
