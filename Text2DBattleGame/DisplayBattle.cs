@@ -77,6 +77,7 @@ namespace Text2DBattleGame
                 Console.WriteLine("Hp " + player.Hp + " " + player.Name + " (" + player.Job + ")\n");
 
                 Console.WriteLine("0. 취소");
+                // 여기서 취소시 몹 리스트로 돌아가는게 아니라 몹 리스트가 새로워짐
                 Console.WriteLine();
                 Console.Write("대상을 선택해주세요.\n>>");
 
@@ -164,7 +165,7 @@ namespace Text2DBattleGame
             if (defender.IsDead)
             {
                 Console.WriteLine("Dead");
-                attacker.Exp += defender.Level*10;//경험치추가
+                attacker.Exp += defender.Level;//경험치추가
                 attacker.Gold += defender.Gold;//골드추가
             }
             else
