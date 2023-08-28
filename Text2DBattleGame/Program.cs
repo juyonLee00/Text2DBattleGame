@@ -12,7 +12,7 @@ internal class Program
     static void Main(string[] args)
     {
         GameDataSetting();
-        DisplayGameIntro();
+        Update();
     }
 
     static void Update()
