@@ -21,11 +21,12 @@ namespace Text2DBattleGame
         public string Name { get; }
         public string Job { get; }
         public int Level { get; set; }
-        public int Atk { get; }
-        public int Def { get; }
+        public int Atk { get; set; }
+        public int Def { get; set; }
         public int Hp { get; set; }
         public bool IsDead => Hp <= 0;
         public int Gold { get; }
+        public int Exp { get; set; }
 
         public Character(string name, string job, int level, int atk, int def, int hp, int gold)
         {
@@ -36,6 +37,7 @@ namespace Text2DBattleGame
             Def = def;
             Hp = hp;
             Gold = gold;
+            Exp = 0;
         }
         public void TakeDamage(int damage)
         {
@@ -51,14 +53,16 @@ namespace Text2DBattleGame
         public int Level { get; set; }
         public int Atk { get; }
         public int Hp { get; set; }
-        public bool IsDead => Hp <= 0;
+        public int Exp  { get; set; }
+         public bool IsDead => Hp <= 0;
 
-        public Monster(string name, int level, int hp, int atk)
+        public Monster(string name, int level, int hp, int atk, int exp)
         {
             Name = name;
             Level = level;
             Atk = atk;
             Hp = hp;
+            Exp = exp;
         }
         public void TakeDamage(int damage)
         {
@@ -69,15 +73,15 @@ namespace Text2DBattleGame
     }
     public class Minion : Monster
     {
-        public Minion() : base("미니언", 2, 15, 5) { }
+        public Minion() : base("미니언", 2, 15, 5 , 5) { }
     }
     public class EmptinessBug : Monster
     {
-        public EmptinessBug() : base("공허충", 3, 10, 5) { }
+        public EmptinessBug() : base("공허충", 3, 10, 5, 10) { }
     }
     public class CanonMinion : Monster
     {
-        public CanonMinion() : base("대포미니언", 5, 25, 8) { }
+        public CanonMinion() : base("대포미니언", 5, 25, 8, 15) { }
     }
     //public class CreateCharacter
     //{
