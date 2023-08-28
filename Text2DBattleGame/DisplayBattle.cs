@@ -35,12 +35,18 @@ namespace Text2DBattleGame
 
             int input = Program.CheckValidInput(0, 1);
             int result;
+<<<<<<< Updated upstream
             
             if (input == 1) result = Battle(battleMonsters, player); //0이면 승리, 1이면 패배
 
             Program.scene = Scene.GameIntro;
 
+=======
 
+            if (input == 1) result = Battle(battleMonsters, player); //0이면 승리, 1이면 패배, 2이면 바로 게임인트로로 돌아간다는 뜻
+>>>>>>> Stashed changes
+
+            Program.scene = Scene.GameIntro;
         }
 
         public static int Battle(Monster[] battleMonsters, Character player)
@@ -81,7 +87,11 @@ namespace Text2DBattleGame
                 while (true)
                 {
                     monsterNum = Program.CheckValidInput(0, i - 1);
+<<<<<<< Updated upstream
                     if (monsterNum == 0) 
+=======
+                    if (monsterNum == 0)
+>>>>>>> Stashed changes
                     {
                         result = 2;
                         break;
@@ -113,7 +123,11 @@ namespace Text2DBattleGame
                         deadMonsternumber++;
                     }
                 }
+<<<<<<< Updated upstream
                 if (deadMonsternumber == battleMonsters.Length) 
+=======
+                if (deadMonsternumber == battleMonsters.Length)
+>>>>>>> Stashed changes
                 {
                     result = 0;
                     break;
@@ -133,11 +147,19 @@ namespace Text2DBattleGame
                     if (!monster.IsDead)
                     {
                         Attack(monster, player);
+<<<<<<< Updated upstream
                         if (player.IsDead) 
                         {
                             result = 1;
                             break;
                         } 
+=======
+                        if (player.IsDead)
+                        {
+                            result = 1;
+                            break;
+                        }
+>>>>>>> Stashed changes
                     }
                 }
 
