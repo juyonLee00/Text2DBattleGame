@@ -55,14 +55,16 @@ namespace Text2DBattleGame
         public int Hp { get; set; }
         public int Exp  { get; set; }
          public bool IsDead => Hp <= 0;
+        public int Gold { get; set; }
 
-        public Monster(string name, int level, int hp, int atk, int exp)
+        public Monster(string name, int level, int hp, int atk, int exp , int gold)
         {
             Name = name;
             Level = level;
             Atk = atk;
             Hp = hp;
             Exp = exp;
+            Gold =gold;
         }
         public void TakeDamage(int damage)
         {
@@ -73,15 +75,16 @@ namespace Text2DBattleGame
     }
     public class Minion : Monster
     {
-        public Minion() : base("미니언", 2, 15, 5 , 5) { }
+        public Minion() : base("미니언", 2, 15, 5 , 1 ,5) { }
+        
     }
     public class EmptinessBug : Monster
     {
-        public EmptinessBug() : base("공허충", 3, 10, 5, 10) { }
+        public EmptinessBug() : base("공허충", 3, 10, 5, 2, 10) { }
     }
     public class CanonMinion : Monster
     {
-        public CanonMinion() : base("대포미니언", 5, 25, 8, 15) { }
+        public CanonMinion() : base("대포미니언", 5, 25, 8, 3, 15) { }
     }
     //public class CreateCharacter
     //{
