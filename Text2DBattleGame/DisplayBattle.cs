@@ -37,14 +37,18 @@ namespace Text2DBattleGame
             Console.WriteLine();
             Console.Write("원하시는 행동을 입력해주세요.\n>>");
 
-            Program.CheckValidInput(1, 1);
             int input = Program.CheckValidInput(0, 1);
             int result;
-
+            
             if (input == 1) result = Battle(battleMonsters, player); //0이면 승리, 1이면 패배
 
             Program.scene = Scene.GameIntro;
 
+            int result = Battle(battleMonsters, player); //0이면 승리, 1이면 패배
+            DungeonResult.Result(player, getlist, savehp, saveexp, gold);
+            //
+            if (result == 0) Program.scene = Scene.GameIntro;
+            else Program.scene = Scene.GameIntro;
 
         }
 
