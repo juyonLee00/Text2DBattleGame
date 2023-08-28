@@ -44,7 +44,7 @@ namespace Text2DBattleGame
         static void GameDataSetting()
         {
             // 캐릭터 정보 세팅
-            player = new Character("Chad", "전사", 1, 10, 5, 100, 1500);
+            player = new Character("Chad", "전사", 1, 10, 5, 100,1500);
 
             // 아이템 정보 세팅
         }
