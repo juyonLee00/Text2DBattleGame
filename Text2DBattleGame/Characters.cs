@@ -13,6 +13,9 @@ namespace Text2DBattleGame
         int Atk { get; }
         bool IsDead { get; }
         int Level { get; set; }
+        int Exp { get; set; }
+        int Gold { get; set; }
+
         void TakeDamage(int damage);
     }
 
@@ -25,7 +28,8 @@ namespace Text2DBattleGame
         public int Def { get; set; }
         public int Hp { get; set; }
         public bool IsDead => Hp <= 0;
-        public int Gold { get; }
+        public int DungeonLevel { get; set; }
+        public int Gold { get; set; }
         public int Exp { get; set; }
 
         public Character(string name, string job, int level, int atk, int def, int hp, int gold)
