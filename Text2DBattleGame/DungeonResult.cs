@@ -25,8 +25,8 @@ namespace Text2DBattleGame
                 Console.WriteLine("");
                 Console.WriteLine("던전에서 몬스터 n 마리를 잡았습니다.");
                 Console.WriteLine("[캐릭터 정보]");
-                LevelResult(player, alldamege);
-                GetItem(item, gold); //
+                LevelResult(player, savehp, saveexp);
+                GetItem(player, item, gold); //
 
             }
             else
@@ -36,14 +36,23 @@ namespace Text2DBattleGame
                 Console.ResetColor();
                 Console.WriteLine("");
                 Console.WriteLine($"Lv.{player.Level} {player.Name} ");
-                Console.WriteLine($"HP.{player.Hp + alldamege} -> {player.Hp} ");
+                Console.WriteLine($"HP.{savehp} -> 0 ");
+                Console.WriteLine("눈앞이 깜깜해졌다.");
+                Console.WriteLine("소지금의 절반을 잃었다.");
+                player.Hp = player.MaxHp / 4;
+                player.Gold /= 2;
+                Console.WriteLine($"{player.Gold} Gold");
+
             }
             Console.WriteLine("");
             Console.WriteLine("0. 다음");
             Console.WriteLine("");
 
         }
-        public void LevelResult(Character player, int alldamege)
+
+
+        public static void LevelResult(Character player, int savehp, int saveexp)
+
         {
             float upAtk = 1f; // 발제 에서는 0.5 였으나 기본 설정이 int 이기에 우선 1로 설정함
             float upDef = 2f;
@@ -83,14 +92,14 @@ namespace Text2DBattleGame
                 Console.WriteLine($"Lv.{player.Level - 1} {player.Name} -> Lv.{player.Level} {player.Name} ");
                 Console.WriteLine($"HP.{player.Hp + alldamege} -> {player.Hp} ");
                 if (player.Level <= 4)
-                    Console.WriteLine($"Exp.{player.Exp - alldamege} -> {player.Exp} ");
+                    Console.WriteLine($"Exp.{saveexp} -> {player.Exp} ");//@@@@@@@exp 생각하고 수정 해야할듯
             }
             else
             {
                 Console.WriteLine($"Lv.{player.Level} {player.Name} ");
                 Console.WriteLine($"HP.{player.Hp + alldamege} -> {player.Hp} ");
                 if (player.Level <= 4)
-                    Console.WriteLine($"Exp.{player.Exp - alldamege} -> {player.Exp} ");
+                    Console.WriteLine($"Exp.{saveexp} -> {player.Exp} ");
             }
 
         }
