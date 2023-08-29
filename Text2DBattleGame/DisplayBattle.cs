@@ -8,15 +8,24 @@ namespace Text2DBattleGame
 {
     class DisplayBattle
     {
+        static List<Item> itemTable1=new List<Item>() { new Item("테스트 아이템", 0, 0, 0)  };
         public static void Display(Character player)
         {
-
             int gold = player.Gold;
             int savehp = player.Hp;
             int saveexp = player.Exp;
-            List<Item> getlist = new List<Item> { };
+            List<Item> getItem =new List<Item>();
 
             Console.Clear();
+            //테스트
+            //if (player.Inventory != null) 
+            //{ 
+            //    foreach (Item item in player.Inventory) 
+            //    {
+            //     Console.WriteLine(item.Name);
+            //    }
+            //}
+            //테스트
 
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Battle!!\n");
@@ -42,15 +51,18 @@ namespace Text2DBattleGame
             int input = Program.CheckValidInput(0, 1);
             int result = 2;
 
-            if (input == 1) result = Battle(battleMonsters, player); //0이면 승리, 1이면 패배, 2이면 바로 게임인트로로 돌아간다는 뜻
+            if (input == 1) result = Battle(battleMonsters, player,getItem); //0이면 승리, 1이면 패배, 2이면 바로 게임인트로로 돌아간다는 뜻
+            int deadCount = 0;
+            foreach (Monster monster in battleMonsters) 
+                if (monster.IsDead == true) deadCount ++;
 
-            if (result != 2) DungeonResult.Result(player, getlist, savehp, saveexp, gold);
+            if (result != 2) DungeonResult.Result(player, getItem, savehp, saveexp, gold, deadCount);
 
 
             Program.scene = Scene.GameIntro;
         }
 
-        public static int Battle(Monster[] battleMonsters, Character player)
+        public static int Battle(Monster[] battleMonsters, Character player, List<Item> getItem)
         {
             int result = 0;
             while (true)
@@ -114,7 +126,7 @@ namespace Text2DBattleGame
                 Console.WriteLine("Battle!!\n");
                 Console.ResetColor();
 
-                Attack(player, battleMonsters[monsterNum - 1]);
+                Attack(player, battleMonsters[monsterNum - 1], getItem);
 
                 int deadMonsternumber = 0;
                 foreach (Monster monster in battleMonsters)
@@ -146,7 +158,7 @@ namespace Text2DBattleGame
                 {
                     if (!monster.IsDead)
                     {
-                        Attack(monster, player);
+                        Attack(monster, player, getItem);
 
                         if (player.IsDead)
                         {
@@ -179,7 +191,7 @@ namespace Text2DBattleGame
             return damage;
         }
 
-        static void Attack(ICharacter attacker, ICharacter defender)
+        static void Attack(ICharacter attacker, ICharacter defender, List<Item> getItem)
         {
             int damage = RandomDamage(attacker.Atk);
 
@@ -193,6 +205,7 @@ namespace Text2DBattleGame
             if (defender.IsDead)
             {
                 Console.WriteLine("Dead");
+                getItem.Add(Monster.Drop(itemTable1));
                 attacker.Exp += defender.Level;//경험치추가
                 attacker.Gold += defender.Gold;//골드추가
 
