@@ -31,7 +31,7 @@ namespace Text2DBattleGame
             Console.WriteLine("Battle!!\n");
             Console.ResetColor();
 
-            Monster[] battleMonsters = CreateCharacter.CreateRandomMonster();
+            Monster[] battleMonsters = CreateCharacter.CreateRandomMonster(player.DungeonLevel);
 
             foreach (Monster monster in battleMonsters)
             {
@@ -52,6 +52,8 @@ namespace Text2DBattleGame
             int result = 2;
 
             if (input == 1) result = Battle(battleMonsters, player,getItem); //0이면 승리, 1이면 패배, 2이면 바로 게임인트로로 돌아간다는 뜻
+            if (result == 0) player.DungeonLevel++;
+
             int deadCount = 0;
             foreach (Monster monster in battleMonsters) 
                 if (monster.IsDead == true) deadCount ++;
