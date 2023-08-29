@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Text2DBattleGame
@@ -138,7 +139,52 @@ namespace Text2DBattleGame
             }
             else //스킬 사용 시
             {
-                ////////////////////////////////////////////////////////////////////////////채워넣을 부분
+                WriteBattle();
+
+                for(int i = 0; i < battleMonsters.Length; i++)
+                {
+                    Monster monster = battleMonsters[i];
+
+                    if (monster.IsDead)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine((i+1) + " Lv." + monster.Level + " " + monster.Name + "  Dead ");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.WriteLine((i+1) + " Lv." + monster.Level + " " + monster.Name + "  HP " + monster.Hp);
+                    }
+                }
+
+                Console.WriteLine("\n\n[내정보]");
+                Console.WriteLine("Lv." + player.Level + " " + player.Name + " (" + player.Job + ")");
+                Console.WriteLine("Hp " + player.Hp + "/" + player.MaxHp);
+                Console.WriteLine("MP " + player.Mp + "/" + player.MaxMp);
+
+                // 스킬 출력
+                for (int i = 0; i < player.Skills.Count; i++)
+                {
+                    Skill skill = player.Skills[i];
+
+                    Console.WriteLine($"{i + 1}. {skill.Name} - MP {skill.Mp}");
+                    Console.WriteLine($"    {skill.ShowExplanation(player)}");
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("0. 취소");
+
+
+                int skillNum = Program.CheckValidInput(0, player.Skills.Count);
+
+                if (skillNum == 0)
+                {
+                    return 2;
+                }
+                else
+                {
+                    player.Skills[input - 1].UsingSkill(player, battleMonsters);
+                }
             }
 
             int deadMonsternumber = 0;

@@ -28,16 +28,16 @@ namespace Text2DBattleGame
             return skills;
         }
 
-        private void Warrior_AlphaStrike(Character player, List<Monster> monsters)
+        private void Warrior_AlphaStrike(Character player, Monster[] monsters)
         {
-            monsters[new Random().Next(0, monsters.Count)].TakeDamage((int)(player.Atk * 2f));
+            monsters[new Random().Next(0, monsters.Length)].TakeDamage((int)(player.Atk * 2f));
         }
 
-        private void Warrior_DoubleStrike(Character player, List<Monster> monsters)
+        private void Warrior_DoubleStrike(Character player, Monster[] monsters)
         {
             List<int> randomNums = new List<int>();
 
-            int num = (monsters.Count >= 3) ? 2 : monsters.Count;
+            int num = (monsters.Length >= 3) ? 2 : monsters.Length;
 
             for (int i = 0; i < num; i++)
             {
@@ -45,7 +45,7 @@ namespace Text2DBattleGame
 
                 do
                 {
-                    n = new Random().Next(0, monsters.Count);
+                    n = new Random().Next(0, monsters.Length);
                 }
                 while (randomNums.Contains(n));
 
@@ -78,16 +78,16 @@ namespace Text2DBattleGame
             return skills;
         }
 
-        private void Wizard_FireBall(Character player, List<Monster> monsters)
+        private void Wizard_FireBall(Character player, Monster[] monsters)
         {
-            monsters[new Random().Next(0, monsters.Count)].TakeDamage((int)(player.Atk * 3f));
+            monsters[new Random().Next(0, monsters.Length)].TakeDamage((int)(player.Atk * 3f));
         }
 
-        private void Wizard_Meteor(Character player, List<Monster> monsters)
+        private void Wizard_Meteor(Character player, Monster[] monsters)
         {
             List<int> randomNums = new List<int>();
 
-            int num = (monsters.Count >= 3) ? 3 : monsters.Count;
+            int num = (monsters.Length >= 3) ? 3 : monsters.Length;
 
             for (int i = 0; i < num; i++)
             {
@@ -95,7 +95,7 @@ namespace Text2DBattleGame
 
                 do
                 {
-                    n = new Random().Next(0, monsters.Count);
+                    n = new Random().Next(0, monsters.Length);
                 }
                 while (randomNums.Contains(n));
 

@@ -24,7 +24,7 @@ namespace Text2DBattleGame
                     this.Atk = 20;
                     this.Def = 3;
                     this.MaxHp = 60;
-                    this.Skills = Program.skillManager.GetWarriorSkills();
+                    this.Skills = Program.skillManager.GetWizardSkills();
                 }
                 else if (jobName == "Warrior")
                 {
