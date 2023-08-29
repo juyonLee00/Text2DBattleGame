@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Text2DBattleGame
@@ -30,7 +31,54 @@ namespace Text2DBattleGame
 
         private void Warrior_AlphaStrike(Character player, Monster[] monsters)
         {
-            monsters[new Random().Next(0, monsters.Length)].TakeDamage((int)(player.Atk * 2f));
+            //원본
+            //monsters[new Random().Next(0, monsters.Length)].TakeDamage((int)(player.Atk * 2f));
+
+            DisplayBattle.WriteBattle();
+
+            for (int i = 0; i < monsters.Length; i++)
+            {
+                if (monsters[i].IsDead)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine((i+1) + " Lv." + monsters[i].Level + " " + monsters[i].Name + "  Dead ");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.WriteLine((i + 1) + " Lv." + monsters[i].Level + " " + monsters[i].Name + "  HP " + monsters[i].Hp);
+                }
+            }
+
+            Console.WriteLine("\n\n[내정보]");
+            Console.WriteLine("Lv." + player.Level + " " + player.Name + " (" + player.Job + ")");
+            Console.WriteLine("Hp " + player.Hp + "/" + player.MaxHp);
+            Console.WriteLine("MP " + player.Mp + "/" + player.MaxMp);
+
+            Console.WriteLine();
+            Console.Write("대상을 선택해주세요.\n>>");
+
+            int monsterNum;
+            while (true)
+            {
+                monsterNum = Program.CheckValidInput(1, monsters.Length);
+
+                if (monsters[monsterNum - 1].IsDead)
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            DisplayBattle.WriteBattle();
+
+            //DisplayBattle.Attack(player, monsters[monsterNum - 1], DisplayBattle.getItem);
+
+
+            // 구조상 차라리 Display Battle을 매니저처럼 쓰는게 좋을것 같아 위처럼 했습니다.
         }
 
         private void Warrior_DoubleStrike(Character player, Monster[] monsters)
@@ -106,5 +154,6 @@ namespace Text2DBattleGame
         }
 
         #endregion
+
     }
 }
