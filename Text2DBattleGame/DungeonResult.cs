@@ -11,7 +11,7 @@ namespace Text2DBattleGame
     internal class DungeonResult
     {
         //DungeonResult(player, getitemlist, savehp, saveexp, gold);
-        public static void Result(Character player, List<Item> item, int savehp, int saveexp, int gold)
+        public static void Result(Character player, List<Item> item, int savehp, int saveexp, int gold, int deadCount)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -25,7 +25,7 @@ namespace Text2DBattleGame
                 Console.WriteLine("Victory");
                 Console.ResetColor();
                 Console.WriteLine("");
-                Console.WriteLine("던전에서 몬스터 n 마리를 잡았습니다.");
+                Console.WriteLine($"던전에서 몬스터 {deadCount} 마리를 잡았습니다.");
                 Console.WriteLine("[캐릭터 정보]");
                 LevelResult(player, savehp, saveexp);
                 GetItem(player, item, gold); //
@@ -95,7 +95,7 @@ namespace Text2DBattleGame
                 Console.WriteLine($"Lv.{player.Level - 1} {player.Name} -> Lv.{player.Level} {player.Name} ");
                 Console.WriteLine($"HP.{savehp} -> {player.Hp} ");
                 if (player.Level <= 4)
-                    Console.WriteLine($"Exp.{saveexp} -> {player.Exp} ");//@@@@@@@exp 생각하고 수정 해야할듯
+                    Console.WriteLine($"Exp.{saveexp} -> {player.Exp} ");
 
             }
             else
@@ -113,10 +113,19 @@ namespace Text2DBattleGame
         {
             Console.WriteLine("[획득 아이템]");
             Console.WriteLine($"{player.Gold - gold} Gold");
-            for (int i = 0; i < list.Count; ++i)
-            {
-                Console.WriteLine($"{list[i].Name} - 1");
+            if (list != null) 
+                {
+                player.Inventory.AddRange(list);
+                }
+
+            if (player.Inventory != null) 
+            { 
+                 for (int i = 0; i < list.Count; ++i)
+                 {
+                 Console.WriteLine($"{list[i].Name} - 1");
+                 }
             }
+
 
             //foreach (Item item in list)배열
             //{

@@ -27,13 +27,19 @@ namespace Text2DBattleGame
         public int Atk { get; set; }
         public int Def { get; set; }
         public int Hp { get; set; }
+        public int Mp { get; set; }
         public int MaxHp { get; }
+        public int MaxMp { get; set; }
         public bool IsDead => Hp <= 0;
         public int DungeonLevel { get; set; }
         public int Gold { get; set; }
         public int Exp { get; set; }
 
-        public Character(string name, string job, int level, int atk, int def, int hp, int gold)
+        public Character() { }
+
+        public List<Item> Inventory { get; set; }
+        public List<Skill> Skills { get; set; }
+        public Character(string name, string job, int level, int atk, int def, int hp, int gold, List<Skill> skill)
         {
             Name = name;
             Job = job;
@@ -45,6 +51,8 @@ namespace Text2DBattleGame
             Gold = gold;
             Exp = 0;
             DungeonLevel = 1;
+            Inventory = new List<Item>();
+            Skills = skill;
         }
         public void TakeDamage(int damage)
         {
@@ -61,7 +69,6 @@ namespace Text2DBattleGame
         public int Exp  { get; set; }
          public bool IsDead => Hp <= 0;
         public int Gold { get; set; }
-
         public Monster(string name, int level, int hp, int atk, int exp , int gold)
         {
             Name = name;
@@ -75,22 +82,26 @@ namespace Text2DBattleGame
         {
             Hp -= damage;
         }
-        public Item drop(string name, int atk, int def, int hp, int per)//체크
+        static public Item Drop(List<Item> droptable)
         {
+            int persent = 100; //드랍확률
             Random random = new Random();
             int basic = random.Next(1, 100);
-            if (per >= basic)
+            int i = random.Next(0, droptable.Count);
+            if (persent >= basic)
             {
-                Item item = new Item("name", atk, def, hp);
+                Item item = droptable[i];
                 return item;
             }
             return null;
         }
+    
     }
     public class Minion : Monster
     {
         public Minion() : base("미니언", 2, 15, 5 , 1 ,5) { }
-        
+
+
     }
     public class EmptinessBug : Monster
     {
@@ -100,21 +111,73 @@ namespace Text2DBattleGame
     {
         public CanonMinion() : base("대포미니언", 5, 25, 8, 3, 15) { }
     }
+    public class CorruptedSpider : Monster
+    {
+        public CorruptedSpider() : base("타락한 거미", 7, 25, 10, 5, 20) { }
+    }
+    public class Hiding : Monster
+    {
+        public Hiding() : base("그림자속무언가", 7, 5, 14, 5, 20) { }
+    }
+    public class CorruptedQueen : Monster
+    {
+        public CorruptedQueen() : base("타락한 거미여왕", 10, 40, 15, 10, 30) { }
+    }
+    public class WaterSnake : Monster
+    {
+        public WaterSnake() : base("수중뱀", 10, 25, 12, 7, 25) { }
+    }
+    public class WaterSerpent : Monster
+    {
+        public WaterSerpent() : base("수중서펀트", 10, 40, 16, 8, 27) { }
+    }
+    public class Drangon : Monster
+    {
+        public Drangon() : base("드래곤", 15, 60, 20, 20, 50) { }
+    }
 
     public class CreateCharacter
     {
-        public static Monster[] CreateRandomMonster()
+        public static Monster[] CreateRandomMonster(int dungeonlevel)
         {
             Monster monster = new Monster("zizon", 100, 1000, 99, 0, 0);
 
             Random random = new Random();
 
-            int howMany = random.Next(1, 5);
+            int howManyMax = 4;
+            int howManyMin = 1;
+            if (dungeonlevel < 16)
+            {
+                if (dungeonlevel % 5 == 2 || dungeonlevel % 5 == 4)
+                {
+                    howManyMax = 5;
+                }
+                if (dungeonlevel % 5 == 0)
+                {
+                    howManyMin = 4;
+                }
+            }
+            else
+            {
+                howManyMin = 1 + (dungeonlevel - 16);
+                howManyMax = 4 + (dungeonlevel - 16);
+            }
+
+            int howMany = random.Next(howManyMin, howManyMax + 1);
             Monster[] battleMonsters = new Monster[howMany];
 
             for (int i = 0; i < howMany; i++)
             {
-                int flag = random.Next(0, 3);
+                int endNum = ((dungeonlevel - 1) / 5 + 1) * 3;
+                int startNum = (dungeonlevel - 5 * ((dungeonlevel - 1) / 5) - 1) / 2 - 3 + endNum;
+
+                if (dungeonlevel >= 16)
+                {
+                    startNum = 0;
+                    endNum = 9;
+                }
+
+                int flag = random.Next(startNum, endNum);
                 switch (flag)
                 {
                     case 0:
@@ -125,6 +188,24 @@ namespace Text2DBattleGame
                         break;
                     case 2:
                         monster = new CanonMinion();
+                        break;
+                    case 3:
+                        monster = new CorruptedSpider();
+                        break;
+                    case 4:
+                        monster = new Hiding();
+                        break;
+                    case 5:
+                        monster = new CorruptedQueen();
+                        break;
+                    case 6:
+                        monster = new WaterSnake();
+                        break;
+                    case 7:
+                        monster = new WaterSerpent();
+                        break;
+                    case 8:
+                        monster = new Drangon();
                         break;
                 }
 

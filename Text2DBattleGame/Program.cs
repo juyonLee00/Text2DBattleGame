@@ -4,22 +4,25 @@ namespace Text2DBattleGame
 {
     public enum Scene
     {
-        None, GameIntro, MyInfo, Battle
+        None, GameIntro, MyInfo, Battle,Inventory
     }
 
     internal class Program
     {
         public static Scene scene = Scene.None;
 
-        private static Character player;
+        private static Character player = new Character();
+
+        public static SkillManager skillManager = new SkillManager();
 
         static void Main(string[] args)
         {
-            GameDataSetting();
+            Start start = new Start();
+            start.GameDataSetting(ref player);
             Update();
         }
 
-        static void Update()
+        public static void Update()
         {
             while (true)
             {
@@ -37,17 +40,13 @@ namespace Text2DBattleGame
                     case Scene.Battle:
                         DisplayBattle.Display(player);
                         break;
+                    case Scene.Inventory:
+                        Inventory.DisplayInventory(player);
+                        break;
                 }
             }
         }
 
-        static void GameDataSetting()
-        {
-            // 캐릭터 정보 세팅
-            player = new Character("Chad", "전사", 1, 10, 5, 100, 1500);
-
-            // 아이템 정보 세팅
-        }
 
         static void DisplayGameIntro()
         {
@@ -57,11 +56,13 @@ namespace Text2DBattleGame
             Console.WriteLine("이곳에서 전전으로 들어가기 전 활동을 할 수 있습니다.");
             Console.WriteLine();
             Console.WriteLine("1. 상태보기");
-            Console.WriteLine("2. 전투시작");
+            Console.WriteLine("2. 전투시작(현재 진행: " + player.DungeonLevel + "층)");
+            Console.WriteLine("3. 인벤토리");
+
             Console.WriteLine();
             Console.WriteLine("원하시는 행동을 입력해주세요.");
 
-            int input = CheckValidInput(1, 2);
+            int input = CheckValidInput(1, 3);
             switch (input)
             {
                 case 1:
@@ -71,6 +72,11 @@ namespace Text2DBattleGame
                 case 2:
                     scene = Scene.Battle;
                     break;
+
+                case 3:
+                    scene = Scene.Inventory;
+                    break;
+
             }
         }
 
@@ -97,11 +103,6 @@ namespace Text2DBattleGame
                     scene = Scene.GameIntro;
                     break;
             }
-        }
-
-        static void DisplayInventory()
-        {
-
         }
 
         static public int CheckValidInput(int min, int max)
