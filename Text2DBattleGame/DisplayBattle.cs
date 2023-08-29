@@ -8,13 +8,13 @@ namespace Text2DBattleGame
 {
     class DisplayBattle
     {
-        static List<Item> itemTable1=new List<Item>() { new Item("테스트 아이템", 0, 0, 0)  };
+      static List<Item> itemTable1 = new List<Item>() { new Item("테스트 아이템", 0, 0, 0) };
         public static void Display(Character player)
         {
             int gold = player.Gold;
             int savehp = player.Hp;
             int saveexp = player.Exp;
-            List<Item> getItem =new List<Item>();
+            List<Item> getItem = new List<Item>();
 
             Console.Clear();
             //테스트
@@ -33,43 +33,57 @@ namespace Text2DBattleGame
 
             Monster[] battleMonsters = CreateCharacter.CreateRandomMonster(player.DungeonLevel);
 
+            Battle(battleMonsters, player, getItem); 
+
+            DungeonResult.Result(player, getItem, savehp, saveexp, gold, battleMonsters.Length);
+            Program.scene = Scene.GameIntro;
+        }
+
+        public static void Battle(Monster[] battleMonsters, Character player, List<Item> getItem)
+        {
+            while (true)
+            {
+                if (PlayersTurn(battleMonsters, player, getItem) == 0) //3은 스레기값 0은 승리 1은 패배
+                {
+                    player.DungeonLevel++;
+                    break;
+                }
+                if (MonstersTurn(battleMonsters, player, getItem) == 1) break;
+            }
+        }
+
+        public static int PlayersTurn(Monster[] battleMonsters, Character player, List<Item> getItem) 
+        {
+            bool endflag = false;
+            
+            Console.Clear();
+
             foreach (Monster monster in battleMonsters)
             {
-                Console.WriteLine("Lv." + monster.Level + " " + monster.Name + "  HP " + monster.Hp);
+                if (monster.IsDead)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine(" Lv." + monster.Level + " " + monster.Name + "  Dead ");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.WriteLine(" Lv." + monster.Level + " " + monster.Name + "  HP " + monster.Hp);
+                }
             }
 
             Console.WriteLine("\n\n[내정보]");
             Console.WriteLine("Lv." + player.Level + " " + player.Name + " (" + player.Job + ")");
             Console.WriteLine("Hp " + player.Hp + "/" + player.MaxHp);
             Console.WriteLine("MP " + player.Mp + "/" + player.MaxMp);
-            Console.WriteLine();
 
             Console.WriteLine("1. 공격");
-            Console.WriteLine();
-            Console.WriteLine("0. 돌아가기");
+            Console.WriteLine("2. 스킬");
             Console.WriteLine();
             Console.Write("원하시는 행동을 입력해주세요.\n>>");
-          
-            int input = Program.CheckValidInput(0, 1);
-            int result = 2;
 
-            if (input == 1) result = Battle(battleMonsters, player,getItem); //0이면 승리, 1이면 패배, 2이면 바로 게임인트로로 돌아간다는 뜻
-            if (result == 0) player.DungeonLevel++;
-
-            int deadCount = 0;
-            foreach (Monster monster in battleMonsters) 
-                if (monster.IsDead == true) deadCount ++;
-
-            if (result != 2) DungeonResult.Result(player, getItem, savehp, saveexp, gold, deadCount);
-
-
-            Program.scene = Scene.GameIntro;
-        }
-
-        public static int Battle(Monster[] battleMonsters, Character player, List<Item> getItem)
-        {
-            int result = 0;
-            while (true)
+            int input = Program.CheckValidInput(1, 2);
+            if (input == 1) 
             {
                 Console.Clear();
 
@@ -95,6 +109,7 @@ namespace Text2DBattleGame
                 Console.WriteLine("\n\n[내정보]");
                 Console.WriteLine("Lv." + player.Level + " " + player.Name + " (" + player.Job + ")");
                 Console.WriteLine("Hp " + player.Hp + " " + player.Name + " (" + player.Job + ")\n");
+                Console.WriteLine("Mp " + player.Mp + " " + player.Name + " (" + player.Job + ")\n");
 
                 Console.WriteLine("0. 취소");
                 Console.WriteLine();
@@ -105,11 +120,11 @@ namespace Text2DBattleGame
                 {
                     monsterNum = Program.CheckValidInput(0, i - 1);
 
-
                     if (monsterNum == 0)
-
                     {
-                        result = 2;
+                        Console.Clear();
+                        PlayersTurn(battleMonsters, player, getItem);
+                        endflag = true;
                         break;
                     }
 
@@ -122,8 +137,10 @@ namespace Text2DBattleGame
                         break;
                     }
                 }
-                if (result == 2) break;
-
+                if (endflag == true) 
+                {
+                    return 3;
+                }
                 Console.Clear();
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -132,52 +149,59 @@ namespace Text2DBattleGame
 
                 Attack(player, battleMonsters[monsterNum - 1], getItem);
 
-                int deadMonsternumber = 0;
-                foreach (Monster monster in battleMonsters)
-                {
-                    if (monster.IsDead)
-                    {
-                        deadMonsternumber++;
-                    }
-                }
-
-                if (deadMonsternumber == battleMonsters.Length)
-
-                {
-                    result = 0;
-                    break;
-                }
-
-
-                Console.WriteLine("\n0. 다음");
-                Program.CheckValidInput(0, 0);
-
-                Console.Clear();
-
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Battle!!\n");
-                Console.ResetColor();
-
-                foreach (Monster monster in battleMonsters)
-                {
-                    if (!monster.IsDead)
-                    {
-                        Attack(monster, player, getItem);
-
-                        if (player.IsDead)
-                        {
-                            result = 1;
-                            break;
-                        }
-
-                    }
-                }
-                if (result == 1) break;
-
-                Console.WriteLine("\n0. 다음");
-                Program.CheckValidInput(0, 0);
             }
-            return result;
+            else //스킬 사용 시
+            {
+                ////////////////////////////////////////////////////////////////////////////채워넣을 부분
+            }
+
+            int deadMonsternumber = 0;
+            foreach (Monster monster in battleMonsters)
+            {
+                if (monster.IsDead)
+                {
+                    deadMonsternumber++;
+                }
+            }
+
+            if (deadMonsternumber == battleMonsters.Length)
+
+            {
+                return 0;
+            }
+
+            Console.WriteLine("\n0. 다음");
+            Program.CheckValidInput(0, 0);
+
+            return 3;
+        }
+
+        public static int MonstersTurn(Monster[] battleMonsters, Character player, List<Item> getItem)
+        {
+            Console.Clear();
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Battle!!\n");
+            Console.ResetColor();
+
+            foreach (Monster monster in battleMonsters)
+            {
+                if (!monster.IsDead)
+                {
+                    Attack(monster, player, getItem);
+
+                    if (player.IsDead)
+                    {
+                        return 1;
+                    }
+
+                }
+            }
+
+            Console.WriteLine("\n0. 다음");
+            Program.CheckValidInput(0, 0);
+
+            return 3;
         }
 
         static int RandomDamage(int Atk)
