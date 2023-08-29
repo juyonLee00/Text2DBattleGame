@@ -33,6 +33,8 @@ namespace Text2DBattleGame
         public int Gold { get; set; }
         public int Exp { get; set; }
 
+        public Character() { }
+
         public Character(string name, string job, int level, int atk, int def, int hp, int gold)
         {
             Name = name;

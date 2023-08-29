@@ -3,7 +3,6 @@ namespace Text2DBattleGame
 {
     public class Start
     {
-        public Start(){}
 
         public class JobFormat
         {
@@ -29,13 +28,22 @@ namespace Text2DBattleGame
                     this.Def = 5;
                     this.MaxHp = 100;
                 }
-                throw new NotImplementedException();
+
+                else
+                {
+                    throw new NotImplementedException();
+                }
             }
         }
 
         public void GameDataSetting(Character player)
         {
-            // 캐릭터 정보 세팅
+            PlayerDataSetting(player);
+            ItemDataSetting();
+        }
+
+        public void PlayerDataSetting(Character player)
+        {
             Console.Clear();
             Console.WriteLine("스파르타 던전에 오신 여러분 환영합니다.\n");
             string playerName = "";
@@ -54,7 +62,8 @@ namespace Text2DBattleGame
             Console.WriteLine("원하는 직업의 번호를 입력하세요");
 
             JobFormat jobData = new JobFormat();
-            //CheckValidInput 수정 필요
+
+            //코드 CheckValidInput 수정 필요
             int input = Program.CheckValidInput(1, 2);
             switch (input)
             {
@@ -62,13 +71,17 @@ namespace Text2DBattleGame
                     jobData.AddJob("Wizard");
                     break;
                 case 2:
-                default:
                     jobData.AddJob("Warrior");
                     break;
             }
 
+            //코드 수정 필z
             player = new Character(playerName, jobData.JobName, 1, jobData.Atk, jobData.Def, jobData.MaxHp, 1500);
+        }
 
+        public void ItemDataSetting()
+        {
+            //Inventory Data
         }
     }
 

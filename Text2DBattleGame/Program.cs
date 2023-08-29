@@ -11,7 +11,7 @@ namespace Text2DBattleGame
     {
         public static Scene scene = Scene.None;
 
-        private static Character player;
+        private static Character player = new Character();
 
         static void Main(string[] args)
         {
@@ -46,7 +46,8 @@ namespace Text2DBattleGame
         static void DisplayGameIntro()
         {
             Console.Clear();
-
+            Console.WriteLine(player.Name);
+            Console.WriteLine(player.Atk);
             Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
             Console.WriteLine("이곳에서 전전으로 들어가기 전 활동을 할 수 있습니다.");
             Console.WriteLine();
