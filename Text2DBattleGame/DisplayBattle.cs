@@ -27,10 +27,6 @@ namespace Text2DBattleGame
             //}
             //테스트
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Battle!!\n");
-            Console.ResetColor();
-
             Monster[] battleMonsters = CreateCharacter.CreateRandomMonster(player.DungeonLevel);
 
             Battle(battleMonsters, player, getItem); 
@@ -43,20 +39,22 @@ namespace Text2DBattleGame
         {
             while (true)
             {
-                if (PlayersTurn(battleMonsters, player, getItem) == 0) //3은 스레기값 0은 승리 1은 패배
+                int flag = PlayersTurn(battleMonsters, player, getItem);
+                if (flag == 0) //3은 스레기값 2면 다시 실행 0은 승리 
                 {
                     player.DungeonLevel++;
                     break;
                 }
-                if (MonstersTurn(battleMonsters, player, getItem) == 1) break;
+                else if (flag == 2) continue;
+                if (MonstersTurn(battleMonsters, player, getItem) == 1) break;  //3은 스레기값 1은 패배  
             }
         }
 
         public static int PlayersTurn(Monster[] battleMonsters, Character player, List<Item> getItem) 
         {
             bool endflag = false;
-            
-            Console.Clear();
+
+            WriteBattle();
 
             foreach (Monster monster in battleMonsters)
             {
@@ -77,19 +75,13 @@ namespace Text2DBattleGame
             Console.WriteLine("Hp " + player.Hp + "/" + player.MaxHp);
             Console.WriteLine("MP " + player.Mp + "/" + player.MaxMp);
 
-            Console.WriteLine("1. 공격");
-            Console.WriteLine("2. 스킬");
-            Console.WriteLine();
+            Console.WriteLine("1. 공격\n2. 스킬\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>>");
 
             int input = Program.CheckValidInput(1, 2);
             if (input == 1) 
             {
-                Console.Clear();
-
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Battle!!\n");
-                Console.ResetColor();
+                WriteBattle();
 
                 int i = 1;
                 foreach (Monster monster in battleMonsters)
@@ -108,8 +100,8 @@ namespace Text2DBattleGame
 
                 Console.WriteLine("\n\n[내정보]");
                 Console.WriteLine("Lv." + player.Level + " " + player.Name + " (" + player.Job + ")");
-                Console.WriteLine("Hp " + player.Hp + " " + player.Name + " (" + player.Job + ")\n");
-                Console.WriteLine("Mp " + player.Mp + " " + player.Name + " (" + player.Job + ")\n");
+                Console.WriteLine("Hp " + player.Hp + "/" + player.MaxHp);
+                Console.WriteLine("MP " + player.Mp + "/" + player.MaxMp);
 
                 Console.WriteLine("0. 취소");
                 Console.WriteLine();
@@ -122,8 +114,6 @@ namespace Text2DBattleGame
 
                     if (monsterNum == 0)
                     {
-                        Console.Clear();
-                        PlayersTurn(battleMonsters, player, getItem);
                         endflag = true;
                         break;
                     }
@@ -139,13 +129,9 @@ namespace Text2DBattleGame
                 }
                 if (endflag == true) 
                 {
-                    return 3;
+                    return 2;
                 }
-                Console.Clear();
-
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Battle!!\n");
-                Console.ResetColor();
+                WriteBattle();
 
                 Attack(player, battleMonsters[monsterNum - 1], getItem);
 
@@ -178,11 +164,7 @@ namespace Text2DBattleGame
 
         public static int MonstersTurn(Monster[] battleMonsters, Character player, List<Item> getItem)
         {
-            Console.Clear();
-
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Battle!!\n");
-            Console.ResetColor();
+            WriteBattle();
 
             foreach (Monster monster in battleMonsters)
             {
@@ -242,6 +224,13 @@ namespace Text2DBattleGame
             {
                 Console.WriteLine(defender.Hp);
             }
+        }
+        static void WriteBattle()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Battle!!\n");
+            Console.ResetColor();
         }
     }
 }
