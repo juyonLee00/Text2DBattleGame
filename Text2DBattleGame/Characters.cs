@@ -32,7 +32,7 @@ namespace Text2DBattleGame
         public int DungeonLevel { get; set; }
         public int Gold { get; set; }
         public int Exp { get; set; }
-
+        public List<Item> Inventory { get; set; }
         public Character(string name, string job, int level, int atk, int def, int hp, int gold)
         {
             Name = name;
@@ -45,6 +45,7 @@ namespace Text2DBattleGame
             Gold = gold;
             Exp = 0;
             DungeonLevel = 1;
+            Inventory = new List<Item>();
         }
         public void TakeDamage(int damage)
         {
@@ -61,7 +62,6 @@ namespace Text2DBattleGame
         public int Exp  { get; set; }
          public bool IsDead => Hp <= 0;
         public int Gold { get; set; }
-
         public Monster(string name, int level, int hp, int atk, int exp , int gold)
         {
             Name = name;
@@ -75,22 +75,26 @@ namespace Text2DBattleGame
         {
             Hp -= damage;
         }
-        public Item drop(string name, int atk, int def, int hp, int per)//체크
+        static public Item Drop(List<Item> droptable)
         {
+            int persent = 100; //드랍확률
             Random random = new Random();
             int basic = random.Next(1, 100);
-            if (per >= basic)
+            int i = random.Next(0, droptable.Count);
+            if (persent >= basic)
             {
-                Item item = new Item("name", atk, def, hp);
+                Item item = droptable[i];
                 return item;
             }
             return null;
         }
+    
     }
     public class Minion : Monster
     {
         public Minion() : base("미니언", 2, 15, 5 , 1 ,5) { }
-        
+
+
     }
     public class EmptinessBug : Monster
     {
