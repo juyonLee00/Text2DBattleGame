@@ -54,7 +54,7 @@ namespace Text2DBattleGame
             Console.WriteLine("이곳에서 전전으로 들어가기 전 활동을 할 수 있습니다.");
             Console.WriteLine();
             Console.WriteLine("1. 상태보기");
-            Console.WriteLine("2. 전투시작");
+            Console.WriteLine("2. 전투시작(현재 진행: " + player.DungeonLevel + "층)");
             Console.WriteLine("3. 인벤토리");
 
             Console.WriteLine();

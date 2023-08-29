@@ -107,21 +107,73 @@ namespace Text2DBattleGame
     {
         public CanonMinion() : base("대포미니언", 5, 25, 8, 3, 15) { }
     }
+    public class CorruptedSpider : Monster
+    {
+        public CorruptedSpider() : base("타락한 거미", 7, 25, 10, 5, 20) { }
+    }
+    public class Hiding : Monster
+    {
+        public Hiding() : base("그림자속무언가", 7, 5, 14, 5, 20) { }
+    }
+    public class CorruptedQueen : Monster
+    {
+        public CorruptedQueen() : base("타락한 거미여왕", 10, 40, 15, 10, 30) { }
+    }
+    public class WaterSnake : Monster
+    {
+        public WaterSnake() : base("수중뱀", 10, 25, 12, 7, 25) { }
+    }
+    public class WaterSerpent : Monster
+    {
+        public WaterSerpent() : base("수중서펀트", 10, 40, 16, 8, 27) { }
+    }
+    public class Drangon : Monster
+    {
+        public Drangon() : base("드래곤", 15, 60, 20, 20, 50) { }
+    }
 
     public class CreateCharacter
     {
-        public static Monster[] CreateRandomMonster()
+        public static Monster[] CreateRandomMonster(int dungeonlevel)
         {
             Monster monster = new Monster("zizon", 100, 1000, 99, 0, 0);
 
             Random random = new Random();
 
-            int howMany = random.Next(1, 5);
+            int howManyMax = 4;
+            int howManyMin = 1;
+            if (dungeonlevel < 16)
+            {
+                if (dungeonlevel % 5 == 2 || dungeonlevel % 5 == 4)
+                {
+                    howManyMax = 5;
+                }
+                if (dungeonlevel % 5 == 0)
+                {
+                    howManyMin = 4;
+                }
+            }
+            else
+            {
+                howManyMin = 1 + (dungeonlevel - 16);
+                howManyMax = 4 + (dungeonlevel - 16);
+            }
+
+            int howMany = random.Next(howManyMin, howManyMax + 1);
             Monster[] battleMonsters = new Monster[howMany];
 
             for (int i = 0; i < howMany; i++)
             {
-                int flag = random.Next(0, 3);
+                int endNum = ((dungeonlevel - 1) / 5 + 1) * 3;
+                int startNum = (dungeonlevel - 5 * ((dungeonlevel - 1) / 5) - 1) / 2 - 3 + endNum;
+
+                if (dungeonlevel >= 16)
+                {
+                    startNum = 0;
+                    endNum = 9;
+                }
+
+                int flag = random.Next(startNum, endNum);
                 switch (flag)
                 {
                     case 0:
@@ -132,6 +184,24 @@ namespace Text2DBattleGame
                         break;
                     case 2:
                         monster = new CanonMinion();
+                        break;
+                    case 3:
+                        monster = new CorruptedSpider();
+                        break;
+                    case 4:
+                        monster = new Hiding();
+                        break;
+                    case 5:
+                        monster = new CorruptedQueen();
+                        break;
+                    case 6:
+                        monster = new WaterSnake();
+                        break;
+                    case 7:
+                        monster = new WaterSerpent();
+                        break;
+                    case 8:
+                        monster = new Drangon();
                         break;
                 }
 
