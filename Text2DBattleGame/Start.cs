@@ -49,21 +49,21 @@ namespace Text2DBattleGame
 
             Console.Clear();
             Console.WriteLine("원하는 직업을 선택해주세요\n");
-            Console.WriteLine("1. 전사");
-            Console.WriteLine("2. 마법사");
+            Console.WriteLine("1. 마법사");
+            Console.WriteLine("2. 전사");
             Console.WriteLine("원하는 직업의 번호를 입력하세요");
 
-            string input = Console.ReadLine();
             JobFormat jobData = new JobFormat();
-
+            //CheckValidInput 수정 필요
+            int input = Program.CheckValidInput(1, 2);
             switch (input)
             {
-                case "2":
-                    jobData.AddJob("Warrior");
-                    break;
-                case "1":
-                default:
+                case 1:
                     jobData.AddJob("Wizard");
+                    break;
+                case 2:
+                default:
+                    jobData.AddJob("Warrior");
                     break;
             }
 
