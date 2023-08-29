@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Text2DBattleGame
 {
     public class Start
@@ -11,6 +13,8 @@ namespace Text2DBattleGame
             public int Def { get; set; }
             public int MaxHp { get; set; }
 
+            public List<Skill> Skills { get; set; }
+
 
             internal void AddJob(string jobName)
             {
@@ -20,6 +24,7 @@ namespace Text2DBattleGame
                     this.Atk = 20;
                     this.Def = 3;
                     this.MaxHp = 60;
+                    this.Skills = Program.skillManager.GetWarriorSkills();
                 }
                 else if (jobName == "Warrior")
                 {
@@ -27,6 +32,7 @@ namespace Text2DBattleGame
                     this.Atk = 10;
                     this.Def = 5;
                     this.MaxHp = 100;
+                    this.Skills = Program.skillManager.GetWarriorSkills();
                 }
 
                 else
@@ -76,7 +82,7 @@ namespace Text2DBattleGame
             }
 
             //코드 수정 필요
-            player = new Character(playerName, jobData.JobName, 1, jobData.Atk, jobData.Def, jobData.MaxHp, 1500);
+            player = new Character(playerName, jobData.JobName, 1, jobData.Atk, jobData.Def, jobData.MaxHp, 1500, jobData.Skills);
         }
 
         public void ItemDataSetting()

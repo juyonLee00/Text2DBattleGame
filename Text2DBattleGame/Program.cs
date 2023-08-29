@@ -13,6 +13,8 @@ namespace Text2DBattleGame
 
         private static Character player = new Character();
 
+        public static SkillManager skillManager = new SkillManager();
+
         static void Main(string[] args)
         {
             Start start = new Start();

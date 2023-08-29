@@ -41,6 +41,8 @@ namespace Text2DBattleGame
             Console.WriteLine("\n\n[내정보]");
             Console.WriteLine("Lv." + player.Level + " " + player.Name + " (" + player.Job + ")");
             Console.WriteLine("Hp " + player.Hp + "/" + player.MaxHp);
+            Console.WriteLine("MP " + player.Mp + "/" + player.MaxMp);
+            Console.WriteLine();
 
             Console.WriteLine("1. 공격");
             Console.WriteLine();

@@ -27,7 +27,9 @@ namespace Text2DBattleGame
         public int Atk { get; set; }
         public int Def { get; set; }
         public int Hp { get; set; }
+        public int Mp { get; set; }
         public int MaxHp { get; }
+        public int MaxMp { get; set; }
         public bool IsDead => Hp <= 0;
         public int DungeonLevel { get; set; }
         public int Gold { get; set; }
@@ -36,7 +38,8 @@ namespace Text2DBattleGame
         public Character() { }
 
         public List<Item> Inventory { get; set; }
-        public Character(string name, string job, int level, int atk, int def, int hp, int gold)
+        public List<Skill> Skills { get; set; }
+        public Character(string name, string job, int level, int atk, int def, int hp, int gold, List<Skill> skill)
         {
             Name = name;
             Job = job;
@@ -49,6 +52,7 @@ namespace Text2DBattleGame
             Exp = 0;
             DungeonLevel = 1;
             Inventory = new List<Item>();
+            Skills = skill;
         }
         public void TakeDamage(int damage)
         {
