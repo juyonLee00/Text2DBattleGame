@@ -31,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Characters.cs" />
+    <Compile Include="Inventory.cs" />
     <Compile Include="DisplayBattle.cs" />
     <Compile Include="DungeonResult.cs" />
     <Compile Include="Item.cs" />
