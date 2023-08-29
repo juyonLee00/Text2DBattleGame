@@ -16,7 +16,7 @@ namespace Text2DBattleGame
         static void Main(string[] args)
         {
             Start start = new Start();
-            start.GameDataSetting(player);
+            start.GameDataSetting(ref player);
             Update();
         }
 
@@ -46,8 +46,7 @@ namespace Text2DBattleGame
         static void DisplayGameIntro()
         {
             Console.Clear();
-            Console.WriteLine(player.Name);
-            Console.WriteLine(player.Atk);
+
             Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
             Console.WriteLine("이곳에서 전전으로 들어가기 전 활동을 할 수 있습니다.");
             Console.WriteLine();

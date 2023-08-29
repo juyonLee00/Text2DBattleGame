@@ -36,13 +36,13 @@ namespace Text2DBattleGame
             }
         }
 
-        public void GameDataSetting(Character player)
+        public void GameDataSetting(ref Character player)
         {
-            PlayerDataSetting(player);
+            PlayerDataSetting(ref player);
             ItemDataSetting();
         }
 
-        public void PlayerDataSetting(Character player)
+        public void PlayerDataSetting(ref Character player)
         {
             Console.Clear();
             Console.WriteLine("스파르타 던전에 오신 여러분 환영합니다.\n");
