@@ -13,6 +13,9 @@ namespace Text2DBattleGame
         int Atk { get; }
         bool IsDead { get; }
         int Level { get; set; }
+        int Exp { get; set; }
+        int Gold { get; set; }
+
         void TakeDamage(int damage);
     }
 
@@ -27,7 +30,7 @@ namespace Text2DBattleGame
         public int MaxHp { get; }
         public bool IsDead => Hp <= 0;
         public int DungeonLevel { get; set; }
-        public int Gold { get; }
+        public int Gold { get; set; }
         public int Exp { get; set; }
 
         public Character(string name, string job, int level, int atk, int def, int hp, int gold)
@@ -71,6 +74,17 @@ namespace Text2DBattleGame
         public void TakeDamage(int damage)
         {
             Hp -= damage;
+        }
+        public Item drop(string name, int atk, int def, int hp, int per)//체크
+        {
+            Random random = new Random();
+            int basic = random.Next(1, 100);
+            if (per >= basic)
+            {
+                Item item = new Item("name", atk, def, hp);
+                return item;
+            }
+            return null;
         }
     }
     public class Minion : Monster

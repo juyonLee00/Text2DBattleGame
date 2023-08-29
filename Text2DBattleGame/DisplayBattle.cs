@@ -10,6 +10,12 @@ namespace Text2DBattleGame
     {
         public static void Display(Character player)
         {
+
+            int gold = player.Gold;
+            int savehp = player.Hp;
+            int saveexp = player.Exp;
+            List<Item> getlist = new List<Item> { };
+
             Console.Clear();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -32,19 +38,13 @@ namespace Text2DBattleGame
             Console.WriteLine("0. 돌아가기");
             Console.WriteLine();
             Console.Write("원하시는 행동을 입력해주세요.\n>>");
-
+          
             int input = Program.CheckValidInput(0, 1);
             int result;
-<<<<<<< Updated upstream
-            
-            if (input == 1) result = Battle(battleMonsters, player); //0이면 승리, 1이면 패배
-
-            Program.scene = Scene.GameIntro;
-
-=======
 
             if (input == 1) result = Battle(battleMonsters, player); //0이면 승리, 1이면 패배, 2이면 바로 게임인트로로 돌아간다는 뜻
->>>>>>> Stashed changes
+            DungeonResult.Result(player, getlist, savehp, saveexp, gold);
+
 
             Program.scene = Scene.GameIntro;
         }
@@ -87,15 +87,15 @@ namespace Text2DBattleGame
                 while (true)
                 {
                     monsterNum = Program.CheckValidInput(0, i - 1);
-<<<<<<< Updated upstream
-                    if (monsterNum == 0) 
-=======
+
+
                     if (monsterNum == 0)
->>>>>>> Stashed changes
+
                     {
                         result = 2;
                         break;
                     }
+
                     if (battleMonsters[monsterNum - 1].IsDead)
                     {
                         Console.WriteLine("잘못된 입력입니다.");
@@ -123,15 +123,14 @@ namespace Text2DBattleGame
                         deadMonsternumber++;
                     }
                 }
-<<<<<<< Updated upstream
-                if (deadMonsternumber == battleMonsters.Length) 
-=======
+
                 if (deadMonsternumber == battleMonsters.Length)
->>>>>>> Stashed changes
+
                 {
                     result = 0;
                     break;
                 }
+
 
                 Console.WriteLine("\n0. 다음");
                 Program.CheckValidInput(0, 0);
@@ -147,26 +146,19 @@ namespace Text2DBattleGame
                     if (!monster.IsDead)
                     {
                         Attack(monster, player);
-<<<<<<< Updated upstream
-                        if (player.IsDead) 
-                        {
-                            result = 1;
-                            break;
-                        } 
-=======
+
                         if (player.IsDead)
                         {
                             result = 1;
                             break;
                         }
->>>>>>> Stashed changes
+
                     }
                 }
 
                 Console.WriteLine("\n0. 다음");
                 Program.CheckValidInput(0, 0);
             }
-            return result;
         }
 
         static int RandomDamage(int Atk)
@@ -198,6 +190,9 @@ namespace Text2DBattleGame
             if (defender.IsDead)
             {
                 Console.WriteLine("Dead");
+                attacker.Exp += defender.Level;//경험치추가
+                attacker.Gold += defender.Gold;//골드추가
+
             }
             else
             {
