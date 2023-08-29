@@ -40,10 +40,11 @@ namespace Text2DBattleGame
             Console.Write("원하시는 행동을 입력해주세요.\n>>");
           
             int input = Program.CheckValidInput(0, 1);
-            int result;
+            int result = 2;
 
             if (input == 1) result = Battle(battleMonsters, player); //0이면 승리, 1이면 패배, 2이면 바로 게임인트로로 돌아간다는 뜻
-            DungeonResult.Result(player, getlist, savehp, saveexp, gold);
+
+            if (result != 2) DungeonResult.Result(player, getlist, savehp, saveexp, gold);
 
 
             Program.scene = Scene.GameIntro;
@@ -155,10 +156,12 @@ namespace Text2DBattleGame
 
                     }
                 }
+                if (result == 1) break;
 
                 Console.WriteLine("\n0. 다음");
                 Program.CheckValidInput(0, 0);
             }
+            return result;
         }
 
         static int RandomDamage(int Atk)
