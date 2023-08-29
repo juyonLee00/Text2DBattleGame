@@ -82,6 +82,7 @@ namespace Text2DBattleGame
         public void ItemDataSetting()
         {
             //Inventory Data
+            // 캐릭터 생성시 기본값으로 인벤토리 생성함 characters.cs 참고
         }
     }
 
