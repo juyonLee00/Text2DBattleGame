@@ -75,7 +75,7 @@ namespace Text2DBattleGame
                     break;
             }
 
-            //코드 수정 필z
+            //코드 수정 필요
             player = new Character(playerName, jobData.JobName, 1, jobData.Atk, jobData.Def, jobData.MaxHp, 1500);
         }
 
