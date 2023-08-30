@@ -9,6 +9,8 @@ namespace Text2DBattleGame
     
     public class ItemGroup
     {
+        public ItemGroup() { }
+
         [JsonConstructor]
         public ItemGroup(List<AttackItem> atkItems, List<DefenseItem> defItems, List<PotionItem> potItems)
         {

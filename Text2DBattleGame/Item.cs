@@ -12,6 +12,7 @@ namespace Text2DBattleGame
         public string Name { get; }
         public string Description { get; }
         public bool IsEquip { get; set; }
+        public char ItemType { get; set; }
     }
 
     public class AttackItem : IItem
@@ -23,6 +24,7 @@ namespace Text2DBattleGame
         public int Def { get; set; }
         public int Hp { get; set; }
         public int Mp { get; set; }
+        public char ItemType { get; set; }
 
         public AttackItem(string name, int atk, int def, int hp)
         {
@@ -33,7 +35,7 @@ namespace Text2DBattleGame
         }
 
         [JsonConstructor]
-        public AttackItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp)
+        public AttackItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, char itemType)
         {
             this.Name = name;
             this.Description = description;
@@ -42,6 +44,7 @@ namespace Text2DBattleGame
             this.Def = def;
             this.Hp = hp;
             this.Mp = mp;
+            this.ItemType = itemType;
         }
     }
 
@@ -54,8 +57,9 @@ namespace Text2DBattleGame
         public int Def { get; set; }
         public int Hp { get; set; }
         public int Mp { get; set; }
+        public char ItemType { get; set; }
 
-        public DefenseItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp)
+        public DefenseItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, char itemType)
         {
             this.Name = name;
             this.Description = description;
@@ -64,6 +68,7 @@ namespace Text2DBattleGame
             this.Def = def;
             this.Hp = hp;
             this.Mp = mp;
+            this.ItemType = itemType;
         }
 
     }
@@ -77,8 +82,9 @@ namespace Text2DBattleGame
         public int Def { get; set; }
         public int Hp { get; set; }
         public int Mp { get; set; }
+        public char ItemType { get; set; }
 
-        public PotionItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp)
+        public PotionItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, char itemType)
         {
             this.Name = name;
             this.Description = description;
@@ -87,6 +93,7 @@ namespace Text2DBattleGame
             this.Def = def;
             this.Hp = hp;
             this.Mp = mp;
+            this.ItemType = itemType;
         }
     }
 

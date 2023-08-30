@@ -8,36 +8,43 @@ namespace Text2DBattleGame
 {
     internal class Inventory
     {
-            public static void DisplayInventory(Character player)
+        public static void DisplayInventory(ref Character player)
+        {
+            Console.Clear();
+
+            Console.WriteLine("[인벤토리]");
+            Console.WriteLine("");
+            Console.WriteLine("아이템 목록");
+
+            Console.WriteLine("0. 나가기");
+            int i = 1;
+            foreach (IItem item in player.Inventory)
             {
-                Console.Clear();
+                Console.Write($"{i}. ");
 
-                Console.WriteLine("[인벤토리]");
-                Console.WriteLine("");
-                Console.WriteLine("아이템 목록");
-
-                Console.WriteLine("0. 나가기");
-                int i = 1;
-                foreach (IItem item in player.Inventory) 
+                if (item.IsEquip == true)
                 {
-                    Console.WriteLine($"{i}. {item.Name}");
-                     ++i;
+                    Console.Write("[E] ");
                 }
-                Console.WriteLine("원하시는 행동을 입력해주세요.");
 
-            int input = Program.CheckValidInput(0,i);
-                switch (input)
-                {
-                    case 0:
-                    Program.scene= Scene.GameIntro;
-                    break;
+                Console.Write($"{item.Name}");
+                ++i;
+            }
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
 
-                    default:
-                    // 사용 함수
+            int input = Program.CheckValidInput(0, i);
+            switch (input)
+            {
+                case 0:
                     Program.scene = Scene.GameIntro;
                     break;
-                }
+
+                default:
+                    player.EquipItem(input);
+                    Program.scene = Scene.GameIntro;
+                    break;
             }
-                  
+
+        }
     }
 }

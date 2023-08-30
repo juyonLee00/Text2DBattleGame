@@ -111,7 +111,7 @@ namespace Text2DBattleGame
                 WriteIndented = true,
                 PropertyNameCaseInsensitive = true,
             };
-           
+            
             string strJson = File.ReadAllText(@"../../AttackItemDataList.json");
             List<AttackItem> atkItemList = JsonSerializer.Deserialize<List<AttackItem>>(strJson, options3);
 
@@ -122,7 +122,6 @@ namespace Text2DBattleGame
 
             strJson = File.ReadAllText(@"../../PotionItemDataList.json");
             List<PotionItem> potItemList = JsonSerializer.Deserialize<List<PotionItem>>(strJson, options3);
-
 
             ItemGroup itemGroup = new ItemGroup(atkItemList, defItemList, potItemList);
 

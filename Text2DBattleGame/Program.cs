@@ -44,7 +44,7 @@ namespace Text2DBattleGame
                         DisplayBattle.Display(player);
                         break;
                     case Scene.Inventory:
-                        Inventory.DisplayInventory(player);
+                        Inventory.DisplayInventory(ref player);
                         break;
                 }
             }

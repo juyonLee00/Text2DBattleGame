@@ -44,8 +44,6 @@ namespace Text2DBattleGame
         public Character() { }
 
         public List<IItem> Inventory { get; set; }
-        //추후 저장할 배열
-        public Dictionary<string, bool> EquipedList { get; set; }
         public List<Skill> Skills { get; set; }
         public Character(string name, string job, int level, int atk, int def, int hp, int mp, int gold, List<Skill> skill, float criticalRate, float criticalAtk, float avoidability)
         {
@@ -78,6 +76,41 @@ namespace Text2DBattleGame
 
             if (Mp < 0)
                 Mp = 0;
+        }
+
+        public void EquipItem(int itemIdx)
+        {
+            IItem curItem = Inventory[itemIdx];
+
+            //아이템 이름으로 해당 아이템 판별하기 //ItemGroup 불러와서 Itemgroup.atk..def..pot돌면서 어디에 이름 있는지 알기. 알게 되면 해당 아이템 클래스로 다시 선언하기
+            //foreach()
+
+            //선택한 아이템이 포션인 경우
+            if(curItem.Name == "HP 회복 포션")
+            {
+                Console.WriteLine("포션은 장착할 수 없습니다!");
+            }
+
+            else
+            {
+                //아이템 장착하지 않았을 경우
+                if (!curItem.IsEquip)
+                {
+                    //curItem 아이템이 AtkItem인지 DefItem인지 확인
+
+                    //curItem과 같은 종류의(Atk / Def) 아이템이 착용중인지 확인
+
+                    //착용중인 경우 해당 아이템 해제하고 curItem 장착하기
+
+                    //착용중이지 않으면 curItem 바로 장착하기
+
+                }
+                else
+                {
+                    Console.WriteLine("이미 착용한 아이템입니다.");
+                }
+            }
+            
         }
     }
 
