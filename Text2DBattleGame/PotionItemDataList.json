@@ -1,0 +1,20 @@
+[
+  {
+    "Name": "HP 회복 포션(소)",
+    "Description": "소량의 HP를 회복할 수 있습니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 0,
+    "Hp": 10,
+    "Mp": 0
+  },
+  {
+    "Name": "MP 회복 포션(소)",
+    "Description": "소량의 MP를 회복할 수 있습니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 10
+  }
+]

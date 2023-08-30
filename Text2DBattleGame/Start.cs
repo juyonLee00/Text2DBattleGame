@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.IO;
+using System.Text.Json;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace Text2DBattleGame
 {
@@ -83,7 +85,6 @@ namespace Text2DBattleGame
 
             JobFormat jobData = new JobFormat();
 
-            //코드 CheckValidInput 수정 필요
             int input = Program.CheckValidInput(1, 2);
             switch (input)
             {
@@ -103,16 +104,50 @@ namespace Text2DBattleGame
         //추후 사라질 함수 - Item목록 Json으로 받아오는 작업용
         public void ItemDataSetting()
         {
-            //Inventory Data
-            /*
-            itemList.Add(new Item("무쇠갑옷", 'd', 5, "무쇠로 만들어져 튼튼한 갑옷입니다.", true));
-            itemList.Add(new Item("낡은 검", 'a', 2, "쉽게 볼 수 있는 낡은 검입니다.", false));
-            itemList.Add(new Item("나무 몽둥이", 'a', 3, "주위에서 많이 보이는 몽둥이입니다.", true));
-            itemList.Add(new Item("스파르타의 갑옷", 'd', 15, "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", 3500, false));
-            itemList.Add(new Item("수련자 갑옷", 'd', 5, "수련에 도움을 주는 갑옷입니다.", 1000, false));
-            itemList.Add(new Item("청동 도끼", 'a', 5, "어디선가 사용됐던거 같은 도끼입니다.", 1500, false));
-            itemList.Add(new Item("스파르타의 창", 'a', 7, "스파르타의 전사들이 사용했다는 전설의 창입니다.", 3000, false));
-            */
+            var options3 = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                WriteIndented = true
+            };
+            string filePath = "../../AttackItemDataList.json";
+
+
+            List<AttackItem> atkItemList = new List<AttackItem>();
+            atkItemList.Add(new AttackItem("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", false, 2, 0, 0, 0));
+            atkItemList.Add(new AttackItem("나무 몽둥이", "주위에서 많이 보이는 몽둥이입니다.", false, 3, 0, 0, 0));
+            atkItemList.Add(new AttackItem("청동 도끼", "어디선가 사용됐던거 같은 도끼입니다.", false, 5, 0, 0, 0));
+            atkItemList.Add(new AttackItem("스파르타의 창", "스파르타의 전사들이 사용했다는 전설의 창입니다.", false, 7, 0, 0, 0));
+
+
+            string strJson = JsonSerializer.Serialize<List<AttackItem>>(atkItemList, options3);
+            File.WriteAllText(filePath, strJson);
+
+
+            filePath = "../../DefenseItemDataList.json";
+            List<DefenseItem> defItemList = new List<DefenseItem>();
+            defItemList.Add(new DefenseItem("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", false, 0, 5, 0, 0));
+            defItemList.Add(new DefenseItem("스파르타의 갑옷", "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", false, 0, 15, 0, 0));
+            defItemList.Add(new DefenseItem("수련자 갑옷", "수련에 도움을 주는 갑옷입니다.", false, 0, 5, 0, 0));
+
+            strJson = JsonSerializer.Serialize<List<DefenseItem>>(defItemList, options3);
+            File.WriteAllText(filePath, strJson);
+
+
+            filePath = "../../PotionItemDataList.json";
+            List<PotionItem> potionItemList = new List<PotionItem>();
+            potionItemList.Add(new PotionItem("HP 회복 포션(소)", "소량의 HP를 회복할 수 있습니다.", false, 0, 0, 10, 0));
+            potionItemList.Add(new PotionItem("MP 회복 포션(소)", "소량의 MP를 회복할 수 있습니다.", false, 0, 0, 0, 10));
+
+            strJson = JsonSerializer.Serialize<List<PotionItem>>(potionItemList, options3);
+            File.WriteAllText(filePath, strJson);
+
+            //string jsonString = File.ReadAllText(@"../../AttackItemDataList.json");
+            //Console.WriteLine(jsonString);
+            //List<AttackItem> atkItemList = JsonSerializer.Deserialize<List<AttackItem>>(jsonString);
+            /*foreach(AttackItem atkItem in atkItemList)
+            {
+                Console.WriteLine($"{atkItem.Name} {atkItem.Description}");
+            }*/
 
         }
     }
