@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Text2DBattleGame
 {
@@ -12,6 +13,8 @@ namespace Text2DBattleGame
         public static Scene scene = Scene.None;
 
         private static Character player = new Character();
+
+        //private static List<Item> itemList = new List<Item>();
 
         public static SkillManager skillManager = new SkillManager();
 

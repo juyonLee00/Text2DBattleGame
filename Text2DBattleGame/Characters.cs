@@ -38,6 +38,8 @@ namespace Text2DBattleGame
         public Character() { }
 
         public List<Item> Inventory { get; set; }
+        //추후 저장할 배열
+        public Dictionary<string, bool> EquipedList { get; set; }
         public List<Skill> Skills { get; set; }
         public Character(string name, string job, int level, int atk, int def, int hp, int gold, List<Skill> skill)
         {

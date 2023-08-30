@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Text2DBattleGame
 {
@@ -85,10 +87,20 @@ namespace Text2DBattleGame
             player = new Character(playerName, jobData.JobName, 1, jobData.Atk, jobData.Def, jobData.MaxHp, 1500, jobData.Skills);
         }
 
+        //추후 사라질 함수 - Item목록 Json으로 받아오는 작업용
         public void ItemDataSetting()
         {
             //Inventory Data
-            // 캐릭터 생성시 기본값으로 인벤토리 생성함 characters.cs 참고
+            /*
+            itemList.Add(new Item("무쇠갑옷", 'd', 5, "무쇠로 만들어져 튼튼한 갑옷입니다.", true));
+            itemList.Add(new Item("낡은 검", 'a', 2, "쉽게 볼 수 있는 낡은 검입니다.", false));
+            itemList.Add(new Item("나무 몽둥이", 'a', 3, "주위에서 많이 보이는 몽둥이입니다.", true));
+            itemList.Add(new Item("스파르타의 갑옷", 'd', 15, "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", 3500, false));
+            itemList.Add(new Item("수련자 갑옷", 'd', 5, "수련에 도움을 주는 갑옷입니다.", 1000, false));
+            itemList.Add(new Item("청동 도끼", 'a', 5, "어디선가 사용됐던거 같은 도끼입니다.", 1500, false));
+            itemList.Add(new Item("스파르타의 창", 'a', 7, "스파르타의 전사들이 사용했다는 전설의 창입니다.", 3000, false));
+            */
+
         }
     }
 
