@@ -81,28 +81,28 @@ namespace Text2DBattleGame
         public void EquipItem(int itemIdx)
         {
             IItem curItem = Inventory[itemIdx];
+            char curItemType = curItem.ItemType;
 
-            //아이템 이름으로 해당 아이템 판별하기 //ItemGroup 불러와서 Itemgroup.atk..def..pot돌면서 어디에 이름 있는지 알기. 알게 되면 해당 아이템 클래스로 다시 선언하기
-            //foreach()
-
-            //선택한 아이템이 포션인 경우
-            if(curItem.Name == "HP 회복 포션")
+            if(curItemType == 'p')
             {
                 Console.WriteLine("포션은 장착할 수 없습니다!");
+                Program.scene = Scene.Inventory;
             }
 
             else
             {
-                //아이템 장착하지 않았을 경우
                 if (!curItem.IsEquip)
                 {
-                    //curItem 아이템이 AtkItem인지 DefItem인지 확인
-
-                    //curItem과 같은 종류의(Atk / Def) 아이템이 착용중인지 확인
-
-                    //착용중인 경우 해당 아이템 해제하고 curItem 장착하기
-
-                    //착용중이지 않으면 curItem 바로 장착하기
+                    foreach (IItem item in Inventory)
+                    {
+                        if (item.ItemType == curItemType && item.IsEquip)
+                        {
+                            item.IsEquip = false;
+                            Console.WriteLine($"아이템이 {item.Name}에서 {curItem.Name}으로 교체되었습니다.");
+                            break;
+                        }
+                    }
+                    curItem.IsEquip = true;
 
                 }
                 else
@@ -110,7 +110,16 @@ namespace Text2DBattleGame
                     Console.WriteLine("이미 착용한 아이템입니다.");
                 }
             }
-            
+            Console.WriteLine("\n0. 나가기");
+
+            int input = Program.CheckValidInput(0, 0);
+            switch(input)
+            {
+                case 0:
+                    Program.scene = Scene.GameIntro;
+                    break;
+            }
+
         }
     }
 
