@@ -21,6 +21,7 @@
     <WarningLevel>4</WarningLevel>
     <ExternalConsole>true</ExternalConsole>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|anycpu' ">
     <Optimize>true</Optimize>
@@ -29,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
     <ExternalConsole>true</ExternalConsole>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -117,6 +119,7 @@
     <Compile Include="Skill.cs" />
     <Compile Include="SkillManager.cs" />
     <Compile Include="Start.cs" />
+    <Compile Include="ItemGroup.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

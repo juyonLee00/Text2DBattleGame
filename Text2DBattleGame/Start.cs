@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+
 
 namespace Text2DBattleGame
 {
@@ -101,28 +103,47 @@ namespace Text2DBattleGame
                 jobData.Skills, jobData.CriticalRate, jobData.CriticalAtk, jobData.Avoidability);
         }
 
-        //추후 사라질 함수 - Item목록 Json으로 받아오는 작업용
         public void ItemDataSetting()
         {
             var options3 = new JsonSerializerOptions
             {
                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                WriteIndented = true
+                //WriteIndented = true,
+                PropertyNameCaseInsensitive = true,
             };
-            string filePath = "../../AttackItemDataList.json";
+            //string filePath = "../../AttackItemDataList.json";
 
 
+            
+
+            //itemGroup.attkList = new List<AttackItem>();
+            //itemGroup.atkList.Add(new AttackItem("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", false, 2, 0, 0, 0));
+            
             List<AttackItem> atkItemList = new List<AttackItem>();
             atkItemList.Add(new AttackItem("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", false, 2, 0, 0, 0));
             atkItemList.Add(new AttackItem("나무 몽둥이", "주위에서 많이 보이는 몽둥이입니다.", false, 3, 0, 0, 0));
             atkItemList.Add(new AttackItem("청동 도끼", "어디선가 사용됐던거 같은 도끼입니다.", false, 5, 0, 0, 0));
             atkItemList.Add(new AttackItem("스파르타의 창", "스파르타의 전사들이 사용했다는 전설의 창입니다.", false, 7, 0, 0, 0));
 
+            ItemGroup itemGroup = new ItemGroup(atkItemList);
 
-            string strJson = JsonSerializer.Serialize<List<AttackItem>>(atkItemList, options3);
-            File.WriteAllText(filePath, strJson);
+            //itemGroup.attackList = atkItemList;
 
+            var strJson = JsonSerializer.Serialize(itemGroup.GetList(), options3);
 
+            Console.WriteLine(strJson);
+
+            var atkItemList1 = JsonSerializer.Deserialize<List<AttackItem>>(strJson, options3);
+
+            /*foreach (AttackItem atkItem in atkItemList)
+            {
+                Console.WriteLine($"{atkItem.Name} {atkItem.Description}");
+            }
+            */
+
+            //File.WriteAllText(filePath, strJson);
+
+            /*
             filePath = "../../DefenseItemDataList.json";
             List<DefenseItem> defItemList = new List<DefenseItem>();
             defItemList.Add(new DefenseItem("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", false, 0, 5, 0, 0));
@@ -140,14 +161,13 @@ namespace Text2DBattleGame
 
             strJson = JsonSerializer.Serialize<List<PotionItem>>(potionItemList, options3);
             File.WriteAllText(filePath, strJson);
+            */
 
             //string jsonString = File.ReadAllText(@"../../AttackItemDataList.json");
+
+
             //Console.WriteLine(jsonString);
-            //List<AttackItem> atkItemList = JsonSerializer.Deserialize<List<AttackItem>>(jsonString);
-            /*foreach(AttackItem atkItem in atkItemList)
-            {
-                Console.WriteLine($"{atkItem.Name} {atkItem.Description}");
-            }*/
+
 
         }
     }

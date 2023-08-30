@@ -1,0 +1,9 @@
+{
+  "Name": "무쇠갑옷",
+  "Description": "무쇠로 만들어져 튼튼한 갑옷입니다.",
+  "IsEquip": false,
+  "Atk": 2,
+  "Def": 0,
+  "Hp": 0,
+  "Mp": 0
+}

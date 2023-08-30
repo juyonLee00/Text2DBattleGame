@@ -22,7 +22,7 @@ namespace Text2DBattleGame
         {
             Start start = new Start();
             start.GameDataSetting(ref player);
-            Update();
+            //Update();
         }
 
         public static void Update()

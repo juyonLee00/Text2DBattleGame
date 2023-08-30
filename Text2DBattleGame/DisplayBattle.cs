@@ -9,7 +9,7 @@ namespace Text2DBattleGame
 {
     class DisplayBattle
     {
-      static List<IItem> itemTable1 = new List<IItem>() { new AttackItem("테스트 아이템", 0, 0, 0) };
+      //static List<IItem> itemTable1 = new List<IItem>() { new AttackItem("테스트 아이템", 0, 0, 0) };
         public static void Display(Character player)
         {
             int gold = player.Gold;
@@ -238,7 +238,7 @@ namespace Text2DBattleGame
             if (defender.IsDead)
             {
                 Console.WriteLine("Dead");
-                getItem.Add(Monster.Drop(itemTable1));
+                //getItem.Add(Monster.Drop(itemTable1));
                 attacker.Exp += defender.Level;//경험치추가
                 attacker.Gold += defender.Gold;//골드추가
             }
@@ -281,7 +281,7 @@ namespace Text2DBattleGame
                 if (defenders[i].IsDead)
                 {
                     Console.WriteLine("Dead");
-                    Monster.Drop(itemTable1);
+                    //Monster.Drop(itemTable1);
                     attacker.Exp += defenders[i].Level;//경험치추가
                     attacker.Gold += defenders[i].Gold;//골드추가
 
