@@ -34,6 +34,8 @@ namespace Text2DBattleGame
         public int DungeonLevel { get; set; }
         public int Gold { get; set; }
         public int Exp { get; set; }
+        public float CriticalRate { get; set; }
+        public float CriticalAtk { get; set; }
 
         public Character() { }
 
@@ -41,7 +43,7 @@ namespace Text2DBattleGame
         //추후 저장할 배열
         public Dictionary<string, bool> EquipedList { get; set; }
         public List<Skill> Skills { get; set; }
-        public Character(string name, string job, int level, int atk, int def, int hp, int mp, int gold, List<Skill> skill)
+        public Character(string name, string job, int level, int atk, int def, int hp, int mp, int gold, List<Skill> skill, float criticalRate, float criticalAtk)
         {
             Name = name;
             Job = job;
@@ -57,6 +59,8 @@ namespace Text2DBattleGame
             DungeonLevel = 1;
             Inventory = new List<IItem>();
             Skills = skill;
+            CriticalRate = criticalRate;
+            CriticalAtk = criticalAtk;
         }
         public void TakeDamage(int damage)
         {

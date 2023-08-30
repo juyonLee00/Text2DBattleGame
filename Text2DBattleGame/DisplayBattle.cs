@@ -208,7 +208,23 @@ namespace Text2DBattleGame
 
             int damage = RandomDamage(attacker.Atk);
 
-            Console.WriteLine("Lv." + defender.Level + " " + defender.Name + "을(를) 맞췄습니다. [데미지 : " + damage + "]");
+            // 캐릭터 클래스에 추가한 치확 치뎀 구조와 맞지않아 임시
+            // 몬스터도 치확 치뎀을 가지게 할 지 고민중입니다.
+            // 15% 확률로 치명타 공격
+            if (new Random().Next(1, 101) <= 15)
+            {
+                // 임시 - damage는 float형으로 바뀌어야 할 것 같습니다.
+                damage *= 2;
+
+                // 요구사항
+                // damage *= 1.6f;
+
+                Console.WriteLine("Lv." + defender.Level + " " + defender.Name + "을(를) 맞췄습니다. [데미지 : " + damage + "] - 치명타 공격!!");
+            }
+            else
+            {
+                Console.WriteLine("Lv." + defender.Level + " " + defender.Name + "을(를) 맞췄습니다. [데미지 : " + damage + "]");
+            }
 
             Console.WriteLine("Lv." + defender.Level + " " + defender.Name);
             Console.Write("Hp " + defender.Hp + " -> ");
@@ -229,15 +245,33 @@ namespace Text2DBattleGame
 
         public static void SkillAttack(Character attacker, List<Monster> defenders, int damage)
         {
-            for(int i = 0; i < defenders.Count; i++)
+            //반복문 안에서 계속 같은수뱉어서 빼냄
+            Random rand = new Random();
+
+            for (int i = 0; i < defenders.Count; i++)
             {
+                bool isCritical = false;
+                int criticalDamage = (int)(damage * attacker.CriticalAtk);
+
                 Console.WriteLine("Lv." + attacker.Level + " " + attacker.Name + " 의 공격!");
-                Console.WriteLine("Lv." + defenders[i].Level + " " + defenders[i].Name + "을(를) 맞췄습니다. [데미지 : " + damage + "]");
+
+                // 일정확률로 치명타공격
+                if (rand.Next(1, 101) <= attacker.CriticalRate)
+                {
+                    isCritical = true;
+
+                    Console.WriteLine("Lv." + defenders[i].Level + " " + defenders[i].Name + "을(를) 맞췄습니다. [데미지 : " + criticalDamage + "] - 치명타 공격!!");
+                }
+                else
+                {
+                    isCritical = false;
+                    Console.WriteLine("Lv." + defenders[i].Level + " " + defenders[i].Name + "을(를) 맞췄습니다. [데미지 : " + damage + "]");
+                } 
 
                 Console.WriteLine("Lv." + defenders[i].Level + " " + defenders[i].Name);
                 Console.Write("Hp " + defenders[i].Hp + " -> ");
 
-                defenders[i].TakeDamage(damage);
+                defenders[i].TakeDamage(isCritical ? criticalDamage : damage);
 
                 if (defenders[i].IsDead)
                 {
@@ -255,6 +289,7 @@ namespace Text2DBattleGame
                 Console.WriteLine();
             }
         }
+
 
         public static void WriteBattle()
         {
