@@ -29,10 +29,12 @@ namespace Text2DBattleGame
             return skills;
         }
 
-        private void Warrior_AlphaStrike(Character player, Monster[] monsters)
+        private void Warrior_AlphaStrike(Character player, Monster[] monsters, int useMp)
         {
             //원본
             //monsters[new Random().Next(0, monsters.Length)].TakeDamage((int)(player.Atk * 2f));
+
+            player.UsingMp(useMp);
 
             DisplayBattle.WriteBattle();
 
@@ -87,7 +89,7 @@ namespace Text2DBattleGame
             // 구조상 차라리 Display Battle을 매니저처럼 쓰는게 좋을것 같아 위처럼 했습니다.
         }
 
-        private void Warrior_DoubleStrike(Character player, Monster[] monsters)
+        private void Warrior_DoubleStrike(Character player, Monster[] monsters, int useMp)
         {
             /*
             List<int> randomNums = new List<int>();
@@ -109,6 +111,8 @@ namespace Text2DBattleGame
                 monsters[randomNums[i]].TakeDamage((int)(player.Atk * 1.5f));
             }
             */
+
+            player.UsingMp(useMp);
 
             List<Monster> hitMobs = new List<Monster>();
 
@@ -161,8 +165,10 @@ namespace Text2DBattleGame
             return skills;
         }
 
-        private void Wizard_FireBall(Character player, Monster[] monsters)
+        private void Wizard_FireBall(Character player, Monster[] monsters, int useMp)
         {
+            player.UsingMp(useMp);
+
             DisplayBattle.WriteBattle();
 
             for (int i = 0; i < monsters.Length; i++)
@@ -213,8 +219,10 @@ namespace Text2DBattleGame
             DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 3f));
         }
 
-        private void Wizard_Meteor(Character player, Monster[] monsters)
+        private void Wizard_Meteor(Character player, Monster[] monsters, int useMp)
         {
+            player.UsingMp(useMp);
+
             List<Monster> hitMobs = new List<Monster>();
 
 

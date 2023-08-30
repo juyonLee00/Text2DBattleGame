@@ -127,16 +127,24 @@ namespace Text2DBattleGame
                 Console.WriteLine();
                 Console.WriteLine("0. 취소");
 
-
-                int skillNum = Program.CheckValidInput(0, player.Skills.Count);
-
-                if (skillNum == 0)
+                while (true)
                 {
-                    return 2;
-                }
-                else
-                {
-                    player.Skills[skillNum - 1].UsingSkill(player, battleMonsters);
+                    int skillNum = Program.CheckValidInput(0, player.Skills.Count);
+
+                    if (skillNum == 0)
+                    {
+                        return 2;
+                    }
+                    else
+                    {
+                        if (player.Mp >= player.Skills[skillNum - 1].Mp)
+                        {
+                            player.Skills[skillNum - 1].UsingSkill(player, battleMonsters, player.Skills[skillNum - 1].Mp);
+                            break;
+                        }
+                        else
+                            Console.WriteLine("플레이어의 MP가 부족합니다.");
+                    }
                 }
             }
 

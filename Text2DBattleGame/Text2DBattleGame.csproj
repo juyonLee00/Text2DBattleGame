@@ -7,7 +7,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Text2DBattleGame</RootNamespace>
     <AssemblyName>Text2DBattleGame</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>

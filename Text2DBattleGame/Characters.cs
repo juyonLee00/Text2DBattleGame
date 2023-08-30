@@ -51,6 +51,7 @@ namespace Text2DBattleGame
             Hp = hp;
             Mp = mp;
             MaxHp = hp;
+            MaxMp = mp;
             Gold = gold;
             Exp = 0;
             DungeonLevel = 1;
@@ -60,6 +61,14 @@ namespace Text2DBattleGame
         public void TakeDamage(int damage)
         {
             Hp -= damage;
+        }
+
+        public void UsingMp(int useMp)
+        {
+            Mp -= useMp;
+
+            if (Mp < 0)
+                Mp = 0;
         }
     }
 
