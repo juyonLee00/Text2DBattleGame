@@ -11,7 +11,7 @@ namespace Text2DBattleGame
     internal class DungeonResult
     {
         //DungeonResult(player, getitemlist, savehp, saveexp, gold);
-        public static void Result(Character player, List<Item> item, int savehp, int saveexp, int gold, int deadCount)
+        public static void Result(Character player, List<IItem> item, int savehp, int saveexp, int gold, int deadCount)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -109,7 +109,7 @@ namespace Text2DBattleGame
 
         }
 
-        public static void GetItem(Character player, List<Item> list, int gold)
+        public static void GetItem(Character player, List<IItem> list, int gold)
         {
             Console.WriteLine("[획득 아이템]");
             Console.WriteLine($"{player.Gold - gold} Gold");

@@ -9,19 +9,19 @@ namespace Text2DBattleGame
 {
     class DisplayBattle
     {
-      static List<Item> itemTable1 = new List<Item>() { new Item("테스트 아이템", 0, 0, 0) };
+      static List<IItem> itemTable1 = new List<IItem>() { new AttackItem("테스트 아이템", 0, 0, 0) };
         public static void Display(Character player)
         {
             int gold = player.Gold;
             int savehp = player.Hp;
             int saveexp = player.Exp;
-            List<Item> getItem = new List<Item>();
+            List<IItem> getItem = new List<IItem>();
 
             Console.Clear();
             //테스트
             //if (player.Inventory != null) 
             //{ 
-            //    foreach (Item item in player.Inventory) 
+            //    foreach (IItem item in player.Inventory) 
             //    {
             //     Console.WriteLine(item.Name);
             //    }
@@ -36,7 +36,7 @@ namespace Text2DBattleGame
             Program.scene = Scene.GameIntro;
         }
 
-        public static void Battle(Monster[] battleMonsters, Character player, List<Item> getItem)
+        public static void Battle(Monster[] battleMonsters, Character player, List<IItem> getItem)
         {
             while (true)
             {
@@ -51,7 +51,7 @@ namespace Text2DBattleGame
             }
         }
 
-        public static int PlayersTurn(Monster[] battleMonsters, Character player, List<Item> getItem) 
+        public static int PlayersTurn(Monster[] battleMonsters, Character player, List<IItem> getItem) 
         {
             bool endflag = false;
 
@@ -153,7 +153,7 @@ namespace Text2DBattleGame
             return 3;
         }
 
-        public static int MonstersTurn(Monster[] battleMonsters, Character player, List<Item> getItem)
+        public static int MonstersTurn(Monster[] battleMonsters, Character player, List<IItem> getItem)
         {
             WriteBattle();
 
@@ -188,7 +188,7 @@ namespace Text2DBattleGame
             return damage;
         }
 
-        public static void Attack(ICharacter attacker, ICharacter defender, List<Item> getItem)
+        public static void Attack(ICharacter attacker, ICharacter defender, List<IItem> getItem)
         {
             Console.WriteLine("Lv." + attacker.Level + " " + attacker.Name + " 의 공격!");
 
