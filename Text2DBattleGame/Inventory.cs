@@ -41,7 +41,6 @@ namespace Text2DBattleGame
 
                 default:
                     player.EquipItem(input);
-                    Program.scene = Scene.GameIntro;
                     break;
             }
 
