@@ -14,14 +14,14 @@ namespace Text2DBattleGame
 
         private static Character player = new Character();
 
-        //private static List<Item> itemList = new List<Item>();
+        private static List<IItem> itemList = new List<IItem>();
 
         public static SkillManager skillManager = new SkillManager();
 
         static void Main(string[] args)
         {
             Start start = new Start();
-            start.GameDataSetting(ref player);
+            start.GameDataSetting(ref player, ref itemList);
             Update();
         }
 

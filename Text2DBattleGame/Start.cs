@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.IO;
+using System.Text.Json;
+
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
+
 
 namespace Text2DBattleGame
 {
@@ -56,11 +60,12 @@ namespace Text2DBattleGame
             }
         }
 
-        public void GameDataSetting(ref Character player)
+        public void GameDataSetting(ref Character player, ref List<IItem> itemList)
         {
             PlayerDataSetting(ref player);
-            ItemDataSetting();
+            ItemDataSetting(ref itemList);
         }
+
 
         public void PlayerDataSetting(ref Character player)
         {
@@ -83,7 +88,6 @@ namespace Text2DBattleGame
 
             JobFormat jobData = new JobFormat();
 
-            //코드 CheckValidInput 수정 필요
             int input = Program.CheckValidInput(1, 2);
             switch (input)
             {
@@ -95,25 +99,53 @@ namespace Text2DBattleGame
                     break;
             }
 
-            //코드 수정 필요
             player = new Character(playerName, jobData.JobName, 1, jobData.Atk, jobData.Def, jobData.MaxHp, jobData.MaxMp, 1500,
                 jobData.Skills, jobData.CriticalRate, jobData.CriticalAtk, jobData.Avoidability);
         }
 
-        //추후 사라질 함수 - Item목록 Json으로 받아오는 작업용
-        public void ItemDataSetting()
+        public void ItemDataSetting(ref List<IItem> itemList)
         {
-            //Inventory Data
-            /*
-            itemList.Add(new Item("무쇠갑옷", 'd', 5, "무쇠로 만들어져 튼튼한 갑옷입니다.", true));
-            itemList.Add(new Item("낡은 검", 'a', 2, "쉽게 볼 수 있는 낡은 검입니다.", false));
-            itemList.Add(new Item("나무 몽둥이", 'a', 3, "주위에서 많이 보이는 몽둥이입니다.", true));
-            itemList.Add(new Item("스파르타의 갑옷", 'd', 15, "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", 3500, false));
-            itemList.Add(new Item("수련자 갑옷", 'd', 5, "수련에 도움을 주는 갑옷입니다.", 1000, false));
-            itemList.Add(new Item("청동 도끼", 'a', 5, "어디선가 사용됐던거 같은 도끼입니다.", 1500, false));
-            itemList.Add(new Item("스파르타의 창", 'a', 7, "스파르타의 전사들이 사용했다는 전설의 창입니다.", 3000, false));
-            */
+            var options3 = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                WriteIndented = true,
+                PropertyNameCaseInsensitive = true,
+            };
+           
+            string strJson = File.ReadAllText(@"../../AttackItemDataList.json");
+            List<AttackItem> atkItemList = JsonSerializer.Deserialize<List<AttackItem>>(strJson, options3);
 
+
+            strJson = File.ReadAllText(@"../../DefenseItemDataList.json");
+            List<DefenseItem> defItemList = JsonSerializer.Deserialize<List<DefenseItem>>(strJson, options3);
+
+
+            strJson = File.ReadAllText(@"../../PotionItemDataList.json");
+            List<PotionItem> potItemList = JsonSerializer.Deserialize<List<PotionItem>>(strJson, options3);
+
+
+            ItemGroup itemGroup = new ItemGroup(atkItemList, defItemList, potItemList);
+
+            AddAllItemData(atkItemList, defItemList, potItemList, ref itemList);
+
+        }
+
+        public void AddAllItemData(List<AttackItem> atkList, List<DefenseItem> defList, List<PotionItem> potList, ref List<IItem> itemList)
+        {
+            foreach(AttackItem atkItem in atkList)
+            {
+                itemList.Add(atkItem);
+            }
+
+            foreach(DefenseItem defItem in defList)
+            {
+                itemList.Add(defItem);
+            }
+
+            foreach(PotionItem potItem in potList)
+            {
+                itemList.Add(potItem);
+            }
         }
     }
 

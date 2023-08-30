@@ -1,0 +1,38 @@
+[
+  {
+    "Name": "낡은 검",
+    "Description": "아주 오래된 검입니다.",
+    "IsEquip": false,
+    "Atk": 2,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 0
+  },
+  {
+    "Name": "나무 몽둥이",
+    "Description": "주위에서 많이 보이는 몽둥이입니다.",
+    "IsEquip": false,
+    "Atk": 3,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 0
+  },
+  {
+    "Name": "청동 도끼",
+    "Description": "어디선가 사용됐던거 같은 도끼입니다.",
+    "IsEquip": false,
+    "Atk": 5,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 0
+  },
+  {
+    "Name": "스파르타의 창",
+    "Description": "스파르타의 전사들이 사용했다는 전설의 창입니다.",
+    "IsEquip": false,
+    "Atk": 7,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 0
+  }
+]
