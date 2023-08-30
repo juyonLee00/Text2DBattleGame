@@ -41,7 +41,7 @@ namespace Text2DBattleGame
         //추후 저장할 배열
         public Dictionary<string, bool> EquipedList { get; set; }
         public List<Skill> Skills { get; set; }
-        public Character(string name, string job, int level, int atk, int def, int hp, int gold, List<Skill> skill)
+        public Character(string name, string job, int level, int atk, int def, int hp, int mp, int gold, List<Skill> skill)
         {
             Name = name;
             Job = job;
@@ -49,6 +49,7 @@ namespace Text2DBattleGame
             Atk = atk;
             Def = def;
             Hp = hp;
+            Mp = mp;
             MaxHp = hp;
             Gold = gold;
             Exp = 0;

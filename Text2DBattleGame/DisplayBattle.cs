@@ -148,12 +148,12 @@ namespace Text2DBattleGame
                     if (monster.IsDead)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.WriteLine((i+1) + " Lv." + monster.Level + " " + monster.Name + "  Dead ");
+                        Console.WriteLine("Lv." + monster.Level + " " + monster.Name + "  Dead ");
                         Console.ResetColor();
                     }
                     else
                     {
-                        Console.WriteLine((i+1) + " Lv." + monster.Level + " " + monster.Name + "  HP " + monster.Hp);
+                        Console.WriteLine("Lv." + monster.Level + " " + monster.Name + "  HP " + monster.Hp);
                     }
                 }
 
@@ -183,7 +183,7 @@ namespace Text2DBattleGame
                 }
                 else
                 {
-                    player.Skills[input - 1].UsingSkill(player, battleMonsters);
+                    player.Skills[skillNum - 1].UsingSkill(player, battleMonsters);
                 }
             }
 
@@ -247,7 +247,7 @@ namespace Text2DBattleGame
             return damage;
         }
 
-        static void Attack(ICharacter attacker, ICharacter defender, List<Item> getItem)
+        public static void Attack(ICharacter attacker, ICharacter defender, List<Item> getItem)
         {
             int damage = RandomDamage(attacker.Atk);
 
@@ -271,7 +271,37 @@ namespace Text2DBattleGame
                 Console.WriteLine(defender.Hp);
             }
         }
-        static void WriteBattle()
+
+        public static void SkillAttack(Character attacker, List<Monster> defenders, int damage)
+        {
+            for(int i = 0; i < defenders.Count; i++)
+            {
+                Console.WriteLine("Lv." + attacker.Level + " " + attacker.Name + " 의 공격!");
+                Console.WriteLine("Lv." + defenders[i].Level + " " + defenders[i].Name + "을(를) 맞췄습니다. [데미지 : " + damage + "]");
+
+                Console.WriteLine("Lv." + defenders[i].Level + " " + defenders[i].Name);
+                Console.Write("Hp " + defenders[i].Hp + " -> ");
+
+                defenders[i].TakeDamage(damage);
+
+                if (defenders[i].IsDead)
+                {
+                    Console.WriteLine("Dead");
+                    Monster.Drop(itemTable1);
+                    attacker.Exp += defenders[i].Level;//경험치추가
+                    attacker.Gold += defenders[i].Gold;//골드추가
+
+                }
+                else
+                {
+                    Console.WriteLine(defenders[i].Hp);
+                }
+
+                Console.WriteLine();
+            }
+        }
+
+        public static void WriteBattle()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;

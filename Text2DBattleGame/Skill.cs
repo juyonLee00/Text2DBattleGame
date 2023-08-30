@@ -9,6 +9,8 @@ namespace Text2DBattleGame
     public class Skill
     {
         public string Name { get; }
+
+        // Atk, Mp 넣어놨지만 구조상 쓸모가 없어질듯합니다.
         public int Atk { get; }
         public int Mp { get; }
 
