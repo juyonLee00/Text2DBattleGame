@@ -15,6 +15,9 @@ namespace Text2DBattleGame
         int Level { get; set; }
         int Exp { get; set; }
         int Gold { get; set; }
+        float CriticalRate { get; set; }
+        float CriticalAtk { get; set; }
+        float Avoidability { get; set; }
 
         void TakeDamage(int damage);
     }
@@ -36,6 +39,7 @@ namespace Text2DBattleGame
         public int Exp { get; set; }
         public float CriticalRate { get; set; }
         public float CriticalAtk { get; set; }
+        public float Avoidability { get; set; }
 
         public Character() { }
 
@@ -43,7 +47,7 @@ namespace Text2DBattleGame
         //추후 저장할 배열
         public Dictionary<string, bool> EquipedList { get; set; }
         public List<Skill> Skills { get; set; }
-        public Character(string name, string job, int level, int atk, int def, int hp, int mp, int gold, List<Skill> skill, float criticalRate, float criticalAtk)
+        public Character(string name, string job, int level, int atk, int def, int hp, int mp, int gold, List<Skill> skill, float criticalRate, float criticalAtk, float avoidability)
         {
             Name = name;
             Job = job;
@@ -61,6 +65,7 @@ namespace Text2DBattleGame
             Skills = skill;
             CriticalRate = criticalRate;
             CriticalAtk = criticalAtk;
+            Avoidability = avoidability;
         }
         public void TakeDamage(int damage)
         {
@@ -85,7 +90,10 @@ namespace Text2DBattleGame
         public int Exp  { get; set; }
          public bool IsDead => Hp <= 0;
         public int Gold { get; set; }
-        public Monster(string name, int level, int hp, int atk, int exp , int gold)
+        public float CriticalRate { get; set; }
+        public float CriticalAtk { get; set; }
+        public float Avoidability { get; set; }
+        public Monster(string name, int level, int hp, int atk, int exp , int gold, float criticalRate, float criticalAtk, float avoidability)
         {
             Name = name;
             Level = level;
@@ -93,6 +101,9 @@ namespace Text2DBattleGame
             Hp = hp;
             Exp = exp;
             Gold =gold;
+            CriticalRate = criticalRate;
+            CriticalAtk = criticalAtk;
+            Avoidability = avoidability;
         }
         public void TakeDamage(int damage)
         {
@@ -115,48 +126,48 @@ namespace Text2DBattleGame
     }
     public class Minion : Monster
     {
-        public Minion() : base("미니언", 2, 15, 5 , 1 ,5) { }
+        public Minion() : base("미니언", 2, 15, 5 , 1 ,5, 0f, 0f, 10f) { }
 
 
     }
     public class EmptinessBug : Monster
     {
-        public EmptinessBug() : base("공허충", 3, 10, 5, 2, 10) { }
+        public EmptinessBug() : base("공허충", 3, 10, 5, 2, 10, 0f, 0f, 10f) { }
     }
     public class CanonMinion : Monster
     {
-        public CanonMinion() : base("대포미니언", 5, 25, 8, 3, 15) { }
+        public CanonMinion() : base("대포미니언", 5, 25, 8, 3, 15, 0f, 0f, 10f) { }
     }
     public class CorruptedSpider : Monster
     {
-        public CorruptedSpider() : base("타락한 거미", 7, 25, 10, 5, 20) { }
+        public CorruptedSpider() : base("타락한 거미", 7, 25, 10, 5, 20, 0f, 0f, 10f) { }
     }
     public class Hiding : Monster
     {
-        public Hiding() : base("그림자속무언가", 7, 5, 14, 5, 20) { }
+        public Hiding() : base("그림자속무언가", 7, 5, 14, 5, 20, 0f, 0f, 10f) { }
     }
     public class CorruptedQueen : Monster
     {
-        public CorruptedQueen() : base("타락한 거미여왕", 10, 40, 15, 10, 30) { }
+        public CorruptedQueen() : base("타락한 거미여왕", 10, 40, 15, 10, 30, 0f, 0f, 10f) { }
     }
     public class WaterSnake : Monster
     {
-        public WaterSnake() : base("수중뱀", 10, 25, 12, 7, 25) { }
+        public WaterSnake() : base("수중뱀", 10, 25, 12, 7, 25, 0f, 0f, 10f) { }
     }
     public class WaterSerpent : Monster
     {
-        public WaterSerpent() : base("수중서펀트", 10, 40, 16, 8, 27) { }
+        public WaterSerpent() : base("수중서펀트", 10, 40, 16, 8, 27, 0f, 0f, 10f) { }
     }
     public class Drangon : Monster
     {
-        public Drangon() : base("드래곤", 15, 60, 20, 20, 50) { }
+        public Drangon() : base("드래곤", 15, 60, 20, 20, 50, 0f, 0f, 10f) { }
     }
 
     public class CreateCharacter
     {
         public static Monster[] CreateRandomMonster(int dungeonlevel)
         {
-            Monster monster = new Monster("zizon", 100, 1000, 99, 0, 0);
+            Monster monster = new Monster("zizon", 100, 1000, 99, 0, 0, 0f, 0f, 10f);
 
             Random random = new Random();
 

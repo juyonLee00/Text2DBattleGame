@@ -200,21 +200,26 @@ namespace Text2DBattleGame
         {
             Console.WriteLine("Lv." + attacker.Level + " " + attacker.Name + " 의 공격!");
 
+            // 플레이어와 몬스터는 각각의 회피율을 가지게 설정했기 때문에 변경했습니다!
+            /*
             if (attacker.GetType() == typeof(Character) && new Random().Next(1, 11) == 1) 
             {
                 Console.WriteLine("Lv." + defender.Level + " " + defender.Name + "을(를) 공격했지만 아무일도 일어나지 않았습니다.");
                 return;
             }
+            */
+            if (new Random().Next(1, 101) <= defender.Avoidability)
+            {
+                Console.WriteLine("Lv." + defender.Level + " " + defender.Name + "을(를) 공격했지만 아무일도 일어나지 않았습니다.");
+                return;
+            }
 
-            int damage = RandomDamage(attacker.Atk);
+                int damage = RandomDamage(attacker.Atk);
 
-            // 캐릭터 클래스에 추가한 치확 치뎀 구조와 맞지않아 임시
-            // 몬스터도 치확 치뎀을 가지게 할 지 고민중입니다.
-            // 15% 확률로 치명타 공격
-            if (new Random().Next(1, 101) <= 15)
+            if (new Random().Next(1, 101) <= attacker.CriticalRate)
             {
                 // 임시 - damage는 float형으로 바뀌어야 할 것 같습니다.
-                damage *= 2;
+                damage = (int)(damage * attacker.CriticalAtk);
 
                 // 요구사항
                 // damage *= 1.6f;
