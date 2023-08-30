@@ -29,6 +29,17 @@ namespace Text2DBattleGame
            Def=def;
            Hp=hp;
         }
+
+        public AttackItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp)
+        {
+            this.Name = name;
+            this.Description = description;
+            this.IsEquip = isEquip;
+            this.Atk = atk;
+            this.Def = def;
+            this.Hp = hp;
+            this.Mp = mp;
+        }
     }
 
     public class DefenseItem : IItem
@@ -40,7 +51,18 @@ namespace Text2DBattleGame
         public int Def { get; set; }
         public int Hp { get; set; }
         public int Mp { get; set; }
-        
+
+        public DefenseItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp)
+        {
+            this.Name = name;
+            this.Description = description;
+            this.IsEquip = isEquip;
+            this.Atk = atk;
+            this.Def = def;
+            this.Hp = hp;
+            this.Mp = mp;
+        }
+
     }
 
     public class PotionItem : IItem
@@ -52,6 +74,17 @@ namespace Text2DBattleGame
         public int Def { get; set; }
         public int Hp { get; set; }
         public int Mp { get; set; }
+
+        public PotionItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp)
+        {
+            this.Name = name;
+            this.Description = description;
+            this.IsEquip = isEquip;
+            this.Atk = atk;
+            this.Def = def;
+            this.Hp = hp;
+            this.Mp = mp;
+        }
     }
 
 }
