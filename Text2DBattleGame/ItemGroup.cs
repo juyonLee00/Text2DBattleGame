@@ -19,6 +19,7 @@ namespace Text2DBattleGame
         public List<AttackItem> attackList { get; set; } = new List<AttackItem>();
         public List<DefenseItem> defenseList { get; set; } = new List<DefenseItem>();
         public List<PotionItem> potionList { get; set; } = new List<PotionItem>();
+        public List<IItem> itemAllList { get; set; } = new List<IItem>();
 
         public List<AttackItem> GetAtkList()
         {
@@ -33,6 +34,11 @@ namespace Text2DBattleGame
         public List<PotionItem> GetPotList()
         {
             return potionList;
+        }
+
+        public List<IItem> GetIItemList()
+        {
+            return itemAllList;
         }
     }
 }
