@@ -18,7 +18,7 @@ namespace Text2DBattleGame
 
                 Console.WriteLine("0. 나가기");
                 int i = 1;
-                foreach (Item item in player.Inventory) 
+                foreach (IItem item in player.Inventory) 
                 {
                     Console.WriteLine($"{i}. {item.Name}");
                      ++i;

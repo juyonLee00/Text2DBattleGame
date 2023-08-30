@@ -37,7 +37,7 @@ namespace Text2DBattleGame
 
         public Character() { }
 
-        public List<Item> Inventory { get; set; }
+        public List<IItem> Inventory { get; set; }
         //추후 저장할 배열
         public Dictionary<string, bool> EquipedList { get; set; }
         public List<Skill> Skills { get; set; }
@@ -54,7 +54,7 @@ namespace Text2DBattleGame
             Gold = gold;
             Exp = 0;
             DungeonLevel = 1;
-            Inventory = new List<Item>();
+            Inventory = new List<IItem>();
             Skills = skill;
         }
         public void TakeDamage(int damage)
@@ -85,7 +85,7 @@ namespace Text2DBattleGame
         {
             Hp -= damage;
         }
-        static public Item Drop(List<Item> droptable)
+        static public IItem Drop(List<IItem> droptable)
         {
             int persent = 100; //드랍확률
             Random random = new Random();
@@ -93,7 +93,7 @@ namespace Text2DBattleGame
             int i = random.Next(0, droptable.Count);
             if (persent >= basic)
             {
-                Item item = droptable[i];
+                IItem item = droptable[i];
                 return item;
             }
             return null;

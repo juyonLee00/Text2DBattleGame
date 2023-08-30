@@ -10,26 +10,32 @@ namespace Text2DBattleGame
     {
         public string Name { get; }
         public string Description { get; }
-        public bool isEquip { get; set; }
+        public bool IsEquip { get; set; }
     }
 
     public class AttackItem : IItem
     {
         public string Name { get; }
         public string Description { get; }
-        public bool isEquip { get; set; }
+        public bool IsEquip { get; set; }
         public int Atk { get; set; }
         public int Def { get; set; }
         public int Hp { get; set; }
         public int Mp { get; set; }
-
+        public AttackItem(string name, int atk, int def, int hp) 
+        { 
+           Name=name; 
+           Atk=atk;
+           Def=def;
+           Hp=hp;
+        }
     }
 
     public class DefenseItem : IItem
     {   
         public string Name { get; set; }
         public string Description { get; }
-        public bool isEquip { get; set; }
+        public bool IsEquip { get; set; }
         public int Atk { get; set; }
         public int Def { get; set; }
         public int Hp { get; set; }
@@ -41,7 +47,7 @@ namespace Text2DBattleGame
     {
         public string Name { get; set; }
         public string Description { get; }
-        public bool isEquip { get; set; }
+        public bool IsEquip { get; set; }
         public int Atk { get; set; }
         public int Def { get; set; }
         public int Hp { get; set; }
