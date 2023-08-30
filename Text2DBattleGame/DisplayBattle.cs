@@ -271,6 +271,36 @@ namespace Text2DBattleGame
                 Console.WriteLine(defender.Hp);
             }
         }
+
+        public static void SkillAttack(Character attacker, List<Monster> defenders, int damage)
+        {
+            for(int i = 0; i < defenders.Count; i++)
+            {
+                Console.WriteLine("Lv." + attacker.Level + " " + attacker.Name + " 의 공격!");
+                Console.WriteLine("Lv." + defenders[i].Level + " " + defenders[i].Name + "을(를) 맞췄습니다. [데미지 : " + damage + "]");
+
+                Console.WriteLine("Lv." + defenders[i].Level + " " + defenders[i].Name);
+                Console.Write("Hp " + defenders[i].Hp + " -> ");
+
+                defenders[i].TakeDamage(damage);
+
+                if (defenders[i].IsDead)
+                {
+                    Console.WriteLine("Dead");
+                    Monster.Drop(itemTable1);
+                    attacker.Exp += defenders[i].Level;//경험치추가
+                    attacker.Gold += defenders[i].Gold;//골드추가
+
+                }
+                else
+                {
+                    Console.WriteLine(defenders[i].Hp);
+                }
+
+                Console.WriteLine();
+            }
+        }
+
         public static void WriteBattle()
         {
             Console.Clear();

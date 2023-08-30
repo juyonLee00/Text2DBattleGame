@@ -58,7 +58,11 @@ namespace Text2DBattleGame
             Console.WriteLine();
             Console.Write("대상을 선택해주세요.\n>>");
 
+
+            List<Monster> hitMobs = new List<Monster>();
+
             int monsterNum;
+
             while (true)
             {
                 monsterNum = Program.CheckValidInput(1, monsters.Length);
@@ -69,13 +73,15 @@ namespace Text2DBattleGame
                 }
                 else
                 {
+                    hitMobs.Add(monsters[monsterNum - 1]);
+
                     break;
                 }
             }
 
             DisplayBattle.WriteBattle();
 
-            //DisplayBattle.Attack(player, monsters[monsterNum - 1], DisplayBattle.getItem);
+            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 2f));
 
 
             // 구조상 차라리 Display Battle을 매니저처럼 쓰는게 좋을것 같아 위처럼 했습니다.
@@ -83,6 +89,7 @@ namespace Text2DBattleGame
 
         private void Warrior_DoubleStrike(Character player, Monster[] monsters)
         {
+            /*
             List<int> randomNums = new List<int>();
 
             int num = (monsters.Length >= 3) ? 2 : monsters.Length;
@@ -101,6 +108,34 @@ namespace Text2DBattleGame
 
                 monsters[randomNums[i]].TakeDamage((int)(player.Atk * 1.5f));
             }
+            */
+
+            List<Monster> hitMobs = new List<Monster>();
+
+
+            // 랜덤 2마리 뽑기
+            List<int> randomNums = new List<int>();
+
+            int num = (monsters.Length >= 3) ? 2 : monsters.Length;
+
+            for (int i = 0; i < num; i++)
+            {
+                int n;
+
+                do
+                {
+                    n = new Random().Next(0, monsters.Length);
+                }
+                while (randomNums.Contains(n));
+
+                randomNums.Add(n);
+                hitMobs.Add(monsters[n]);
+            }
+
+
+            DisplayBattle.WriteBattle();
+
+            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 1.5f));
         }
 
         #endregion
@@ -128,11 +163,62 @@ namespace Text2DBattleGame
 
         private void Wizard_FireBall(Character player, Monster[] monsters)
         {
-            monsters[new Random().Next(0, monsters.Length)].TakeDamage((int)(player.Atk * 3f));
+            DisplayBattle.WriteBattle();
+
+            for (int i = 0; i < monsters.Length; i++)
+            {
+                if (monsters[i].IsDead)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine((i + 1) + " Lv." + monsters[i].Level + " " + monsters[i].Name + "  Dead ");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.WriteLine((i + 1) + " Lv." + monsters[i].Level + " " + monsters[i].Name + "  HP " + monsters[i].Hp);
+                }
+            }
+
+            Console.WriteLine("\n\n[내정보]");
+            Console.WriteLine("Lv." + player.Level + " " + player.Name + " (" + player.Job + ")");
+            Console.WriteLine("Hp " + player.Hp + "/" + player.MaxHp);
+            Console.WriteLine("MP " + player.Mp + "/" + player.MaxMp);
+
+            Console.WriteLine();
+            Console.Write("대상을 선택해주세요.\n>>");
+
+
+            List<Monster> hitMobs = new List<Monster>();
+
+            int monsterNum;
+
+            while (true)
+            {
+                monsterNum = Program.CheckValidInput(1, monsters.Length);
+
+                if (monsters[monsterNum - 1].IsDead)
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                }
+                else
+                {
+                    hitMobs.Add(monsters[monsterNum - 1]);
+
+                    break;
+                }
+            }
+
+            DisplayBattle.WriteBattle();
+
+            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 3f));
         }
 
         private void Wizard_Meteor(Character player, Monster[] monsters)
         {
+            List<Monster> hitMobs = new List<Monster>();
+
+
+            // 랜덤 3마리 뽑기
             List<int> randomNums = new List<int>();
 
             int num = (monsters.Length >= 3) ? 3 : monsters.Length;
@@ -148,9 +234,13 @@ namespace Text2DBattleGame
                 while (randomNums.Contains(n));
 
                 randomNums.Add(n);
-                // 충돌방지 임시 형변환
-                monsters[randomNums[i]].TakeDamage((int)(player.Atk * 1.0f));
+                hitMobs.Add(monsters[n]);
             }
+
+
+            DisplayBattle.WriteBattle();
+
+            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 1.0f));
         }
 
         #endregion

@@ -12,6 +12,7 @@ namespace Text2DBattleGame
             public int Atk { get; set; }
             public int Def { get; set; }
             public int MaxHp { get; set; }
+            public int MaxMp { get; set; }
 
             public List<Skill> Skills { get; set; }
 
@@ -24,6 +25,7 @@ namespace Text2DBattleGame
                     this.Atk = 20;
                     this.Def = 3;
                     this.MaxHp = 60;
+                    this.MaxMp = 50;
                     this.Skills = Program.skillManager.GetWizardSkills();
                 }
                 else if (jobName == "Warrior")
@@ -32,6 +34,7 @@ namespace Text2DBattleGame
                     this.Atk = 10;
                     this.Def = 5;
                     this.MaxHp = 100;
+                    this.MaxMp = 30;
                     this.Skills = Program.skillManager.GetWarriorSkills();
                 }
 
@@ -82,7 +85,7 @@ namespace Text2DBattleGame
             }
 
             //코드 수정 필요
-            player = new Character(playerName, jobData.JobName, 1, jobData.Atk, jobData.Def, jobData.MaxHp, 1500, jobData.Skills);
+            player = new Character(playerName, jobData.JobName, 1, jobData.Atk, jobData.Def, jobData.MaxHp, jobData.MaxMp, 1500, jobData.Skills);
         }
 
         public void ItemDataSetting()
