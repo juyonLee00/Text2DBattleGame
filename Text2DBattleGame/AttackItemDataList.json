@@ -1,7 +1,7 @@
 [
   {
-    "Name": "무쇠갑옷",
-    "Description": "무쇠로 만들어져 튼튼한 갑옷입니다.",
+    "Name": "낡은 검",
+    "Description": "아주 오래된 검입니다.",
     "IsEquip": false,
     "Atk": 2,
     "Def": 0,

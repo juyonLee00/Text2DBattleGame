@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace Text2DBattleGame
 {
@@ -22,14 +23,16 @@ namespace Text2DBattleGame
         public int Def { get; set; }
         public int Hp { get; set; }
         public int Mp { get; set; }
-        public AttackItem(string name, int atk, int def, int hp) 
-        { 
-           Name=name; 
-           Atk=atk;
-           Def=def;
-           Hp=hp;
+
+        public AttackItem(string name, int atk, int def, int hp)
+        {
+            Name = name;
+            Atk = atk;
+            Def = def;
+            Hp = hp;
         }
 
+        [JsonConstructor]
         public AttackItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp)
         {
             this.Name = name;

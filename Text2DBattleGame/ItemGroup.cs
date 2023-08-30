@@ -10,14 +10,29 @@ namespace Text2DBattleGame
     public class ItemGroup
     {
         [JsonConstructor]
-        public ItemGroup(List<AttackItem> atkItems)
+        public ItemGroup(List<AttackItem> atkItems, List<DefenseItem> defItems, List<PotionItem> potItems)
         {
             this.attackList = atkItems;
+            this.defenseList = defItems;
+            this.potionList = potItems;
         }
         public List<AttackItem> attackList { get; set; } = new List<AttackItem>();
-        public List<AttackItem> GetList()
+        public List<DefenseItem> defenseList { get; set; } = new List<DefenseItem>();
+        public List<PotionItem> potionList { get; set; } = new List<PotionItem>();
+
+        public List<AttackItem> GetAtkList()
         {
             return attackList;
+        }
+
+        public List<DefenseItem> GetDefList()
+        {
+            return defenseList;
+        }
+
+        public List<PotionItem> GetPotList()
+        {
+            return potionList;
         }
     }
 }

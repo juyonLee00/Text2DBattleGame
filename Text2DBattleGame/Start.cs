@@ -108,66 +108,66 @@ namespace Text2DBattleGame
             var options3 = new JsonSerializerOptions
             {
                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                //WriteIndented = true,
+                WriteIndented = true,
                 PropertyNameCaseInsensitive = true,
             };
-            //string filePath = "../../AttackItemDataList.json";
+            string filePath = "../../AttackItemDataList.json";
 
 
-            
-
-            //itemGroup.attkList = new List<AttackItem>();
-            //itemGroup.atkList.Add(new AttackItem("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", false, 2, 0, 0, 0));
-            
             List<AttackItem> atkItemList = new List<AttackItem>();
-            atkItemList.Add(new AttackItem("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", false, 2, 0, 0, 0));
+            atkItemList.Add(new AttackItem("낡은 검", "아주 오래된 검입니다.", false, 2, 0, 0, 0));
             atkItemList.Add(new AttackItem("나무 몽둥이", "주위에서 많이 보이는 몽둥이입니다.", false, 3, 0, 0, 0));
             atkItemList.Add(new AttackItem("청동 도끼", "어디선가 사용됐던거 같은 도끼입니다.", false, 5, 0, 0, 0));
             atkItemList.Add(new AttackItem("스파르타의 창", "스파르타의 전사들이 사용했다는 전설의 창입니다.", false, 7, 0, 0, 0));
 
-            ItemGroup itemGroup = new ItemGroup(atkItemList);
-
-            //itemGroup.attackList = atkItemList;
-
-            var strJson = JsonSerializer.Serialize(itemGroup.GetList(), options3);
-
-            Console.WriteLine(strJson);
-
-            var atkItemList1 = JsonSerializer.Deserialize<List<AttackItem>>(strJson, options3);
-
-            /*foreach (AttackItem atkItem in atkItemList)
-            {
-                Console.WriteLine($"{atkItem.Name} {atkItem.Description}");
-            }
-            */
-
-            //File.WriteAllText(filePath, strJson);
-
-            /*
-            filePath = "../../DefenseItemDataList.json";
             List<DefenseItem> defItemList = new List<DefenseItem>();
             defItemList.Add(new DefenseItem("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", false, 0, 5, 0, 0));
             defItemList.Add(new DefenseItem("스파르타의 갑옷", "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", false, 0, 15, 0, 0));
             defItemList.Add(new DefenseItem("수련자 갑옷", "수련에 도움을 주는 갑옷입니다.", false, 0, 5, 0, 0));
 
-            strJson = JsonSerializer.Serialize<List<DefenseItem>>(defItemList, options3);
+            List<PotionItem> potItemList = new List<PotionItem>();
+            potItemList.Add(new PotionItem("HP 회복 포션(소)", "소량의 HP를 회복할 수 있습니다.", false, 0, 0, 10, 0));
+            potItemList.Add(new PotionItem("MP 회복 포션(소)", "소량의 MP를 회복할 수 있습니다.", false, 0, 0, 0, 10));
+
+            ItemGroup itemGroup = new ItemGroup(atkItemList, defItemList, potItemList);
+
+            string strJson = JsonSerializer.Serialize(itemGroup.GetAtkList(), options3);
             File.WriteAllText(filePath, strJson);
 
+
+            filePath = "../../DefenseItemDataList.json";
+            strJson = JsonSerializer.Serialize(itemGroup.GetDefList(), options3);
+            File.WriteAllText(filePath, strJson);
 
             filePath = "../../PotionItemDataList.json";
-            List<PotionItem> potionItemList = new List<PotionItem>();
-            potionItemList.Add(new PotionItem("HP 회복 포션(소)", "소량의 HP를 회복할 수 있습니다.", false, 0, 0, 10, 0));
-            potionItemList.Add(new PotionItem("MP 회복 포션(소)", "소량의 MP를 회복할 수 있습니다.", false, 0, 0, 0, 10));
-
-            strJson = JsonSerializer.Serialize<List<PotionItem>>(potionItemList, options3);
+            strJson = JsonSerializer.Serialize(itemGroup.GetPotList(), options3);
             File.WriteAllText(filePath, strJson);
-            */
 
-            //string jsonString = File.ReadAllText(@"../../AttackItemDataList.json");
+            strJson = File.ReadAllText(@"../../AttackItemDataList.json");
+            atkItemList = JsonSerializer.Deserialize<List<AttackItem>>(strJson, options3);
+
+            foreach (AttackItem atkItem in atkItemList)
+            {
+                Console.WriteLine($"{atkItem.Name} {atkItem.Description}");
+            }
 
 
-            //Console.WriteLine(jsonString);
+            strJson = File.ReadAllText(@"../../DefenseItemDataList.json");
+            defItemList = JsonSerializer.Deserialize<List<DefenseItem>>(strJson, options3);
 
+            foreach (DefenseItem defItem in defItemList)
+            {
+                Console.WriteLine($"{defItem.Name} {defItem.Description}");
+            }
+
+
+            strJson = File.ReadAllText(@"../../PotionItemDataList.json");
+            potItemList = JsonSerializer.Deserialize<List<PotionItem>>(strJson, options3);
+
+            foreach (PotionItem potItem in potItemList)
+            {
+                Console.WriteLine($"{potItem.Name} {potItem.Description}");
+            }
 
         }
     }
