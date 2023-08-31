@@ -44,6 +44,8 @@ namespace Text2DBattleGame
         public static int PlayersTurn(Monster[] battleMonsters, Character player, List<IItem> getItem, ConsoleManager console) 
         {
             bool endflag = false;
+            int originalLeft = Console.CursorLeft; 
+            int originalTop = Console.CursorTop; 
 
             console.PlayersTurnPausedDisplay(battleMonsters, player, false, "원하시는 행동을 입력해주세요. \n  1. 공격 2. 스킬");
 
@@ -54,8 +56,8 @@ namespace Text2DBattleGame
 
                 int monsterNum;
 
-                int originalLeft = Console.CursorLeft;
-                int originalTop = Console.CursorTop;
+                originalLeft = Console.CursorLeft;
+                originalTop = Console.CursorTop;
 
                 while (true)
                 {
@@ -81,12 +83,6 @@ namespace Text2DBattleGame
                 console.PlayerAttackMotionDisplay(battleMonsters, player);
 
                 Attack(player, battleMonsters[monsterNum - 1], getItem);
-
-                originalLeft = Console.CursorLeft;
-                originalTop = Console.CursorTop;
-                ConsoleManager.DrawLine(); 
-                Console.SetCursorPosition(originalLeft, originalTop);
-
             }
             else //스킬 사용 시
             {
@@ -115,17 +111,25 @@ namespace Text2DBattleGame
                     {
                         if (player.Mp >= player.Skills[skillNum - 1].Mp)
                         {
-                            if (skillNum == 1) console.PlayersTurnPausedDisplay(battleMonsters, player, true, "대상을 선택해주세요  0. 취소"); ////
+                            if (skillNum == 1) console.PlayersTurnPausedDisplay(battleMonsters, player, true, "대상을 선택해주세요 ");
+                            originalLeft = Console.CursorLeft;
+                            originalTop = Console.CursorTop;
                             player.Skills[skillNum - 1].UsingSkill(player, battleMonsters, player.Skills[skillNum - 1].Mp, getItem);
-                            int originalLeft = Console.CursorLeft;
-                            int originalTop = Console.CursorTop;
                             console.PlayerSkillAttackMotionDisplay(battleMonsters, player);
-                            ConsoleManager.DrawLine();
+                            ConsoleManager.DrawLine(battleMonsters.Length);
                             Console.SetCursorPosition(originalLeft, originalTop);
                             break;
                         }
                         else
-                            Console.WriteLine("플레이어의 MP가 부족합니다.");
+                        {
+                            originalLeft = Console.CursorLeft;
+                            originalTop = Console.CursorTop;
+                            Console.Write("플레이어의 MP가 부족합니다.");
+                            Thread.Sleep(500);
+                            Console.SetCursorPosition(originalLeft, originalTop);
+                            Console.Write("                             ");
+                            Console.SetCursorPosition(originalLeft, originalTop);
+                        }
                     }
                 }
             }
@@ -137,7 +141,12 @@ namespace Text2DBattleGame
             }
             if (deadMonsternumber == battleMonsters.Length) return 0;
 
-            Console.WriteLine("\n0. 다음");
+            Console.Write("\n  0. 다음   "); 
+            originalLeft = Console.CursorLeft;
+            originalTop = Console.CursorTop;
+            ConsoleManager.DrawLine(battleMonsters.Length); 
+            Console.SetCursorPosition(originalLeft, originalTop);
+
             Program.CheckValidInput(0, 0);
 
             return 3;
@@ -145,22 +154,36 @@ namespace Text2DBattleGame
 
         public static int MonstersTurn(Monster[] battleMonsters, Character player, List<IItem> getItem, ConsoleManager console)
         {
+            int originalLeft; 
+            int originalTop; 
+
             console.PlayerDefenseMotionDisplay(battleMonsters, player);
             foreach (Monster monster in battleMonsters)
             {
                 if (!monster.IsDead)
                 {
+                    originalLeft = Console.CursorLeft; 
+                    originalTop = Console.CursorTop;
                     Attack(monster, player, getItem);
+                    ConsoleManager.DrawLine(battleMonsters.Length);
+                    Thread.Sleep(1500);
+                    Console.SetCursorPosition(originalLeft, originalTop);
+                    for (int i = 0; i < 3; i++) Console.WriteLine("                                                               ");
+                    Console.SetCursorPosition(originalLeft, originalTop);
 
                     if (player.IsDead) return 1;
                 }
             }
-            int originalLeft = Console.CursorLeft;
-            int originalTop = Console.CursorTop;
-            ConsoleManager.DrawLine(); 
+            originalLeft = Console.CursorLeft;
+            originalTop = Console.CursorTop;
             Console.SetCursorPosition(originalLeft, originalTop);
 
-            Console.WriteLine("\n0. 다음");
+            Console.Write("\n  0. 다음   "); 
+            originalLeft = Console.CursorLeft;
+            originalTop = Console.CursorTop;
+            ConsoleManager.DrawLine(battleMonsters.Length); 
+            Console.SetCursorPosition(originalLeft, originalTop);
+
             Program.CheckValidInput(0, 0);
 
             return 3;
@@ -221,7 +244,7 @@ namespace Text2DBattleGame
 
             if (defender.IsDead)
             {
-                Console.WriteLine("Dead");
+                Console.Write("Dead");
                 //startTable = changeDropTabel(defender.Name);//디펜더=죽은 몬스터 = 죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
                 getItem.Add(Monster.Drop(changeDropTabel(defender.Name)));
                 attacker.Exp += defender.Level;//경험치추가
@@ -229,7 +252,7 @@ namespace Text2DBattleGame
             }
             else
             {
-                Console.WriteLine(defender.Hp);
+                Console.Write(defender.Hp);
             }
         }
 
@@ -243,22 +266,25 @@ namespace Text2DBattleGame
                 bool isCritical = false;
                 int criticalDamage = (int)(damage * attacker.CriticalAtk);
 
-                Console.WriteLine("  Lv." + attacker.Level + " " + attacker.Name + " 의 공격!");
+                int originalLeft = Console.CursorLeft;
+                int originalTop = Console.CursorTop;
+
+                Console.WriteLine("Lv." + attacker.Level + " " + attacker.Name + " 의 공격!");
 
                 // 일정확률로 치명타공격
                 if (rand.Next(1, 101) <= attacker.CriticalRate)
                 {
                     isCritical = true;
 
-                    Console.WriteLine("  Lv." + defenders[i].Level + " " + defenders[i].Name + "을(를) 맞췄습니다. [데미지 : " + criticalDamage + "] - 치명타 공격!!");
+                    Console.WriteLine("| Lv." + defenders[i].Level + " " + defenders[i].Name + "을(를) 맞췄습니다. [데미지 : " + criticalDamage + "] - 치명타 공격!!");
                 }
                 else
                 {
                     isCritical = false;
-                    Console.WriteLine("  Lv." + defenders[i].Level + " " + defenders[i].Name + "을(를) 맞췄습니다. [데미지 : " + damage + "]");
+                    Console.WriteLine("| Lv." + defenders[i].Level + " " + defenders[i].Name + "을(를) 맞췄습니다. [데미지 : " + damage + "]");
                 } 
 
-                Console.Write("  Lv." + defenders[i].Level + " " + defenders[i].Name + "  :  Hp " + defenders[i].Hp + " -> ");
+                Console.Write("| Lv." + defenders[i].Level + " " + defenders[i].Name + "  :  Hp " + defenders[i].Hp + " -> ");
 
                 defenders[i].TakeDamage(isCritical ? criticalDamage : damage);
 
@@ -275,6 +301,12 @@ namespace Text2DBattleGame
                 {
                     Console.WriteLine(defenders[i].Hp);
                 }
+
+                Thread.Sleep(1000);
+
+                Console.SetCursorPosition(originalLeft, originalTop);
+                for (int j = 0; j < 3; j++) Console.WriteLine("|                                                                    ");
+                Console.SetCursorPosition(originalLeft, originalTop);
 
             }
         }

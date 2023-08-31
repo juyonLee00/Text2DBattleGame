@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Text2DBattleGame
 {
@@ -32,6 +33,7 @@ namespace Text2DBattleGame
 
         static void Main(string[] args)
         {
+            Console.SetWindowSize(120, 50);
             Start start = new Start();
             start.GameDataSetting(ref player, ref itemList);
             Update();
@@ -134,9 +136,16 @@ namespace Text2DBattleGame
 
         static public int CheckValidInput(int min, int max)
         {
+            int originalLeft = Console.CursorLeft;
+            int originalTop = Console.CursorTop;
             while (true)
             {
+                Console.SetCursorPosition(originalLeft, originalTop);
                 string input = Console.ReadLine();
+
+                Console.SetCursorPosition(originalLeft, originalTop);
+                Console.Write("                                                                     ");
+                Console.SetCursorPosition(originalLeft, originalTop);
 
                 bool parseSuccess = int.TryParse(input, out var ret);
                 if (parseSuccess)
@@ -145,7 +154,10 @@ namespace Text2DBattleGame
                         return ret;
                 }
 
-                Console.WriteLine("잘못된 입력입니다.");
+                Console.Write("잘못된 입력입니다.");
+                Thread.Sleep(1000);
+                Console.SetCursorPosition(originalLeft, originalTop);
+                Console.WriteLine("                                                                     "); 
             }
         }
     }

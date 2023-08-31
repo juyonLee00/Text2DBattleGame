@@ -36,6 +36,8 @@ namespace Text2DBattleGame
             List<Monster> hitMobs = new List<Monster>();
 
             int monsterNum;
+            int originalLeft = Console.CursorLeft; 
+            int originalTop = Console.CursorTop;
 
             while (true)
             {
@@ -43,7 +45,11 @@ namespace Text2DBattleGame
 
                 if (monsters[monsterNum - 1].IsDead)
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
+                    Console.Write("잘못된 입력입니다.");
+                    Thread.Sleep(1000);
+                    Console.SetCursorPosition(originalLeft, originalTop);
+                    Console.Write("                     ");
+                    Console.SetCursorPosition(originalLeft, originalTop);
                 }
                 else
                 {
@@ -130,6 +136,8 @@ namespace Text2DBattleGame
             List<Monster> hitMobs = new List<Monster>();
 
             int monsterNum;
+            int originalLeft = Console.CursorLeft;
+            int originalTop = Console.CursorTop;
 
             while (true)
             {
@@ -137,7 +145,11 @@ namespace Text2DBattleGame
 
                 if (monsters[monsterNum - 1].IsDead)
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
+                    Console.Write("잘못된 입력입니다.");
+                    Thread.Sleep(1000);
+                    Console.SetCursorPosition(originalLeft, originalTop);
+                    Console.Write("                     ");
+                    Console.SetCursorPosition(originalLeft, originalTop);
                 }
                 else
                 {

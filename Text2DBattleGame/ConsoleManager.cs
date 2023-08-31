@@ -7,7 +7,6 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading; 
-using System.Threading.Tasks;
 
 namespace Text2DBattleGame
 {
@@ -61,8 +60,8 @@ namespace Text2DBattleGame
 
             int originalTop = StatusDisplay(battleMonsters, player, attack, print);
 
-            DrawLine();
-            DrawCharacterStatLine();
+            DrawLine(battleMonsters.Length);
+            DrawCharacterStatLine(battleMonsters.Length);
             DrawMonsterStatLine();
 
             Console.SetCursorPosition(2, originalTop);
@@ -83,8 +82,8 @@ namespace Text2DBattleGame
                 Console.SetCursorPosition(1, 1);
                 Console.WriteLine(motion);
 
-                DrawLine();
-                DrawCharacterStatLine();
+                DrawLine(battleMonsters.Length);
+                DrawCharacterStatLine(battleMonsters.Length);
                 DrawMonsterStatLine();
 
                 Thread.Sleep(100);
@@ -106,8 +105,8 @@ namespace Text2DBattleGame
                 Console.SetCursorPosition(1, 1);
                 Console.WriteLine(motion);
 
-                DrawLine();
-                DrawCharacterStatLine();
+                DrawLine(battleMonsters.Length);
+                DrawCharacterStatLine(battleMonsters.Length);
                 DrawMonsterStatLine();
 
                 Thread.Sleep(100);
@@ -129,8 +128,8 @@ namespace Text2DBattleGame
                 Console.SetCursorPosition(1, 1);
                 Console.WriteLine(motion);
 
-                DrawLine();
-                DrawCharacterStatLine();
+                DrawLine(battleMonsters.Length);
+                DrawCharacterStatLine(battleMonsters.Length);
                 DrawMonsterStatLine();
 
                 Thread.Sleep(100);
@@ -181,19 +180,24 @@ namespace Text2DBattleGame
             return Console.CursorTop;
         }
 
-        public static void DrawLine()
+        public static void DrawLine(int monsterLength)
         {
+            int k = 0;
+            if (monsterLength > 4)
+            {
+                k = monsterLength - 4;
+            }
             // 상하 벽 그리기
             for (int i = 0; i < 110; i++)
             {
                 Console.SetCursorPosition(i, 0);
                 Console.Write("-");
-                Console.SetCursorPosition(i, 34);
+                Console.SetCursorPosition(i, 36 + k); 
                 Console.Write("-");
             }
 
             // 좌우 벽 그리기
-            for (int i = 1; i < 34; i++)
+            for (int i = 1; i < 36 + k; i++) 
             {
                 Console.SetCursorPosition(0, i);
                 Console.Write("|");
@@ -201,9 +205,14 @@ namespace Text2DBattleGame
                 Console.Write("|");
             }
         }
-        public static void DrawCharacterStatLine()
+        public static void DrawCharacterStatLine(int monsterLength)
         {
-            for (int i = 1; i < 34; i++)
+            int k = 0;
+            if (monsterLength > 4)
+            {
+                k = monsterLength - 4;
+            }
+            for (int i = 1; i < 36 + k; i++) 
             {
                 Console.SetCursorPosition(80, i);
                 Console.Write("|");

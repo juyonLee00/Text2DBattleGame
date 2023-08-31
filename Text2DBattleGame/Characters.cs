@@ -519,8 +519,8 @@ namespace Text2DBattleGame
             }
             else
             {
-                howManyMin = 1 + (dungeonlevel - 16);
-                howManyMax = 4 + (dungeonlevel - 16);
+                howManyMin = (dungeonlevel > 35) ? 20 : 1 + (dungeonlevel - 16);
+                howManyMax = (dungeonlevel > 35) ? 23 : 4 + (dungeonlevel - 16);
             }
 
             int howMany = random.Next(howManyMin, howManyMax + 1);
