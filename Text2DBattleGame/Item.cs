@@ -7,12 +7,19 @@ using System.Text.Json.Serialization;
 
 namespace Text2DBattleGame
 {
+    public enum ItemType
+    {
+        Potion, Attack, Defense
+    }
     public interface IItem
     {
         public string Name { get; }
         public string Description { get; }
         public bool IsEquip { get; set; }
-        public char ItemType { get; set; }// a 공격템 d 방어템 p 포션
+        public ItemType ItemType { get; set; }
+        public int Price { get; set; }
+
+        public object CreateClone();
         public bool CanUse { get; set; }
     }
 
@@ -25,14 +32,31 @@ namespace Text2DBattleGame
         public int Def { get; set; }
         public int Hp { get; set; }
         public int Mp { get; set; }
-        public char ItemType { get; set; }
+        public ItemType ItemType { get; set; }
+        public int Price { get; set; }
+
+        public AttackItem() { }
+
+        public AttackItem(string name, int atk, int def, int hp, int price)
+        {
+            Name = name;
+            Atk = atk;
+            Def = def;
+            Hp = hp;
+            ItemType = ItemType.Attack;
+            Price = price;
+        }
+
+        public object CreateClone()
+        {
+            return MemberwiseClone();
+        }
         public bool CanUse { get; set; }
 
         public AttackItem() { }
 
-
         [JsonConstructor]
-        public AttackItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, char itemType)
+        public AttackItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, ItemType itemType, int price)
         {
             this.Name = name;
             this.Description = description;
@@ -42,6 +66,7 @@ namespace Text2DBattleGame
             this.Hp = hp;
             this.Mp = mp;
             this.ItemType = itemType;
+            this.Price = price;
             CanUse = false;
         }
     }
@@ -55,12 +80,13 @@ namespace Text2DBattleGame
         public int Def { get; set; }
         public int Hp { get; set; }
         public int Mp { get; set; }
-        public char ItemType { get; set; }
+        public ItemType ItemType { get; set; }
+        public int Price { get; set; }
         public bool CanUse { get; set; }
 
         public DefenseItem() { }
 
-        public DefenseItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, char itemType)
+        public DefenseItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, int price)
         {
             this.Name = name;
             this.Description = description;
@@ -69,10 +95,16 @@ namespace Text2DBattleGame
             this.Def = def;
             this.Hp = hp;
             this.Mp = mp;
-            this.ItemType = itemType;
+            this.ItemType = ItemType.Defense;
+            this.Price = price;
+            
             CanUse = false;
         }
 
+        public object CreateClone()
+        {
+            return MemberwiseClone();
+        }
     }
 
     public class PotionItem : IItem
@@ -84,14 +116,14 @@ namespace Text2DBattleGame
         public int Def { get; set; }
         public int Hp { get; set; }
         public int Mp { get; set; }
-        public char ItemType { get; set; }
+        public ItemType ItemType { get; set; }
+        public int Price { get; set; }
         public int Count { get; set; }
         public bool CanUse { get; set; }
 
-
         
 
-        public PotionItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, char itemType)
+        public PotionItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, int price)
         {
             this.Name = name;
             this.Description = description;
@@ -100,10 +132,16 @@ namespace Text2DBattleGame
             this.Def = def;
             this.Hp = hp;
             this.Mp = mp;
-            this.ItemType = itemType;
+            this.ItemType = ItemType.Potion;
+            this.Price = price;
+            
             Count = 1;
             CanUse = true;
+        }
 
+        public object CreateClone()
+        {
+            return MemberwiseClone();
         }
 
     }
