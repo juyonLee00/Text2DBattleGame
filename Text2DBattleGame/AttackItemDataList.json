@@ -7,7 +7,9 @@
     "Def": 0,
     "Hp": 0,
     "Mp": 0,
-    "ItemType": "a"
+    "ItemType": 1,
+    "Price": 30,
+    "CanUse": false
   },
   {
     "Name": "나무 몽둥이",
@@ -17,7 +19,9 @@
     "Def": 0,
     "Hp": 0,
     "Mp": 0,
-    "ItemType": "a"
+    "ItemType": 1,
+    "Price": 20,
+    "CanUse": false
   },
   {
     "Name": "청동 도끼",
@@ -27,7 +31,9 @@
     "Def": 0,
     "Hp": 0,
     "Mp": 0,
-    "ItemType": "a"
+    "ItemType": 1,
+    "Price": 50,
+    "CanUse": false
   },
   {
     "Name": "스파르타의 창",
@@ -37,6 +43,8 @@
     "Def": 0,
     "Hp": 0,
     "Mp": 0,
-    "ItemType": "a"
+    "ItemType": 1,
+    "Price": 70,
+    "CanUse": false
   }
 ]

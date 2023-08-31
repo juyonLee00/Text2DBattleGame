@@ -7,7 +7,10 @@
     "Def": 0,
     "Hp": 10,
     "Mp": 0,
-    "ItemType": "p"
+    "ItemType": 0,
+    "Price": 10,
+    "Count": 1,
+    "CanUse": true
   },
   {
     "Name": "MP 회복 포션(소)",
@@ -17,6 +20,9 @@
     "Def": 0,
     "Hp": 0,
     "Mp": 10,
-    "ItemType": "p"
+    "ItemType": 0,
+    "Price": 10,
+    "Count": 1,
+    "CanUse": true
   }
 ]
