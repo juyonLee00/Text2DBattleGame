@@ -31,9 +31,6 @@ namespace Text2DBattleGame
 
         private void Warrior_AlphaStrike(Character player, Monster[] monsters, int useMp, List<IItem> getitem)
         {
-            //원본
-            //monsters[new Random().Next(0, monsters.Length)].TakeDamage((int)(player.Atk * 2f));
-
             player.UsingMp(useMp);
 
             List<Monster> hitMobs = new List<Monster>();
@@ -56,34 +53,10 @@ namespace Text2DBattleGame
                 }
             }
             DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 2f), getitem);
-
-
-            // 구조상 차라리 Display Battle을 매니저처럼 쓰는게 좋을것 같아 위처럼 했습니다.
         }
 
         private void Warrior_DoubleStrike(Character player, Monster[] monsters, int useMp, List<IItem> getitem)
         {
-            /*
-            List<int> randomNums = new List<int>();
-
-            int num = (monsters.Length >= 3) ? 2 : monsters.Length;
-
-            for (int i = 0; i < num; i++)
-            {
-                int n;
-
-                do
-                {
-                    n = new Random().Next(0, monsters.Length);
-                }
-                while (randomNums.Contains(n));
-
-                randomNums.Add(n);
-
-                monsters[randomNums[i]].TakeDamage((int)(player.Atk * 1.5f));
-            }
-            */
-
             player.UsingMp(useMp);
 
             List<Monster> hitMobs = new List<Monster>();
