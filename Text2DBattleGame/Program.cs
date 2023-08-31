@@ -116,8 +116,8 @@ namespace Text2DBattleGame
             Console.WriteLine();
             Console.WriteLine($"Lv.{player.Level}");
             Console.WriteLine($"{player.Name}({player.Job})");
-            Console.WriteLine($"공격력 :{player.Atk} {player.ShowAtkItemEffect(ref player, ref itemGroup)}");
-            Console.WriteLine($"방어력 : {player.Def} {player.ShowDefItemEffect(ref player, ref itemGroup)}");
+            Console.WriteLine($"공격력 :{player.Atk} {player.ShowItemEffect(ref player, ref itemGroup, ItemType.Attack)}");
+            Console.WriteLine($"방어력 : {player.Def} {player.ShowItemEffect(ref player, ref itemGroup, ItemType.Defense)}");
             Console.WriteLine($"체력 : {player.Hp}");
             Console.WriteLine($"Gold : {player.Gold} G");
             Console.WriteLine();

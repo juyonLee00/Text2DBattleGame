@@ -23,6 +23,7 @@ namespace Text2DBattleGame
             DefenseItem test2 = new DefenseItem("테스트용 샵갑빠", "튼튼한 강철갑빠", false, 5, 10000, 100, 100, ItemType.Defense, 10);
             PotionItem test3 = new PotionItem("테스트용 포-션", "맛은없다.", false, 0, 0, 1000, 1000, ItemType.Potion, 1);
 
+
             ShopItemList.Add(test1);
             ShopItemList.Add(test2);
             ShopItemList.Add(test3);
