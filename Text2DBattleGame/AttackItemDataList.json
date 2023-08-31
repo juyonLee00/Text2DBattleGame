@@ -8,7 +8,7 @@
     "Hp": 0,
     "Mp": 0,
     "ItemType": 1,
-    "Price": 30,
+    "Price": 200,
     "CanUse": false
   },
   {
@@ -20,31 +20,31 @@
     "Hp": 0,
     "Mp": 0,
     "ItemType": 1,
-    "Price": 20,
+    "Price": 300,
     "CanUse": false
   },
   {
     "Name": "청동 도끼",
-    "Description": "어디선가 사용됐던거 같은 도끼입니다.",
+    "Description": "어디선가 사용됐던거 같은 낡은 도끼입니다.",
     "IsEquip": false,
     "Atk": 5,
     "Def": 0,
     "Hp": 0,
     "Mp": 0,
     "ItemType": 1,
-    "Price": 50,
+    "Price": 500,
     "CanUse": false
   },
   {
-    "Name": "스파르타의 창",
-    "Description": "스파르타의 전사들이 사용했다는 전설의 창입니다.",
+    "Name": "스파의 창",
+    "Description": "스파의 전사들이 사용했다는 창입니다.",
     "IsEquip": false,
     "Atk": 7,
     "Def": 0,
     "Hp": 0,
     "Mp": 0,
     "ItemType": 1,
-    "Price": 70,
+    "Price": 700,
     "CanUse": false
   }
 ]

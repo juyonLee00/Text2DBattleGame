@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "스파르타의 갑옷",
+    "Description": "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 15,
+    "Hp": 0,
+    "Mp": 0,
+    "ItemType": 2,
+    "Price": 70,
+    "CanUse": false
+  }
+]
