@@ -98,6 +98,7 @@ namespace Text2DBattleGame
 
         public DefenseItem() { }
 
+        [JsonConstructor]
         public DefenseItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, ItemType itemType, int price)
         {
             this.Name = name;
@@ -148,8 +149,8 @@ namespace Text2DBattleGame
         public int Count { get; set; }
         public bool CanUse { get; set; }
 
-        
 
+        [JsonConstructor]
         public PotionItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, ItemType itemType, int price)
         {
             this.Name = name;
