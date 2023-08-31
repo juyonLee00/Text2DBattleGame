@@ -407,14 +407,16 @@ namespace Text2DBattleGame
                 {
                     Console.WriteLine($"체력을 {player.MaxHp - player.Hp}회복 하였습니다.");
                     Console.WriteLine($"{player.Hp} -> {player.MaxHp}");
+
+                    player.Hp = player.MaxHp;
                 }
                 else
                 {
                     Console.WriteLine($"체력을 {item.Hp}회복 하였습니다.");
                     Console.WriteLine($"{player.Hp} -> {player.Hp + item.Hp}");
-                }
 
-                player.Hp += item.Hp;
+                    player.Hp += item.Hp;
+                }
             }
             if (item.Mp != 0)
             {
@@ -438,14 +440,16 @@ namespace Text2DBattleGame
                 {
                     Console.WriteLine($"마나를 {player.MaxMp - player.Mp}회복 하였습니다.");
                     Console.WriteLine($"{player.Mp} -> {player.MaxMp}");
+
+                    player.Mp += player.MaxMp;
                 }
                 else
                 {
                     Console.WriteLine($"마나를 {item.Mp}회복 하였습니다.");
                     Console.WriteLine($"{player.Mp} -> {player.Mp + item.Mp}");
-                }
 
-                player.Mp += item.Mp;
+                    player.Mp += item.Mp;
+                }
             }
             if (item.Atk != 0)
             {
