@@ -10,10 +10,10 @@ namespace Text2DBattleGame
     class DisplayBattle
     {
         
-        public static List<IItem> itemTable1 = new List<IItem>() { new AttackItem("실패함", "test", true, 1, 1, 1, 1, 'a'), new PotionItem("실패함", "테스트", false, 1, 1, 1, 1, 'p') };
+        public static List<IItem> startTable = new List<IItem>() { new AttackItem("실패함", "test", true, 1, 1, 1, 1, 'a'), new PotionItem("실패함", "테스트", false, 1, 1, 1, 1, 'p') };
 
-        public static List<IItem> testTabel = new List<IItem>() { new AttackItem("이게나와야함", "test", true, 1, 1, 1, 1, 'a'), new PotionItem("이게나와야함", "테스트", false, 1, 1, 1, 1, 'p') };
-        public static List<IItem> errortable = new List<IItem>() { new AttackItem("이름값을못받는건가?", "test", true, 1, 1, 1, 1, 'a')};
+        public static List<IItem> testTabel = new List<IItem>() { new AttackItem("이거면버그없음템1", "test", true, 1, 1, 1, 1, 'a'), new PotionItem("버그없음물약1", "테스트", false, 1, 1, 1, 1, 'p') };
+        public static List<IItem> errortable = new List<IItem>() { new AttackItem("버그있음", "test", true, 1, 1, 1, 1, 'a')};
         public static void Display(Character player)
         {
             int gold = player.Gold;
@@ -22,15 +22,6 @@ namespace Text2DBattleGame
             List<IItem> getItem = new List<IItem>();
 
             Console.Clear();
-            //테스트
-            //if (player.Inventory != null) 
-            //{ 
-            //    foreach (IItem item in player.Inventory) 
-            //    {
-            //     Console.WriteLine(item.Name);
-            //    }
-            //}
-            //테스트
 
             Monster[] battleMonsters = CreateCharacter.CreateRandomMonster(player.DungeonLevel);
 
@@ -143,7 +134,7 @@ namespace Text2DBattleGame
                     {
                         if (player.Mp >= player.Skills[skillNum - 1].Mp)
                         {
-                            player.Skills[skillNum - 1].UsingSkill(player, battleMonsters, player.Skills[skillNum - 1].Mp, itemTable1);
+                            player.Skills[skillNum - 1].UsingSkill(player, battleMonsters, player.Skills[skillNum - 1].Mp, getItem);
                             break;
                         }
                         else
@@ -242,8 +233,8 @@ namespace Text2DBattleGame
             if (defender.IsDead)
             {
                 Console.WriteLine("Dead");
-                itemTable1 = changeDropTabel(defender.Name);//디펜더=죽은 몬스터 = 죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
-                getItem.Add(Monster.Drop(itemTable1));
+                startTable = changeDropTabel(defender.Name);//디펜더=죽은 몬스터 = 죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
+                getItem.Add(Monster.Drop(startTable));
                 attacker.Exp += defender.Level;//경험치추가
                 attacker.Gold += defender.Gold;//골드추가
             }
@@ -287,8 +278,8 @@ namespace Text2DBattleGame
                 {
                     Console.WriteLine("Dead");
                     //Monster.Drop(itemTable1); 드랍은 아이템을 생성하는 함수
-                    itemTable1 = changeDropTabel(defenders[i].Name);//디펜더=죽은 몬스터 = 죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
-                    getItem.Add(Monster.Drop(errortable));
+                    startTable = changeDropTabel(defenders[i].Name);//디펜더=죽은 몬스터 = 죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
+                    getItem.Add(Monster.Drop(startTable));
                     attacker.Exp += defenders[i].Level;//경험치추가
                     attacker.Gold += defenders[i].Gold;//골드추가
 
