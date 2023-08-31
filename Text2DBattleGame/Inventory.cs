@@ -12,9 +12,6 @@ namespace Text2DBattleGame
         {
             Console.Clear();
 
-            AttackItem item1 = new AttackItem("낡은 검", "어쩌구", false, 4, 0, 0, 0, 'a');
-            player.Inventory.Add(item1);
-
             Console.WriteLine("[인벤토리]");
             Console.WriteLine("");
             Console.WriteLine("아이템 목록");
