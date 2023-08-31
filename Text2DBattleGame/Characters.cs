@@ -45,7 +45,7 @@ namespace Text2DBattleGame
 
         public List<IItem> Inventory { get; set; }
         public List<Skill> Skills { get; set; }
-        public Character(string name, string job, int level, int atk, int def, int hp, int mp, int gold, List<Skill> skill, float criticalRate, float criticalAtk, float avoidability)
+        public Character(string name, string job, int level, int atk, int def, int hp, int mp, int gold, float criticalRate, float criticalAtk, float avoidability)
         {
             Name = name;
             Job = job;
@@ -60,7 +60,6 @@ namespace Text2DBattleGame
             Exp = 0;
             DungeonLevel = 1;
             Inventory = new List<IItem>();
-            Skills = skill;
             CriticalRate = criticalRate;
             CriticalAtk = criticalAtk;
             Avoidability = avoidability;

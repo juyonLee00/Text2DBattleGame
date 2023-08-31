@@ -98,8 +98,23 @@ namespace Text2DBattleGame
                     break;
             }
 
-            player = new Character(playerName, jobData.JobName, 1, jobData.Atk, jobData.Def, jobData.MaxHp, jobData.MaxMp, 1500,
-                jobData.Skills, jobData.CriticalRate, jobData.CriticalAtk, jobData.Avoidability);
+            player = new Character(playerName, jobData.JobName, 1, jobData.Atk, jobData.Def, jobData.MaxHp,
+                jobData.MaxMp, 1500, jobData.CriticalRate, jobData.CriticalAtk, jobData.Avoidability);
+
+            CharacterSkillSetting(player);
+        }
+
+        public void CharacterSkillSetting(Character player)
+        {
+            switch(player.Job)
+            {
+                case "Wizard":
+                    player.Skills = Program.skillManager.GetWizardSkills();
+                    break;
+                case "Warrior":
+                    player.Skills = Program.skillManager.GetWarriorSkills();
+                    break;
+            }
         }
 
         public void ItemDataSetting(ref List<IItem> itemList)
