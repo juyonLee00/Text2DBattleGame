@@ -24,11 +24,11 @@ namespace Text2DBattleGame
       
         public static List<IItem> errortable = new List<IItem>() { new PotionItem("에러포션", "체력,마나를 1회복하고 공격력 방어력이 1 상승한다", false,1,1,1,1,ItemType.Potion, 10) };
 
-        public static List<IItem> normalTable = new List<IItem>() { new AttackItem("노말아이템", "test", true, 1, 1, 1, 1, 0, 10) };
+        public static List<IItem> normalTable = new List<IItem>() { new AttackItem("노말아이템", "test", true, 1, 1, 1, 1, ItemType.Attack, 0) };
 
-        public static List<IItem> rareTable = new List<IItem>() { new AttackItem("레어아이템", "test", true, 1, 1, 1, 1, 0, 20) };
+        public static List<IItem> rareTable = new List<IItem>() { new AttackItem("레어아이템", "test", true, 1, 1, 1, 1, ItemType.Attack, 0) };
 
-        public static List<IItem> UniqueTable = new List<IItem>() { new AttackItem("유니크아이템", "test", true, 1, 1, 1, 1, 0, 30) };
+        public static List<IItem> UniqueTable = new List<IItem>() { new AttackItem("유니크아이템", "test", true, 1, 1, 1, 1, ItemType.Attack, 0) };
 
         static void Main(string[] args)
         {

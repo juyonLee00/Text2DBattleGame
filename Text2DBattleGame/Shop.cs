@@ -14,6 +14,18 @@ namespace Text2DBattleGame
         public Shop()
         {
             ShopItemList = new List<IItem>();
+            TestShopData();
+        }
+
+        private static void TestShopData()
+        {
+            AttackItem test1 = new AttackItem("테스트용 샵무기", "날카로운 날", false, 5000, 10, 10, 100, ItemType.Attack, 100);
+            DefenseItem test2 = new DefenseItem("테스트용 샵갑빠", "튼튼한 강철갑빠", false, 5, 10000, 100, 100, 10);
+            PotionItem test3 = new PotionItem("테스트용 포-션", "맛은없다.", false, 0, 0, 1000, 1000, 1);
+
+            ShopItemList.Add(test1);
+            ShopItemList.Add(test2);
+            ShopItemList.Add(test3);
         }
 
         public static void BuyItem(Character player, int itemNum)
@@ -68,7 +80,7 @@ namespace Text2DBattleGame
             Console.WriteLine($"{player.Gold} G");
             Console.WriteLine();
 
-            // 람다식으로 문자열길이를 내림차순 정렬, 같으면 사전 순
+            // 문자열길이를 내림차순 정렬, 같으면 사전 순
             ShopItemList.Sort((a, b) => {
                 if (a.Name.Length > b.Name.Length)
                     return -1;
@@ -121,7 +133,7 @@ namespace Text2DBattleGame
             Console.WriteLine($"{player.Gold} G");
             Console.WriteLine();
 
-            // 람다식으로 문자열길이를 내림차순 정렬, 같으면 사전 순
+            // 문자열길이를 내림차순 정렬, 같으면 사전 순
             ShopItemList.Sort((a, b) => {
                 if (a.Name.Length > b.Name.Length)
                     return -1;
@@ -179,7 +191,7 @@ namespace Text2DBattleGame
             Console.WriteLine($"{player.Gold} G");
             Console.WriteLine();
 
-            // 람다식으로 문자열길이를 내림차순 정렬, 같으면 사전 순
+            // 문자열길이를 내림차순 정렬, 같으면 사전 순
             player.Inventory.Sort((a, b) => {
                 if (a.Name.Length > b.Name.Length)
                     return -1;
