@@ -287,7 +287,7 @@ namespace Text2DBattleGame
                 {
                     Console.WriteLine("Dead");
                     //Monster.Drop(itemTable1); 드랍은 아이템을 생성하는 함수
-                    getItem.Add(Monster.Drop(itemTable1));
+                    getItem.Add(Monster.Drop(testTabel));
                     attacker.Exp += defenders[i].Level;//경험치추가
                     attacker.Gold += defenders[i].Gold;//골드추가
 

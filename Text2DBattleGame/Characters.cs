@@ -325,16 +325,20 @@ namespace Text2DBattleGame
         }
         static public IItem Drop(List<IItem> droptable1)
         {
-            List<IItem> droptable = droptable1;
+            //List<IItem> droptable = droptable1;
             int persent = 100; //드랍확률
             Random random = new Random();
             int basic = random.Next(1, 100);
-            int i = random.Next(0, droptable.Count);
-            if (persent >= basic)
+            int i = random.Next(0, droptable1.Count);
+            if (i>=0) 
             {
-                IItem item = droptable[i];
-                return item;
+                if (persent >= basic)
+                {
+                    IItem item = droptable1[i];
+                    return item;
+                }
             }
+            
             return null;
         }
 
