@@ -141,8 +141,8 @@ namespace Text2DBattleGame
             for (int i = 0; i < list.Count; ++i)
             {
                 Console.WriteLine($"{list[i].Name} - 1");
-                if (list[i].CanUse)
-                {
+                //if (list[i].CanUse)
+                //{
                     string number = list[i].Name;
 
                     int num = player.Inventory.FindIndex(Item => Item.Name.Equals(number));
@@ -155,6 +155,17 @@ namespace Text2DBattleGame
                             a.Count++;
                         }
 
+                        else if(player.Inventory[num] is AttackItem)
+                        {
+                            AttackItem a = player.Inventory[num] as AttackItem;
+                            a.Count++;
+                        }
+
+                        else
+                        {
+                            DefenseItem a = player.Inventory[num] as DefenseItem;
+                            a.Count++;
+                        }
 
                     }
                     //그 아이템이 처음 추가 되는경우
@@ -162,11 +173,11 @@ namespace Text2DBattleGame
                     {
                         player.Inventory.Add(list[i]);
                     }
-                }
-                else
+                //}
+                /*else
                 {
                     player.Inventory.Add(list[i]);
-                }
+                }*/
             }
         }
 
