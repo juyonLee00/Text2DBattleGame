@@ -22,6 +22,7 @@ namespace Text2DBattleGame
         public int Mp { get; set; }
         public ItemType ItemType { get; set; }
         public int Price { get; set; }
+        public int Count { get; set; }
 
         public object CreateClone();
         public bool CanUse { get; set; }
@@ -38,7 +39,7 @@ namespace Text2DBattleGame
         public int Mp { get; set; }
         public ItemType ItemType { get; set; }
         public int Price { get; set; }
-
+        public int Count { get; set; }
         public AttackItem() { }
 
         public AttackItem(string name, int atk, int def, int hp, int price)
@@ -69,6 +70,8 @@ namespace Text2DBattleGame
             this.Mp = mp;
             this.ItemType = itemType;
             this.Price = price;
+
+            Count = 1;
             CanUse = false;
         }
 
@@ -99,6 +102,7 @@ namespace Text2DBattleGame
         public ItemType ItemType { get; set; }
         public int Price { get; set; }
         public bool CanUse { get; set; }
+        public int Count { get; set; }
 
         public DefenseItem() { }
 
@@ -114,7 +118,8 @@ namespace Text2DBattleGame
             this.Mp = mp;
             this.ItemType = itemType;
             this.Price = price;
-            
+
+            Count = 1;
             CanUse = false;
         }
 
