@@ -29,39 +29,36 @@ namespace Text2DBattleGame
 
         public static void Battle(Monster[] battleMonsters, Character player, List<IItem> getItem)
         {
+            ConsoleManager console = new ConsoleManager(player);
             while (true)
             {
-                int flag = PlayersTurn(battleMonsters, player, getItem);
+                int flag = PlayersTurn(battleMonsters, player, getItem, console);
                 if (flag == 0) //3은 스레기값 2면 다시 실행 0은 승리 
                 {
                     player.DungeonLevel++;
                     break;
                 }
                 else if (flag == 2) continue;
-                if (MonstersTurn(battleMonsters, player, getItem) == 1) break;  //3은 스레기값 1은 패배  
+                if (MonstersTurn(battleMonsters, player, getItem, console) == 1) break;  //3은 스레기값 1은 패배  
             }
         }
 
-        public static int PlayersTurn(Monster[] battleMonsters, Character player, List<IItem> getItem) 
+        public static int PlayersTurn(Monster[] battleMonsters, Character player, List<IItem> getItem, ConsoleManager console) 
         {
             bool endflag = false;
 
-            WriteBattle();
-            DisplayPresentStatus(battleMonsters, player, false);
-
-            Console.WriteLine("1. 공격\n2. 스킬\n");
-            Console.Write("원하시는 행동을 입력해주세요.\n>>");
+            console.PlayersTurnPausedDisplay(battleMonsters, player, false, "원하시는 행동을 입력해주세요. \n  1. 공격 2. 스킬");
 
             int input = Program.CheckValidInput(1, 2);
             if (input == 1) 
             {
-                WriteBattle();
-                DisplayPresentStatus(battleMonsters, player, true);
-
-                Console.WriteLine("0. 취소\n");
-                Console.Write("대상을 선택해주세요.\n>>");
+                console.PlayersTurnPausedDisplay(battleMonsters, player, true, "대상을 선택해주세요  0. 취소");
 
                 int monsterNum;
+
+                int originalLeft = Console.CursorLeft;
+                int originalTop = Console.CursorTop;
+
                 while (true)
                 {
                     monsterNum = Program.CheckValidInput(0, battleMonsters.Length);
@@ -71,52 +68,42 @@ namespace Text2DBattleGame
                         endflag = true;
                         break;
                     }
-                    if (battleMonsters[monsterNum - 1].IsDead) Console.WriteLine("잘못된 입력입니다.");
+                    if (battleMonsters[monsterNum - 1].IsDead) 
+                    {
+                        Console.Write("잘못된 입력입니다.");
+                        Thread.Sleep(1000);
+                        Console.SetCursorPosition(originalLeft, originalTop);
+                        Console.Write("                     ");
+                        Console.SetCursorPosition(originalLeft, originalTop);
+                    }
                     else break;
                 }
                 if (endflag) return 2;
 
-                WriteBattle();
+                console.PlayerAttackMotionDisplay(battleMonsters, player);
 
                 Attack(player, battleMonsters[monsterNum - 1], getItem);
+
+                originalLeft = Console.CursorLeft;
+                originalTop = Console.CursorTop;
+                ConsoleManager.DrawLine(); 
+                Console.SetCursorPosition(originalLeft, originalTop);
 
             }
             else //스킬 사용 시
             {
-                WriteBattle();
-
-                for(int i = 0; i < battleMonsters.Length; i++)
-                {
-                    Monster monster = battleMonsters[i];
-
-                    if (monster.IsDead)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.WriteLine("Lv." + monster.Level + " " + monster.Name + "  Dead ");
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Lv." + monster.Level + " " + monster.Name + "  HP " + monster.Hp);
-                    }
-                }
-
-                Console.WriteLine("\n\n[내정보]");
-                Console.WriteLine("Lv." + player.Level + " " + player.Name + " (" + player.Job + ")");
-                Console.WriteLine("Hp " + player.Hp + "/" + player.MaxHp);
-                Console.WriteLine("MP " + player.Mp + "/" + player.MaxMp);
+                string str = "";
 
                 // 스킬 출력
                 for (int i = 0; i < player.Skills.Count; i++)
                 {
                     Skill skill = player.Skills[i];
 
-                    Console.WriteLine($"{i + 1}. {skill.Name} - MP {skill.Mp}");
-                    Console.WriteLine($"    {skill.ShowExplanation(player)}");
+                    str += $"\n  {i + 1}. {skill.Name} - {skill.ShowExplanation(player)} (MP {skill.Mp})";
                 }
 
-                Console.WriteLine();
-                Console.WriteLine("0. 취소");
+                str = "사용할 스킬을 입력해주세요 0. 취소" + str;
+                console.PlayersTurnPausedDisplay(battleMonsters, player, false, str);
 
                 while (true)
                 {
@@ -130,7 +117,13 @@ namespace Text2DBattleGame
                     {
                         if (player.Mp >= player.Skills[skillNum - 1].Mp)
                         {
+                            if (skillNum == 1) console.PlayersTurnPausedDisplay(battleMonsters, player, true, "대상을 선택해주세요  0. 취소"); ////
                             player.Skills[skillNum - 1].UsingSkill(player, battleMonsters, player.Skills[skillNum - 1].Mp, getItem);
+                            int originalLeft = Console.CursorLeft;
+                            int originalTop = Console.CursorTop;
+                            console.PlayerSkillAttackMotionDisplay(battleMonsters, player);
+                            ConsoleManager.DrawLine();
+                            Console.SetCursorPosition(originalLeft, originalTop);
                             break;
                         }
                         else
@@ -152,10 +145,9 @@ namespace Text2DBattleGame
             return 3;
         }
 
-        public static int MonstersTurn(Monster[] battleMonsters, Character player, List<IItem> getItem)
+        public static int MonstersTurn(Monster[] battleMonsters, Character player, List<IItem> getItem, ConsoleManager console)
         {
-            WriteBattle();
-
+            console.PlayerDefenseMotionDisplay(battleMonsters, player);
             foreach (Monster monster in battleMonsters)
             {
                 if (!monster.IsDead)
@@ -165,6 +157,10 @@ namespace Text2DBattleGame
                     if (player.IsDead) return 1;
                 }
             }
+            int originalLeft = Console.CursorLeft;
+            int originalTop = Console.CursorTop;
+            ConsoleManager.DrawLine();
+            Console.SetCursorPosition(originalLeft, originalTop);
 
             Console.WriteLine("\n0. 다음");
             Program.CheckValidInput(0, 0);
@@ -189,7 +185,7 @@ namespace Text2DBattleGame
 
         public static void Attack(ICharacter attacker, ICharacter defender, List<IItem> getItem)
         {
-            Console.WriteLine("Lv." + attacker.Level + " " + attacker.Name + " 의 공격!");
+            Console.WriteLine("  Lv." + attacker.Level + " " + attacker.Name + " 의 공격!");
 
             // 플레이어와 몬스터는 각각의 회피율을 가지게 설정했기 때문에 변경했습니다!
             /*
@@ -201,7 +197,7 @@ namespace Text2DBattleGame
             */
             if (new Random().Next(1, 101) <= defender.Avoidability)
             {
-                Console.WriteLine("Lv." + defender.Level + " " + defender.Name + "을(를) 공격했지만 아무일도 일어나지 않았습니다.");
+                Console.WriteLine("  Lv." + defender.Level + " " + defender.Name + "을(를) 공격했지만 아무일도 일어나지 않았습니다.");
                 return;
             }
 
@@ -215,15 +211,14 @@ namespace Text2DBattleGame
                 // 요구사항
                 // damage *= 1.6f;
 
-                Console.WriteLine("Lv." + defender.Level + " " + defender.Name + "을(를) 맞췄습니다. [데미지 : " + damage + "] - 치명타 공격!!");
+                Console.WriteLine("  Lv." + defender.Level + " " + defender.Name + "을(를) 맞췄습니다. [데미지 : " + damage + "] - 치명타 공격!!");
             }
             else
             {
-                Console.WriteLine("Lv." + defender.Level + " " + defender.Name + "을(를) 맞췄습니다. [데미지 : " + damage + "]");
+                Console.WriteLine("  Lv." + defender.Level + " " + defender.Name + "을(를) 맞췄습니다. [데미지 : " + damage + "]");
             }
 
-            Console.WriteLine("Lv." + defender.Level + " " + defender.Name);
-            Console.Write("Hp " + defender.Hp + " -> ");
+            Console.Write("  Lv." + defender.Level + " " + defender.Name + "  :  Hp " + defender.Hp + " -> ");
             defender.TakeDamage(damage);
 
             if (defender.IsDead)
@@ -263,10 +258,9 @@ namespace Text2DBattleGame
                 {
                     isCritical = false;
                     Console.WriteLine("Lv." + defenders[i].Level + " " + defenders[i].Name + "을(를) 맞췄습니다. [데미지 : " + damage + "]");
-                } 
+                }
 
-                Console.WriteLine("Lv." + defenders[i].Level + " " + defenders[i].Name);
-                Console.Write("Hp " + defenders[i].Hp + " -> ");
+                Console.Write("  Lv." + defenders[i].Level + " " + defenders[i].Name + "  :  Hp " + defenders[i].Hp + " -> ");
 
                 defenders[i].TakeDamage(isCritical ? criticalDamage : damage);
 
@@ -284,7 +278,6 @@ namespace Text2DBattleGame
                     Console.WriteLine(defenders[i].Hp);
                 }
 
-                Console.WriteLine();
             }
         }
         public static List<IItem> changeDropTabel(string name) 

@@ -36,31 +36,6 @@ namespace Text2DBattleGame
 
             player.UsingMp(useMp);
 
-            DisplayBattle.WriteBattle();
-
-            for (int i = 0; i < monsters.Length; i++)
-            {
-                if (monsters[i].IsDead)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine((i+1) + " Lv." + monsters[i].Level + " " + monsters[i].Name + "  Dead ");
-                    Console.ResetColor();
-                }
-                else
-                {
-                    Console.WriteLine((i + 1) + " Lv." + monsters[i].Level + " " + monsters[i].Name + "  HP " + monsters[i].Hp);
-                }
-            }
-
-            Console.WriteLine("\n\n[내정보]");
-            Console.WriteLine("Lv." + player.Level + " " + player.Name + " (" + player.Job + ")");
-            Console.WriteLine("Hp " + player.Hp + "/" + player.MaxHp);
-            Console.WriteLine("MP " + player.Mp + "/" + player.MaxMp);
-
-            Console.WriteLine();
-            Console.Write("대상을 선택해주세요.\n>>");
-
-
             List<Monster> hitMobs = new List<Monster>();
 
             int monsterNum;
@@ -80,8 +55,6 @@ namespace Text2DBattleGame
                     break;
                 }
             }
-
-            DisplayBattle.WriteBattle();
 
             DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 2f), getitem);
 
@@ -136,9 +109,6 @@ namespace Text2DBattleGame
                 hitMobs.Add(monsters[n]);
             }
 
-
-            DisplayBattle.WriteBattle();
-
             DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 1.5f), getitem);
         }
 
@@ -169,31 +139,6 @@ namespace Text2DBattleGame
         {
             player.UsingMp(useMp);
 
-            DisplayBattle.WriteBattle();
-
-            for (int i = 0; i < monsters.Length; i++)
-            {
-                if (monsters[i].IsDead)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine((i + 1) + " Lv." + monsters[i].Level + " " + monsters[i].Name + "  Dead ");
-                    Console.ResetColor();
-                }
-                else
-                {
-                    Console.WriteLine((i + 1) + " Lv." + monsters[i].Level + " " + monsters[i].Name + "  HP " + monsters[i].Hp);
-                }
-            }
-
-            Console.WriteLine("\n\n[내정보]");
-            Console.WriteLine("Lv." + player.Level + " " + player.Name + " (" + player.Job + ")");
-            Console.WriteLine("Hp " + player.Hp + "/" + player.MaxHp);
-            Console.WriteLine("MP " + player.Mp + "/" + player.MaxMp);
-
-            Console.WriteLine();
-            Console.Write("대상을 선택해주세요.\n>>");
-
-
             List<Monster> hitMobs = new List<Monster>();
 
             int monsterNum;
@@ -213,8 +158,6 @@ namespace Text2DBattleGame
                     break;
                 }
             }
-
-            DisplayBattle.WriteBattle();
 
             DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 3f), getitem);
         }
@@ -244,9 +187,6 @@ namespace Text2DBattleGame
                 randomNums.Add(n);
                 hitMobs.Add(monsters[n]);
             }
-
-
-            DisplayBattle.WriteBattle();
 
             DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 1.0f), getitem);
         }
