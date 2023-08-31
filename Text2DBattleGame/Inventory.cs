@@ -36,11 +36,11 @@ namespace Text2DBattleGame
 
                 ++i;
             }
-
+            
             Console.WriteLine("\n0. 나가기");
             Console.WriteLine("원하시는 행동을 입력해주세요.");
             Console.Write(">> ");
-
+            
             // 1입력되는 버그 수정
             int input = Program.CheckValidInput(0, player.Inventory.Count);
             switch (input)
