@@ -67,6 +67,20 @@ namespace Text2DBattleGame
             this.Price = price;
             CanUse = false;
         }
+
+        public AttackItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, int price)
+        {
+            this.Name = name;
+            this.Description = description;
+            this.IsEquip = isEquip;
+            this.Atk = atk;
+            this.Def = def;
+            this.Hp = hp;
+            this.Mp = mp;
+            this.ItemType = ItemType.Attack;
+            this.Price = price;
+            CanUse = false;
+        }
     }
 
     public class DefenseItem : IItem
@@ -96,6 +110,21 @@ namespace Text2DBattleGame
             this.ItemType = itemType;
             this.Price = price;
             
+            CanUse = false;
+        }
+
+        public DefenseItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, int price)
+        {
+            this.Name = name;
+            this.Description = description;
+            this.IsEquip = isEquip;
+            this.Atk = atk;
+            this.Def = def;
+            this.Hp = hp;
+            this.Mp = mp;
+            this.ItemType = ItemType.Defense;
+            this.Price = price;
+
             CanUse = false;
         }
 
@@ -133,6 +162,22 @@ namespace Text2DBattleGame
             this.ItemType = itemType;
             this.Price = price;
             
+            Count = 1;
+            CanUse = true;
+        }
+
+        public PotionItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, int price)
+        {
+            this.Name = name;
+            this.Description = description;
+            this.IsEquip = isEquip;
+            this.Atk = atk;
+            this.Def = def;
+            this.Hp = hp;
+            this.Mp = mp;
+            this.ItemType = ItemType.Potion;
+            this.Price = price;
+
             Count = 1;
             CanUse = true;
         }
