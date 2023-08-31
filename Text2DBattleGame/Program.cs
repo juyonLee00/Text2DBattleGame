@@ -21,6 +21,14 @@ namespace Text2DBattleGame
         public static SkillManager skillManager = new SkillManager();
 
         public static Shop shop = new Shop();
+      
+        public static List<IItem> errortable = new List<IItem>() { new PotionItem("에러포션", "체력,마나를 1회복하고 공격력 방어력이 1 상승한다", false,1,1,1,1,'p') };
+
+        public static List<IItem> normalTable = new List<IItem>() { new AttackItem("노말아이템", "test", true, 1, 1, 1, 1, 'a') };
+
+        public static List<IItem> rareTable = new List<IItem>() { new AttackItem("레어아이템", "test", true, 1, 1, 1, 1, 'a') };
+
+        public static List<IItem> UniqueTable = new List<IItem>() { new AttackItem("유니크아이템", "test", true, 1, 1, 1, 1, 'a') };
 
         static void Main(string[] args)
         {
@@ -108,8 +116,8 @@ namespace Text2DBattleGame
             Console.WriteLine();
             Console.WriteLine($"Lv.{player.Level}");
             Console.WriteLine($"{player.Name}({player.Job})");
-            Console.WriteLine($"공격력 :{player.Atk}");
-            Console.WriteLine($"방어력 : {player.Def}");
+            Console.WriteLine($"공격력 :{player.Atk} {player.ShowAtkItemEffect(ref player, ref itemGroup)}");
+            Console.WriteLine($"방어력 : {player.Def} {player.ShowDefItemEffect(ref player, ref itemGroup)}");
             Console.WriteLine($"체력 : {player.Hp}");
             Console.WriteLine($"Gold : {player.Gold} G");
             Console.WriteLine();
