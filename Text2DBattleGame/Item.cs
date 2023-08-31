@@ -12,7 +12,8 @@ namespace Text2DBattleGame
         public string Name { get; }
         public string Description { get; }
         public bool IsEquip { get; set; }
-        public char ItemType { get; set; }
+        public char ItemType { get; set; }// a 공격템 d 방어템 p 포션
+        public bool CanUse { get; set; }
     }
 
     public class AttackItem : IItem
@@ -25,16 +26,10 @@ namespace Text2DBattleGame
         public int Hp { get; set; }
         public int Mp { get; set; }
         public char ItemType { get; set; }
+        public bool CanUse { get; set; }
 
         public AttackItem() { }
 
-        public AttackItem(string name, int atk, int def, int hp)
-        {
-            Name = name;
-            Atk = atk;
-            Def = def;
-            Hp = hp;
-        }
 
         [JsonConstructor]
         public AttackItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, char itemType)
@@ -47,6 +42,7 @@ namespace Text2DBattleGame
             this.Hp = hp;
             this.Mp = mp;
             this.ItemType = itemType;
+            CanUse = false;
         }
     }
 
@@ -60,6 +56,7 @@ namespace Text2DBattleGame
         public int Hp { get; set; }
         public int Mp { get; set; }
         public char ItemType { get; set; }
+        public bool CanUse { get; set; }
 
         public DefenseItem() { }
 
@@ -73,6 +70,7 @@ namespace Text2DBattleGame
             this.Hp = hp;
             this.Mp = mp;
             this.ItemType = itemType;
+            CanUse = false;
         }
 
     }
@@ -87,8 +85,11 @@ namespace Text2DBattleGame
         public int Hp { get; set; }
         public int Mp { get; set; }
         public char ItemType { get; set; }
+        public int Count { get; set; }
+        public bool CanUse { get; set; }
 
-        public PotionItem() { }
+
+        
 
         public PotionItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, char itemType)
         {
@@ -100,7 +101,11 @@ namespace Text2DBattleGame
             this.Hp = hp;
             this.Mp = mp;
             this.ItemType = itemType;
+            Count = 1;
+            CanUse = true;
+
         }
+
     }
 
 }
