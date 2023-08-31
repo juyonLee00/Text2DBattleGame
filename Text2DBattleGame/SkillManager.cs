@@ -29,7 +29,7 @@ namespace Text2DBattleGame
             return skills;
         }
 
-        private void Warrior_AlphaStrike(Character player, Monster[] monsters, int useMp, List<IItem> itemTable1)
+        private void Warrior_AlphaStrike(Character player, Monster[] monsters, int useMp, List<IItem> getitem)
         {
             //원본
             //monsters[new Random().Next(0, monsters.Length)].TakeDamage((int)(player.Atk * 2f));
@@ -83,13 +83,13 @@ namespace Text2DBattleGame
 
             DisplayBattle.WriteBattle();
 
-            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 2f), itemTable1);
+            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 2f), getitem);
 
 
             // 구조상 차라리 Display Battle을 매니저처럼 쓰는게 좋을것 같아 위처럼 했습니다.
         }
 
-        private void Warrior_DoubleStrike(Character player, Monster[] monsters, int useMp, List<IItem> itemTable1)
+        private void Warrior_DoubleStrike(Character player, Monster[] monsters, int useMp, List<IItem> getitem)
         {
             /*
             List<int> randomNums = new List<int>();
@@ -139,7 +139,7 @@ namespace Text2DBattleGame
 
             DisplayBattle.WriteBattle();
 
-            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 1.5f), itemTable1);
+            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 1.5f), getitem);
         }
 
         #endregion
@@ -165,7 +165,7 @@ namespace Text2DBattleGame
             return skills;
         }
 
-        private void Wizard_FireBall(Character player, Monster[] monsters, int useMp, List<IItem> itemTable1)
+        private void Wizard_FireBall(Character player, Monster[] monsters, int useMp, List<IItem> getitem)
         {
             player.UsingMp(useMp);
 
@@ -216,10 +216,10 @@ namespace Text2DBattleGame
 
             DisplayBattle.WriteBattle();
 
-            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 3f), itemTable1);
+            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 3f), getitem);
         }
 
-        private void Wizard_Meteor(Character player, Monster[] monsters, int useMp, List<IItem> itemTable1)
+        private void Wizard_Meteor(Character player, Monster[] monsters, int useMp, List<IItem> getitem)
         {
             player.UsingMp(useMp);
 
@@ -248,7 +248,7 @@ namespace Text2DBattleGame
 
             DisplayBattle.WriteBattle();
 
-            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 1.0f), itemTable1);
+            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 1.0f), getitem);
         }
 
         #endregion
