@@ -78,7 +78,7 @@ namespace Text2DBattleGame
                 Mp = 0;
         }
 
-        public void EquipItem(int itemIdx)
+        public void EquipItem(int itemIdx, ref Character player)
         {
             Console.Clear();
             IItem curItem = Inventory[itemIdx];
@@ -123,8 +123,8 @@ namespace Text2DBattleGame
                                         {
                                             if(atkItem.Name == curItem.Name)
                                             {
-                                                Atk += atkItem.Atk;
-                                                Def += atkItem.Def;
+                                                player.Atk += atkItem.Atk;
+                                                player.Def += atkItem.Def;
                                                 break;
                                             }
                                         }
@@ -137,8 +137,8 @@ namespace Text2DBattleGame
                                         {
                                             if (defItem.Name == curItem.Name)
                                             {
-                                                Atk += defItem.Atk;
-                                                Def += defItem.Def;
+                                                player.Atk += defItem.Atk;
+                                                player.Def += defItem.Def;
                                                 break;
                                             }
                                         }
@@ -159,6 +159,35 @@ namespace Text2DBattleGame
                     if(!haveSameTypeItem)
                     {
                         curItem.IsEquip = true;
+
+                        if (curItem.ItemType == 'a')
+                        {
+                            List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
+                            foreach (AttackItem atkItem in atkItemList)
+                            {
+                                if (atkItem.Name == curItem.Name)
+                                {
+                                    player.Atk += atkItem.Atk;
+                                    player.Def += atkItem.Def;
+                                    break;
+                                }
+                            }
+                        }
+
+                        else
+                        {
+                            List<DefenseItem> defItemList = Program.itemGroup.GetDefList();
+                            foreach (DefenseItem defItem in defItemList)
+                            {
+                                if (defItem.Name == curItem.Name)
+                                {
+                                    player.Atk += defItem.Atk;
+                                    player.Def += defItem.Def;
+                                    break;
+                                }
+                            }
+                        }
+
                         Console.WriteLine($"{curItem.Name}을 장착 성공했습니다.");
                     }
 
