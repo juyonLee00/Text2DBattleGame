@@ -9,16 +9,12 @@ namespace Text2DBattleGame
 {
     class DisplayBattle
     {
-        
-        public static List<IItem> startTable = new List<IItem>() { new AttackItem("실패함", "test", true, 1, 1, 1, 1, 'a'), new PotionItem("실패함", "테스트", false, 1, 1, 1, 1, 'p') };
-
-        public static List<IItem> testTabel = new List<IItem>() { new AttackItem("이거면버그없음템1", "test", true, 1, 1, 1, 1, 'a'), new PotionItem("버그없음물약1", "테스트", false, 1, 1, 1, 1, 'p') };
-        public static List<IItem> errortable = new List<IItem>() { new AttackItem("버그있음", "test", true, 1, 1, 1, 1, 'a')};
         public static void Display(Character player)
         {
             int gold = player.Gold;
             int savehp = player.Hp;
             int saveexp = player.Exp;
+            int savemp = player.Mp;
             List<IItem> getItem = new List<IItem>();
 
             Console.Clear();
@@ -27,7 +23,7 @@ namespace Text2DBattleGame
 
             Battle(battleMonsters, player, getItem); 
 
-            DungeonResult.Result(player, getItem, savehp, saveexp, gold, battleMonsters.Length);
+            DungeonResult.Result(player, getItem, savehp, saveexp, gold, battleMonsters.Length,savemp);
             Program.scene = Scene.GameIntro;
         }
 
@@ -233,8 +229,8 @@ namespace Text2DBattleGame
             if (defender.IsDead)
             {
                 Console.WriteLine("Dead");
-                startTable = changeDropTabel(defender.Name);//디펜더=죽은 몬스터 = 죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
-                getItem.Add(Monster.Drop(startTable));
+                //startTable = changeDropTabel(defender.Name);//디펜더=죽은 몬스터 = 죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
+                getItem.Add(Monster.Drop(changeDropTabel(defender.Name)));
                 attacker.Exp += defender.Level;//경험치추가
                 attacker.Gold += defender.Gold;//골드추가
             }
@@ -278,8 +274,7 @@ namespace Text2DBattleGame
                 {
                     Console.WriteLine("Dead");
                     //Monster.Drop(itemTable1); 드랍은 아이템을 생성하는 함수
-                    startTable = changeDropTabel(defenders[i].Name);//디펜더=죽은 몬스터 = 죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
-                    getItem.Add(Monster.Drop(startTable));
+                    getItem.Add(Monster.Drop(changeDropTabel(defenders[i].Name)));//죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
                     attacker.Exp += defenders[i].Level;//경험치추가
                     attacker.Gold += defenders[i].Gold;//골드추가
 
@@ -296,36 +291,23 @@ namespace Text2DBattleGame
         {
             switch (name)
             {
-                case "미니언":
-                    return testTabel;    
-                    
+                case "미니언":            
                 case "공허충":
-                    return testTabel;
-
                 case "대포미니언":
-                    return testTabel;
- 
+                    return Program.normalTable;
 
                 case "타락한 거미":
-                    return testTabel;
-                    
-
                 case "그림자속무언가":
-                    return testTabel;
-
-                case "타락한 거미여왕":
-                    return testTabel;
-
                 case "수중뱀":
-                    return testTabel;
+                    return Program.rareTable;
 
                 case "수중서펀트":
-                    return testTabel;
-
                 case "드래곤":
-                    return testTabel;
+                case "타락한 거미여왕":
+                    return Program.UniqueTable;
+
                 default:
-                    return errortable;
+                    return Program.errortable;
             }
         }
 
