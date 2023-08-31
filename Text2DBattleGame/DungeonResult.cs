@@ -94,6 +94,8 @@ namespace Text2DBattleGame
             {
                 Console.WriteLine($"Lv.{player.Level - 1} {player.Name} -> Lv.{player.Level} {player.Name} ");
                 Console.WriteLine($"HP.{savehp} -> {player.Hp} ");
+                Console.WriteLine($"Atk.{player.Atk-1f} -> {player.Atk} ");
+                Console.WriteLine($"Def.{player.Def-2f} -> {player.Def} ");
                 if (player.Level <= 4)
                     Console.WriteLine($"Exp.{saveexp} -> {player.Exp} ");
 
@@ -102,7 +104,7 @@ namespace Text2DBattleGame
             {
                 Console.WriteLine($"Lv.{player.Level} {player.Name} ");
                 Console.WriteLine($"HP.{savehp} -> {player.Hp} ");
-                if (player.Level <= 4)
+                if (player.Level <= 4)//만들 당시에는 예시가 만렙이 5 여서 4렙이하만 보여줬는데 계속 보여줘야 할지도 모르겠음
                     Console.WriteLine($"Exp.{saveexp} -> {player.Exp} ");
 
             }

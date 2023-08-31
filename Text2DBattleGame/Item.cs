@@ -113,13 +113,44 @@ namespace Text2DBattleGame
 
         public void Use(Character player, int i)
         {
-            player.Hp += Hp;
-            player.Mp += Mp;
-            player.Atk += Atk;
-            player.Def += Def;
+            Console.Clear();
+            if (Hp != 0) 
+            {
+                player.Hp += Hp;
+                Console.WriteLine($"체력을 {Hp}회복 하였습니다.");
+                Console.WriteLine($"{player.Hp - Hp} -> {player.Hp}");
+            }
+            if (Mp != 0)
+            {
+                player.Mp += Mp;
+                Console.WriteLine($"마나를 {Mp}회복 하였습니다.");
+                Console.WriteLine($"{player.Mp - Mp} -> {player.Mp}");
+            }
+            if (Atk != 0)
+            {
+                player.Atk += Atk;
+                Console.WriteLine($"공격력이 {Atk}증가 하였습니다.");
+                Console.WriteLine($"{player.Atk - Atk} -> {player.Atk}");
+            }
+            if (Def != 0)
+            {
+                player.Def += Def;
+                Console.WriteLine($"방어력이 {Def}증가 하였습니다.");
+                Console.WriteLine($"{player.Def - Def} -> {player.Def}");
+            }
             Count--;
             if (Count <= 0)
                 player.Inventory.RemoveAt(i - 1);
+            Console.WriteLine();
+            Console.WriteLine("0. 인벤토리");
+
+            int input = Program.CheckValidInput(0, 0);
+            switch (input)
+            {
+                case 0:
+                    Program.scene = Scene.Inventory;
+                    break;
+            }
 
         }
     }
