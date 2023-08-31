@@ -22,8 +22,6 @@ namespace Text2DBattleGame
             public float CriticalAtk { get; set; }
             public float Avoidability { get; set; }
 
-            public List<Skill> Skills { get; set; }
-
 
             internal void AddJob(string jobName)
             {
@@ -37,7 +35,6 @@ namespace Text2DBattleGame
                     this.CriticalRate = 15f;
                     this.CriticalAtk = 1.6f;
                     this.Avoidability = 10f;
-                    this.Skills = Program.skillManager.GetWizardSkills();
                 }
                 else if (jobName == "Warrior")
                 {
@@ -49,7 +46,6 @@ namespace Text2DBattleGame
                     this.CriticalRate = 15f;
                     this.CriticalAtk = 1.6f;
                     this.Avoidability = 10f;
-                    this.Skills = Program.skillManager.GetWarriorSkills();
                 }
 
                 else
@@ -108,10 +104,10 @@ namespace Text2DBattleGame
         {
             switch(player.Job)
             {
-                case "Wizard":
+                case "마법사":
                     player.Skills = Program.skillManager.GetWizardSkills();
                     break;
-                case "Warrior":
+                case "전사":
                     player.Skills = Program.skillManager.GetWarriorSkills();
                     break;
             }

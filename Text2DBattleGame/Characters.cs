@@ -60,6 +60,7 @@ namespace Text2DBattleGame
             Exp = 0;
             DungeonLevel = 1;
             Inventory = new List<IItem>();
+            Skills = new List<Skill>();
             CriticalRate = criticalRate;
             CriticalAtk = criticalAtk;
             Avoidability = avoidability;
