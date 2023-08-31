@@ -92,6 +92,28 @@ namespace Text2DBattleGame
             }
             if (levelup)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("L");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.Write("e");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write("v");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("e");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("l");
+                Console.ResetColor();
+                Console.Write("");
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.Write("U");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.WriteLine("p");
+                Console.ResetColor();
                 Console.WriteLine($"Lv.{player.Level - 1} {player.Name} -> Lv.{player.Level} {player.Name} ");
                 Console.WriteLine($"HP.{savehp} -> {player.Hp} ");
                 Console.WriteLine($"HP.{savemp} -> {player.Mp} ");
@@ -105,7 +127,7 @@ namespace Text2DBattleGame
             {
                 Console.WriteLine($"Lv.{player.Level} {player.Name} ");
                 Console.WriteLine($"HP.{savehp} -> {player.Hp} ");
-                Console.WriteLine($"HP.{savemp} -> {player.Mp} ");
+                Console.WriteLine($"MP.{savemp} -> {player.Mp} ");
                 if (player.Level <= 4)//만들 당시에는 예시가 만렙이 5 여서 4렙이하만 보여줬는데 계속 보여줘야 할지도 모르겠음
                     Console.WriteLine($"Exp.{saveexp} -> {player.Exp} ");
 
