@@ -113,26 +113,38 @@ namespace Text2DBattleGame
         {
             Console.WriteLine("[획득 아이템]");
             Console.WriteLine($"{player.Gold - gold} Gold");
-            if (list != null) 
+            //player.Inventory.AddRange(list);
+            for (int i = 0; i < list.Count; ++i)
+            {
+                Console.WriteLine($"{list[i].Name} - 1");
+                if (list[i].CanUse)//소모품 이라면
                 {
-                player.Inventory.AddRange(list);
+                    string number = list[i].Name;
+                    //소모품 1개가 있는데 1개를 더먹으면 2개로 겹쳐지는걸 구현하고 싶음
+                    int num = player.Inventory.FindIndex(Item => Item.Name.Equals(number));
+                    if (0 <= num)
+                    {
+                        if (player.Inventory[num] is PotionItem)
+                        {
+                            PotionItem a = player.Inventory[num] as PotionItem;
+                            a.Count++;
+                            //만약 a가 형변환이 가능하다면 a에 오른쪽 값이 들어옴
+                        }
+
+
+                    }
+                    else//그 아이템이 처음 추가 되는경우
+                    {
+                        player.Inventory.Add(list[i]);
+                    }
                 }
-
-            if (player.Inventory != null) 
-            { 
-                 for (int i = 0; i < list.Count; ++i)
-                 {
-                 Console.WriteLine($"{list[i].Name} - 1");
-                 }
+                else
+                {
+                    player.Inventory.Add(list[i]);
+                }
             }
-
-
-            //foreach (Item item in list)배열
-            //{
-            //    Console.WriteLine($"{item.Name} - 1");
-            //}
-
-
         }
+
+    
     }
 }

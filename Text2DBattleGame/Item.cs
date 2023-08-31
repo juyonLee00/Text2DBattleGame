@@ -13,6 +13,7 @@ namespace Text2DBattleGame
         public string Description { get; }
         public bool IsEquip { get; set; }
         public char ItemType { get; set; }
+        public bool CanUse { get; set; }
     }
 
     public class AttackItem : IItem
@@ -25,10 +26,11 @@ namespace Text2DBattleGame
         public int Hp { get; set; }
         public int Mp { get; set; }
         public char ItemType { get; set; }
+        public bool CanUse { get; set; }
 
         public AttackItem() { }
 
-        public AttackItem(string name, int atk, int def, int hp)
+        public AttackItem(string name, int atk, int def, int hp)//드랍 테스트용으로 만듬 나중에 없어질듯함
         {
             Name = name;
             Atk = atk;
@@ -47,6 +49,7 @@ namespace Text2DBattleGame
             this.Hp = hp;
             this.Mp = mp;
             this.ItemType = itemType;
+            CanUse = false;
         }
     }
 
@@ -60,6 +63,7 @@ namespace Text2DBattleGame
         public int Hp { get; set; }
         public int Mp { get; set; }
         public char ItemType { get; set; }
+        public bool CanUse { get; set; }
 
         public DefenseItem() { }
 
@@ -73,6 +77,7 @@ namespace Text2DBattleGame
             this.Hp = hp;
             this.Mp = mp;
             this.ItemType = itemType;
+            CanUse = false;
         }
 
     }
@@ -87,6 +92,8 @@ namespace Text2DBattleGame
         public int Hp { get; set; }
         public int Mp { get; set; }
         public char ItemType { get; set; }
+        public int Count { get; set; }
+        public bool CanUse { get; set; }
 
         public PotionItem() { }
 
@@ -100,6 +107,20 @@ namespace Text2DBattleGame
             this.Hp = hp;
             this.Mp = mp;
             this.ItemType = itemType;
+            Count = 1;
+            CanUse = true;
+    }
+
+        public void Use(Character player, int i)
+        {
+            player.Hp += Hp;
+            player.Mp += Mp;
+            player.Atk += Atk;
+            player.Def += Def;
+            Count--;
+            if (Count <= 0)
+                player.Inventory.RemoveAt(i - 1);
+
         }
     }
 
