@@ -26,6 +26,8 @@ namespace Text2DBattleGame
         public int Mp { get; set; }
         public char ItemType { get; set; }
 
+        public AttackItem() { }
+
         public AttackItem(string name, int atk, int def, int hp)
         {
             Name = name;
@@ -59,6 +61,8 @@ namespace Text2DBattleGame
         public int Mp { get; set; }
         public char ItemType { get; set; }
 
+        public DefenseItem() { }
+
         public DefenseItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, char itemType)
         {
             this.Name = name;
@@ -83,6 +87,8 @@ namespace Text2DBattleGame
         public int Hp { get; set; }
         public int Mp { get; set; }
         public char ItemType { get; set; }
+
+        public PotionItem() { }
 
         public PotionItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, char itemType)
         {

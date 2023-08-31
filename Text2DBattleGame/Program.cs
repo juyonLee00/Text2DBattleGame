@@ -16,6 +16,8 @@ namespace Text2DBattleGame
 
         private static List<IItem> itemList = new List<IItem>();
 
+        public static ItemGroup itemGroup = new ItemGroup();
+
         public static SkillManager skillManager = new SkillManager();
 
         static void Main(string[] args)

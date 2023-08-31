@@ -115,7 +115,37 @@ namespace Text2DBattleGame
                                 case 1:
                                     item.IsEquip = false;
                                     curItem.IsEquip = true;
+
+                                    if(curItem.ItemType == 'a')
+                                    {
+                                        List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
+                                        foreach(AttackItem atkItem in atkItemList)
+                                        {
+                                            if(atkItem.Name == curItem.Name)
+                                            {
+                                                Atk += atkItem.Atk;
+                                                Def += atkItem.Def;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    else
+                                    {
+                                        List<DefenseItem> defItemList = Program.itemGroup.GetDefList();
+                                        foreach (DefenseItem defItem in defItemList)
+                                        {
+                                            if (defItem.Name == curItem.Name)
+                                            {
+                                                Atk += defItem.Atk;
+                                                Def += defItem.Def;
+                                                break;
+                                            }
+                                        }
+                                    }
+
                                     
+
                                     Console.WriteLine($"\n아이템이 {item.Name}에서 {curItem.Name}으로 교체되었습니다.");
                                     Console.WriteLine($"{curItem.Name}을 장착 성공했습니다.");
                                     break;
