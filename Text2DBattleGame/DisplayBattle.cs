@@ -10,9 +10,10 @@ namespace Text2DBattleGame
     class DisplayBattle
     {
         
-        public static List<IItem> itemTable1 = new List<IItem>();
+        public static List<IItem> itemTable1 = new List<IItem>() { new AttackItem("실패함", "test", true, 1, 1, 1, 1, 'a'), new PotionItem("실패함", "테스트", false, 1, 1, 1, 1, 'p') };
 
-        public static List<IItem> testTabel = new List<IItem>() { new AttackItem("test", "test", true, 1, 1, 1, 1, 'a'), new PotionItem("테스트 모능물약", "테스트", false, 1, 1, 1, 1, 'p') };
+        public static List<IItem> testTabel = new List<IItem>() { new AttackItem("이게나와야함", "test", true, 1, 1, 1, 1, 'a'), new PotionItem("이게나와야함", "테스트", false, 1, 1, 1, 1, 'p') };
+        public static List<IItem> errortable = new List<IItem>() { new AttackItem("이름값을못받는건가?", "test", true, 1, 1, 1, 1, 'a')};
         public static void Display(Character player)
         {
             int gold = player.Gold;
@@ -241,8 +242,7 @@ namespace Text2DBattleGame
             if (defender.IsDead)
             {
                 Console.WriteLine("Dead");
-                itemTable1 = changeDropTabel(defender);//디펜더=죽은 몬스터 = 죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
-
+                itemTable1 = changeDropTabel(defender.Name);//디펜더=죽은 몬스터 = 죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
                 getItem.Add(Monster.Drop(itemTable1));
                 attacker.Exp += defender.Level;//경험치추가
                 attacker.Gold += defender.Gold;//골드추가
@@ -287,7 +287,8 @@ namespace Text2DBattleGame
                 {
                     Console.WriteLine("Dead");
                     //Monster.Drop(itemTable1); 드랍은 아이템을 생성하는 함수
-                    getItem.Add(Monster.Drop(testTabel));
+                    itemTable1 = changeDropTabel(defenders[i].Name);//디펜더=죽은 몬스터 = 죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
+                    getItem.Add(Monster.Drop(errortable));
                     attacker.Exp += defenders[i].Level;//경험치추가
                     attacker.Gold += defenders[i].Gold;//골드추가
 
@@ -300,9 +301,9 @@ namespace Text2DBattleGame
                 Console.WriteLine();
             }
         }
-        public static List<IItem> changeDropTabel(ICharacter character) 
+        public static List<IItem> changeDropTabel(string name) 
         {
-            switch (character.Name)
+            switch (name)
             {
                 case "미니언":
                     return testTabel;    
@@ -333,7 +334,7 @@ namespace Text2DBattleGame
                 case "드래곤":
                     return testTabel;
                 default:
-                    return testTabel;
+                    return errortable;
             }
         }
 

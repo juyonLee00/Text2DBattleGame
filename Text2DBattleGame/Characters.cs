@@ -330,14 +330,13 @@ namespace Text2DBattleGame
             Random random = new Random();
             int basic = random.Next(1, 100);
             int i = random.Next(0, droptable1.Count);
-            if (i>=0) 
-            {
+            
                 if (persent >= basic)
                 {
                     IItem item = droptable1[i];
                     return item;
                 }
-            }
+            
             
             return null;
         }
