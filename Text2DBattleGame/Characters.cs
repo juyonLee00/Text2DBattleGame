@@ -89,7 +89,7 @@ namespace Text2DBattleGame
             {
                 foreach(IItem item in player.EquipList)
                 {
-                    if(item.ItemType == 'a')
+                    if(item.ItemType == ItemType.Attack)
                     {
                         List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
                         foreach (AttackItem atkItem in atkItemList)
@@ -123,7 +123,7 @@ namespace Text2DBattleGame
             {
                 foreach (IItem item in player.EquipList)
                 {
-                    if (item.ItemType == 'd')
+                    if (item.ItemType == ItemType.Defense)
                     {
                         List<DefenseItem> defItemList = Program.itemGroup.GetDefList();
                         foreach (DefenseItem defItem in defItemList)
@@ -330,7 +330,7 @@ namespace Text2DBattleGame
                                     curItemIdx = i;
                                     player.EquipList.RemoveAt(curItemIdx);
 
-                                    if(curItem.ItemType == 'a')
+                                    if(curItem.ItemType == ItemType.Attack)
                                     {
                                         List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
                                         foreach (AttackItem item in atkItemList)

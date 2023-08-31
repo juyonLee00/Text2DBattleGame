@@ -22,7 +22,7 @@ namespace Text2DBattleGame
         public object CreateClone();
         public bool CanUse { get; set; }
     }
-
+    
     public class AttackItem : IItem
     {
         public string Name { get; }
@@ -52,8 +52,6 @@ namespace Text2DBattleGame
             return MemberwiseClone();
         }
         public bool CanUse { get; set; }
-
-        public AttackItem() { }
 
         [JsonConstructor]
         public AttackItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, ItemType itemType, int price)
@@ -86,7 +84,7 @@ namespace Text2DBattleGame
 
         public DefenseItem() { }
 
-        public DefenseItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, int price)
+        public DefenseItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, ItemType itemType, int price)
         {
             this.Name = name;
             this.Description = description;
@@ -95,7 +93,7 @@ namespace Text2DBattleGame
             this.Def = def;
             this.Hp = hp;
             this.Mp = mp;
-            this.ItemType = ItemType.Defense;
+            this.ItemType = itemType;
             this.Price = price;
             
             CanUse = false;
@@ -123,7 +121,7 @@ namespace Text2DBattleGame
 
         
 
-        public PotionItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, int price)
+        public PotionItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, ItemType itemType, int price)
         {
             this.Name = name;
             this.Description = description;
@@ -132,7 +130,7 @@ namespace Text2DBattleGame
             this.Def = def;
             this.Hp = hp;
             this.Mp = mp;
-            this.ItemType = ItemType.Potion;
+            this.ItemType = itemType;
             this.Price = price;
             
             Count = 1;

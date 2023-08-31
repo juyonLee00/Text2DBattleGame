@@ -58,7 +58,7 @@ namespace Text2DBattleGame
         public void GameDataSetting(ref Character player, ref List<IItem> itemList)
         {
             PlayerDataSetting(ref player);
-            //ItemDataSetting(ref itemList);
+            ItemDataSetting(ref itemList);
         }
 
 
@@ -121,11 +121,11 @@ namespace Text2DBattleGame
                 WriteIndented = true,
                 PropertyNameCaseInsensitive = true,
             };
-            
+
             string strJson = File.ReadAllText(@"../../AttackItemDataList.json");
             List<AttackItem> atkItemList = JsonSerializer.Deserialize<List<AttackItem>>(strJson, options3);
 
-
+            
             strJson = File.ReadAllText(@"../../DefenseItemDataList.json");
             List<DefenseItem> defItemList = JsonSerializer.Deserialize<List<DefenseItem>>(strJson, options3);
 
@@ -136,7 +136,7 @@ namespace Text2DBattleGame
             Program.itemGroup = new ItemGroup(atkItemList, defItemList, potItemList);
 
             AddAllItemData(atkItemList, defItemList, potItemList, ref itemList);
-
+            
         }
 
         public void AddAllItemData(List<AttackItem> atkList, List<DefenseItem> defList, List<PotionItem> potList, ref List<IItem> itemList)

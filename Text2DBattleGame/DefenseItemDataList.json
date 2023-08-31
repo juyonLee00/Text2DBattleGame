@@ -7,7 +7,9 @@
     "Def": 5,
     "Hp": 0,
     "Mp": 0,
-    "ItemType": "d"
+    "ItemType": 2,
+    "Price": 20,
+    "CanUse": false
   },
   {
     "Name": "스파르타의 갑옷",
@@ -17,7 +19,9 @@
     "Def": 15,
     "Hp": 0,
     "Mp": 0,
-    "ItemType": "d"
+    "ItemType": 2,
+    "Price": 70,
+    "CanUse": false
   },
   {
     "Name": "수련자 갑옷",
@@ -27,6 +31,8 @@
     "Def": 5,
     "Hp": 0,
     "Mp": 0,
-    "ItemType": "d"
+    "ItemType": 2,
+    "Price": 40,
+    "CanUse": false
   }
 ]
