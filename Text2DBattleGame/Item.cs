@@ -53,8 +53,6 @@ namespace Text2DBattleGame
         }
         public bool CanUse { get; set; }
 
-        public AttackItem() { }
-
         [JsonConstructor]
         public AttackItem(string name, string description, bool isEquip, int atk, int def, int hp, int mp, ItemType itemType, int price)
         {
