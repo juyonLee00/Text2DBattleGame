@@ -62,7 +62,6 @@ namespace Text2DBattleGame
             DungeonLevel = 1;
             Inventory = new List<IItem>();
             EquipList = new List<IItem>();
-            Skills = skill;
             Skills = new List<Skill>();
             CriticalRate = criticalRate;
             CriticalAtk = criticalAtk;
