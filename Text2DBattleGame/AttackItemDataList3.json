@@ -1,0 +1,50 @@
+[
+  {
+    "Name": "강철 검",
+    "Description": "튼튼한 검입니다.",
+    "IsEquip": false,
+    "Atk": 6,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 0,
+    "ItemType": 1,
+    "Price": 600,
+    "CanUse": false
+  },
+  {
+    "Name": "메이스",
+    "Description": "주위에서 조금 보이는 메이스입니다.",
+    "IsEquip": false,
+    "Atk": 7,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 0,
+    "ItemType": 1,
+    "Price": 900,
+    "CanUse": false
+  },
+  {
+    "Name": "금 도끼",
+    "Description": "정직한 자만이 얻을 수 있다는 황금 도끼.",
+    "IsEquip": false,
+    "Atk": 9,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 0,
+    "ItemType": 1,
+    "Price": 150,
+    "CanUse": false
+  },
+  {
+    "Name": "스파르타의 창",
+    "Description": "스파르타의 전사들이 사용했다는 전설의 창입니다.",
+    "IsEquip": false,
+    "Atk": 15,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 0,
+    "ItemType": 1,
+    "Price": 7000,
+    "CanUse": false
+  }
+]

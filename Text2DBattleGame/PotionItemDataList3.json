@@ -1,0 +1,80 @@
+[
+  {
+    "Name": "HP 회복 포션(대)",
+    "Description": "30의 HP를 회복할 수 있습니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 0,
+    "Hp": 30,
+    "Mp": 0,
+    "ItemType": 0,
+    "Price": 50,
+    "Count": 1,
+    "CanUse": true
+  },
+  {
+    "Name": "MP 회복 포션(대)",
+    "Description": "30의 MP를 회복할 수 있습니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 30,
+    "ItemType": 0,
+    "Price": 50,
+    "Count": 1,
+    "CanUse": true
+  },
+  {
+    "Name": "HP 회복 포션(대)",
+    "Description": "30의 HP를 회복할 수 있습니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 0,
+    "Hp": 30,
+    "Mp": 0,
+    "ItemType": 0,
+    "Price": 10,
+    "Count": 1,
+    "CanUse": true
+  },
+  {
+    "Name": "MP 회복 포션(대)",
+    "Description": "30의 MP를 회복할 수 있습니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 50,
+    "ItemType": 0,
+    "Price": 10,
+    "Count": 1,
+    "CanUse": true
+  },
+  {
+    "Name": "힘의 포션",
+    "Description": "공격력이 1 증가 합니다.",
+    "IsEquip": false,
+    "Atk": 1,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 0,
+    "ItemType": 0,
+    "Price": 90,
+    "Count": 1,
+    "CanUse": true
+  },
+  {
+    "Name": "강철 포션",
+    "Description": "방어력이 1 증가 합니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 1,
+    "Hp": 0,
+    "Mp": 30,
+    "ItemType": 0,
+    "Price": 90,
+    "Count": 1,
+    "CanUse": true
+  }
+]

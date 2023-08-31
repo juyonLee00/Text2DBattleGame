@@ -1,0 +1,50 @@
+[
+  {
+    "Name": "검",
+    "Description": "검입니다.",
+    "IsEquip": false,
+    "Atk": 4,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 0,
+    "ItemType": 1,
+    "Price": 400,
+    "CanUse": false
+  },
+  {
+    "Name": "강철 몽둥이",
+    "Description": "주위에서 흔히 보이는 몽둥이입니다.",
+    "IsEquip": false,
+    "Atk": 5,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 0,
+    "ItemType": 1,
+    "Price": 600,
+    "CanUse": false
+  },
+  {
+    "Name": "은 도끼",
+    "Description": "희미하게 산신령이 라는 이름이 남아있습니다",
+    "IsEquip": false,
+    "Atk": 7,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 0,
+    "ItemType": 1,
+    "Price": 1000,
+    "CanUse": false
+  },
+  {
+    "Name": "스파게티의 창",
+    "Description": "스파게티를 먹는데 사용했다는 전설의 창입니다.",
+    "IsEquip": false,
+    "Atk": 11,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 0,
+    "ItemType": 1,
+    "Price": 3500,
+    "CanUse": false
+  }
+]

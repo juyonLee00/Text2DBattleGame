@@ -1,0 +1,38 @@
+[
+  {
+    "Name": "홍당무쇠갑옷",
+    "Description": "홍당무 색의 무쇠로 만들어져 튼튼한 갑옷입니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 5,
+    "Hp": 0,
+    "Mp": 0,
+    "ItemType": 2,
+    "Price": 20,
+    "CanUse": false
+  },
+  {
+    "Name": "스파게티의 갑옷",
+    "Description": "스파게티의 요리사들이 사용했다는 전설의 갑옷입니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 10,
+    "Hp": 0,
+    "Mp": 0,
+    "ItemType": 2,
+    "Price": 70,
+    "CanUse": false
+  },
+  {
+    "Name": "화련자 갑옷",
+    "Description": "화련에 도움을 주는 갑옷입니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 5,
+    "Hp": 0,
+    "Mp": 0,
+    "ItemType": 2,
+    "Price": 40,
+    "CanUse": false
+  }
+]

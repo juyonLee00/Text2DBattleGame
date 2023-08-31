@@ -58,7 +58,7 @@ namespace Text2DBattleGame
         public void GameDataSetting(ref Character player, ref List<IItem> itemList)
         {
             PlayerDataSetting(ref player);
-            ItemDataSetting(ref itemList);
+            ItemDataSetting();
         }
 
 
@@ -125,7 +125,7 @@ namespace Text2DBattleGame
             }
         }
 
-        public void ItemDataSetting(ref List<IItem> itemList)
+        public void ItemDataSetting()//ref List<IItem> itemList
         {
             var options3 = new JsonSerializerOptions
             {
@@ -135,8 +135,14 @@ namespace Text2DBattleGame
             };
 
             List<AttackItem> atkItemList = new List<AttackItem>();
+            List<AttackItem> atkItemList2 = new List<AttackItem>();
+            List<AttackItem> atkItemList3 = new List<AttackItem>();
             List<DefenseItem> defItemList = new List<DefenseItem>();
+            List<DefenseItem> defItemList2 = new List<DefenseItem>();
+            List<DefenseItem> defItemList3 = new List<DefenseItem>();
             List<PotionItem> potionItemList = new List<PotionItem>();
+            List<PotionItem> potionItemList2 = new List<PotionItem>();
+            List<PotionItem> potionItemList3 = new List<PotionItem>();
             string strJson = "";
 
             //여기서부터 Json으로 변환
@@ -175,21 +181,39 @@ namespace Text2DBattleGame
             strJson = File.ReadAllText(@"../../AttackItemDataList.json");
             atkItemList = JsonSerializer.Deserialize<List<AttackItem>>(strJson, options3);
 
-            
+            strJson = File.ReadAllText(@"../../AttackItemDataList2.json");
+            atkItemList2 = JsonSerializer.Deserialize<List<AttackItem>>(strJson, options3);
+
+            strJson = File.ReadAllText(@"../../AttackItemDataList3.json");
+            atkItemList3 = JsonSerializer.Deserialize<List<AttackItem>>(strJson, options3);
+
+
             strJson = File.ReadAllText(@"../../DefenseItemDataList.json");
             defItemList = JsonSerializer.Deserialize<List<DefenseItem>>(strJson, options3);
+            strJson = File.ReadAllText(@"../../DefenseItemDataList2.json");
+            defItemList2 = JsonSerializer.Deserialize<List<DefenseItem>>(strJson, options3);
+            strJson = File.ReadAllText(@"../../DefenseItemDataList3.json");
+            defItemList3 = JsonSerializer.Deserialize<List<DefenseItem>>(strJson, options3);
 
 
             strJson = File.ReadAllText(@"../../PotionItemDataList.json");
             List<PotionItem> potItemList = JsonSerializer.Deserialize<List<PotionItem>>(strJson, options3);
+            strJson = File.ReadAllText(@"../../PotionItemDataList2.json");
+            List<PotionItem> potItemList2 = JsonSerializer.Deserialize<List<PotionItem>>(strJson, options3);
+            strJson = File.ReadAllText(@"../../PotionItemDataList3.json");
+            List<PotionItem> potItemList3 = JsonSerializer.Deserialize<List<PotionItem>>(strJson, options3);
 
             Program.itemGroup = new ItemGroup(atkItemList, defItemList, potItemList);
 
-            AddAllItemData(atkItemList, defItemList, potItemList, ref itemList);
-            
+            //AddAllItemData(atkItemList, defItemList, potItemList, ref itemList);
+            AddAllItemData(atkItemList, defItemList, potItemList, Program.normalTable);
+            AddAllItemData(atkItemList2, defItemList2, potItemList2, Program.rareTable);
+            AddAllItemData(atkItemList3, defItemList3, potItemList3, Program.UniqueTable);
+
+
         }
 
-        public void AddAllItemData(List<AttackItem> atkList, List<DefenseItem> defList, List<PotionItem> potList, ref List<IItem> itemList)
+        public void AddAllItemData(List<AttackItem> atkList, List<DefenseItem> defList, List<PotionItem> potList, List<IItem> itemList)
         {
             foreach(AttackItem atkItem in atkList)
             {

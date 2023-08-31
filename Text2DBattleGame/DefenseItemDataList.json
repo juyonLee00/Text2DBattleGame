@@ -4,7 +4,7 @@
     "Description": "무쇠로 만들어져 튼튼한 갑옷입니다.",
     "IsEquip": false,
     "Atk": 0,
-    "Def": 5,
+    "Def": 2,
     "Hp": 0,
     "Mp": 0,
     "ItemType": 2,
@@ -12,23 +12,11 @@
     "CanUse": false
   },
   {
-    "Name": "스파르타의 갑옷",
-    "Description": "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.",
-    "IsEquip": false,
-    "Atk": 0,
-    "Def": 15,
-    "Hp": 0,
-    "Mp": 0,
-    "ItemType": 2,
-    "Price": 70,
-    "CanUse": false
-  },
-  {
     "Name": "수련자 갑옷",
     "Description": "수련에 도움을 주는 갑옷입니다.",
     "IsEquip": false,
     "Atk": 0,
-    "Def": 5,
+    "Def": 2,
     "Hp": 0,
     "Mp": 0,
     "ItemType": 2,

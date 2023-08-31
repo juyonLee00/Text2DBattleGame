@@ -1,0 +1,54 @@
+[
+  {
+    "Name": "HP 회복 포션(중)",
+    "Description": "20의 HP를 회복할 수 있습니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 0,
+    "Hp": 20,
+    "Mp": 0,
+    "ItemType": 0,
+    "Price": 30,
+    "Count": 1,
+    "CanUse": true
+  },
+  {
+    "Name": "MP 회복 포션(중)",
+    "Description": "20의 MP를 회복할 수 있습니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 20,
+    "ItemType": 0,
+    "Price": 30,
+    "Count": 1,
+    "CanUse": true
+  },
+  {
+    "Name": "HP 회복 포션(중)",
+    "Description": "20의 HP를 회복할 수 있습니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 0,
+    "Hp": 20,
+    "Mp": 0,
+    "ItemType": 0,
+    "Price": 30,
+    "Count": 1,
+    "CanUse": true
+  },
+  {
+    "Name": "MP 회복 포션(중)",
+    "Description": "20의 MP를 회복할 수 있습니다.",
+    "IsEquip": false,
+    "Atk": 0,
+    "Def": 0,
+    "Hp": 0,
+    "Mp": 20,
+    "ItemType": 0,
+    "Price": 30,
+    "Count": 1,
+    "CanUse": true
+  }
+]
