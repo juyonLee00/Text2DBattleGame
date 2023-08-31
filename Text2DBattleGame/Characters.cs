@@ -44,7 +44,9 @@ namespace Text2DBattleGame
         public Character() { }
 
         public List<IItem> Inventory { get; set; }
-        public List<IItem> EquipList { get; set; }
+
+        public List<IItem> AtkEquipList { get; set; }
+        public List<IItem> DefEquipList { get; set; }
         public List<Skill> Skills { get; set; }
         public Character(string name, string job, int level, int atk, int def, int hp, int mp, int gold, float criticalRate, float criticalAtk, float avoidability)
         {
@@ -61,7 +63,8 @@ namespace Text2DBattleGame
             Exp = 0;
             DungeonLevel = 1;
             Inventory = new List<IItem>();
-            EquipList = new List<IItem>();
+            AtkEquipList = new List<IItem>();
+            DefEquipList = new List<IItem>();
             Skills = new List<Skill>();
             CriticalRate = criticalRate;
             CriticalAtk = criticalAtk;
@@ -80,77 +83,63 @@ namespace Text2DBattleGame
                 Mp = 0;
         }
 
-        public string ShowAtkItemEffect(ref Character player, ref ItemGroup itemGroup)
+        public string ShowItemEffect(ref Character player, ref ItemGroup itemGroup, ItemType itemType)
         {
             int value;
             string answer = "";
             bool isAnsGet = false;
-            if(player.EquipList.Count != 0)
+
+            switch (itemType)
             {
-                foreach(IItem item in player.EquipList)
-                {
-                    if(item.ItemType == ItemType.Attack)
+                case ItemType.Attack:
+                    if (player.AtkEquipList.Count != 0)
                     {
-                        List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
-                        foreach (AttackItem atkItem in atkItemList)
+                        foreach (IItem item in player.AtkEquipList)
                         {
-                            if (atkItem.Name == item.Name)
+                            List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
+                            foreach (AttackItem atkItem in atkItemList)
                             {
-                                value = atkItem.Atk;
-                                answer = "(+" + value.ToString() + ")";
-                                isAnsGet = true;
-                                break;
+                                if (atkItem.Name == item.Name)
+                                {
+                                    value = atkItem.Atk;
+                                    answer = "(+" + value.ToString() + ")";
+                                    isAnsGet = true;
+                                    break;
+                                }
+                                if (isAnsGet)
+                                    break;
                             }
-                            if (isAnsGet)
-                                break;
+
                         }
                     }
-                }
-                return answer;
-            }
-            else
-            {
-                return " ";
-            }
-        }
-
-        public string ShowDefItemEffect(ref Character player, ref ItemGroup itemGroup)
-        {
-            int value;
-            string answer = "";
-            bool isAnsGet = false;
-            if (player.EquipList.Count != 0)
-            {
-                foreach (IItem item in player.EquipList)
-                {
-                    if (item.ItemType == ItemType.Defense)
+                    break;
+                case ItemType.Defense:
+                    if (player.DefEquipList.Count != 0)
                     {
-                        List<DefenseItem> defItemList = Program.itemGroup.GetDefList();
-                        foreach (DefenseItem defItem in defItemList)
+                        foreach (IItem item in player.DefEquipList)
                         {
-                            if (defItem.Name == item.Name)
+                            List<DefenseItem> defItemList = Program.itemGroup.GetDefList();
+                            foreach (DefenseItem defItem in defItemList)
                             {
-                                value = defItem.Def;
-                                answer = "(+" + value.ToString() + ")";
-                                isAnsGet = true;
-                                break;
+                                if (defItem.Name == item.Name)
+                                {
+                                    value = defItem.Def;
+                                    answer = "(+" + value.ToString() + ")";
+                                    isAnsGet = true;
+                                    break;
+                                }
+                                if (isAnsGet)
+                                    break;
                             }
-                            if (isAnsGet)
-                                break;
+
                         }
                     }
-                }
-                return answer;
-                
+                break;
             }
-            else
-            {
-                return " ";
-            }
+            return answer;
         }
 
-
-        public void EquipItem(int itemIdx, ref Character player)
+        public void CheckInventoryItem(int itemIdx, ref Character player)
         {
             Console.Clear();
             IItem curItem = Inventory[itemIdx];
@@ -158,7 +147,7 @@ namespace Text2DBattleGame
             int input;
             bool haveSameTypeItem = false;
 
-            if(curItemType == ItemType.Potion)
+            if (curItemType == ItemType.Potion)
             {
                 Console.WriteLine("포션은 장착할 수 없습니다!");
             }
@@ -167,12 +156,13 @@ namespace Text2DBattleGame
             {
                 if (!curItem.IsEquip)
                 {
-                    foreach (IItem item in Inventory)
+                    foreach (IItem EquipedItem in Inventory)
                     {
-                        if (item.ItemType == curItemType && item.IsEquip)
+                        if (EquipedItem.ItemType == curItemType && EquipedItem.IsEquip)
                         {
                             haveSameTypeItem = true;
-                            Console.WriteLine($"이미 동일한 속성의 아이템 {item.Name}을 장착하고 있습니다.");
+                            IItem equipedItem = EquipedItem;
+                            Console.WriteLine($"이미 동일한 속성의 아이템 {EquipedItem.Name}을 장착하고 있습니다.");
                             Console.WriteLine("아이템을 교체하시겠습니까?\n");
 
                             Console.WriteLine("1. 예");
@@ -185,81 +175,22 @@ namespace Text2DBattleGame
                                     Program.scene = Scene.Inventory;
                                     break;
                                 case 1:
-                                    item.IsEquip = false;
+                                    EquipedItem.IsEquip = false;
                                     curItem.IsEquip = true;
 
-                                    if(curItem.ItemType == ItemType.Attack)
-
+                                    if (curItem.ItemType == ItemType.Attack)
                                     {
-                                        List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
-                                        foreach (AttackItem i in atkItemList)
-                                        {
-                                            if (i.Name == curItem.Name)
-                                            {
-                                                player.Atk += i.Atk;
-                                                player.Def += i.Def;
-                                                player.EquipList.Add(i);
-
-                                                //중복되는 이전에 착용한 아이템 삭제
-                                                int deleteIdx = 0;
-                                                for(int idx = 0; idx < player.EquipList.Count; idx++)
-                                                {
-                                                    if(player.EquipList[idx].Name == item.Name)
-                                                    {
-                                                        deleteIdx = idx;
-                                                        foreach(AttackItem removeItem in atkItemList)
-                                                        {
-                                                            if(removeItem.Name == item.Name)
-                                                            {
-                                                                player.Atk -= removeItem.Atk;
-                                                                player.Def -= removeItem.Def;
-                                                            }
-                                                        }
-                                                        break;
-                                                    }
-                                                }
-                                                player.EquipList.RemoveAt(deleteIdx);
-                                                break;
-                                            }
-                                        }
+                                        RemoveEquipListItem(ref player, ref equipedItem, ItemType.Attack);
+                                        EquipCurItem(ref player, ref curItem, ItemType.Attack);
                                     }
 
                                     else
                                     {
-                                        List<DefenseItem> defItemList = Program.itemGroup.GetDefList();
-                                        foreach (DefenseItem i in defItemList)
-                                        {
-                                            if (i.Name == curItem.Name)
-                                            {
-                                                player.Atk += i.Atk;
-                                                player.Def += i.Def;
-                                                player.EquipList.Add(i);
-
-                                                //중복되는 이전에 착용한 아이템 삭제
-                                                int deleteIdx = 0;
-                                                for (int idx = 0; idx < player.EquipList.Count; idx++)
-                                                {
-                                                    if (player.EquipList[idx].Name == item.Name)
-                                                    {
-                                                        deleteIdx = idx;
-                                                        foreach (DefenseItem removeItem in defItemList)
-                                                        {
-                                                            if (removeItem.Name == item.Name)
-                                                            {
-                                                                player.Atk -= removeItem.Atk;
-                                                                player.Def -= removeItem.Def;
-                                                            }
-                                                        }
-                                                        break;
-                                                    }
-                                                }
-                                                player.EquipList.RemoveAt(deleteIdx);
-                                                break;
-                                            }
-                                        }
+                                        RemoveEquipListItem(ref player, ref equipedItem, ItemType.Defense);
+                                        EquipCurItem(ref player, ref curItem, ItemType.Defense);
                                     }
 
-                                    Console.WriteLine($"\n아이템이 {item.Name}에서 {curItem.Name}으로 교체되었습니다.");
+                                    Console.WriteLine($"\n아이템이 {EquipedItem.Name}에서 {curItem.Name}으로 교체되었습니다.");
                                     Console.WriteLine($"{curItem.Name}을 장착 성공했습니다.");
                                     break;
                             }
@@ -269,38 +200,18 @@ namespace Text2DBattleGame
                         }
                     }
 
-                    if(!haveSameTypeItem)
+                    if (!haveSameTypeItem)
                     {
                         curItem.IsEquip = true;
 
                         if (curItem.ItemType == ItemType.Attack)
                         {
-                            List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
-                            foreach (AttackItem i in atkItemList)
-                            {
-                                if (i.Name == curItem.Name)
-                                {
-                                    player.Atk += i.Atk;
-                                    player.Def += i.Def;
-                                    player.EquipList.Add(i);
-                                    break;
-                                }
-                            }
+                            EquipCurItem(ref player, ref curItem, ItemType.Attack);
                         }
 
                         else
                         {
-                            List<DefenseItem> defItemList = Program.itemGroup.GetDefList();
-                            foreach (DefenseItem i in defItemList)
-                            {
-                                if (i.Name == curItem.Name)
-                                {
-                                    player.Atk += i.Atk;
-                                    player.Def += i.Def;
-                                    player.EquipList.Add(i);
-                                    break;
-                                }
-                            }
+                            EquipCurItem(ref player, ref curItem, ItemType.Defense);
                         }
                         Console.WriteLine($"{curItem.Name}을 장착 성공했습니다.");
                     }
@@ -315,53 +226,23 @@ namespace Text2DBattleGame
                     Console.WriteLine("0. 아니오");
 
                     input = Program.CheckValidInput(0, 1);
-                    switch(input)
+                    switch (input)
                     {
                         case 0:
                             Program.scene = Scene.Inventory;
                             break;
                         case 1:
-                            curItem.IsEquip = false;
-                            int curItemIdx = 0;
-                            for(int i = 0; i <player.EquipList.Count(); i++)
+                            if (curItem.ItemType == ItemType.Attack)
                             {
-                                if(player.EquipList[i].Name == curItem.Name)
-                                {
-                                    curItemIdx = i;
-                                    player.EquipList.RemoveAt(curItemIdx);
-
-                                    if(curItem.ItemType == ItemType.Attack)
-                                    {
-                                        List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
-                                        foreach (AttackItem item in atkItemList)
-                                        {
-                                            if (item.Name == curItem.Name)
-                                            {
-                                                player.Atk -= item.Atk;
-                                                player.Def -= item.Def;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        List<DefenseItem> defItemList = Program.itemGroup.GetDefList();
-                                        foreach (DefenseItem item in defItemList)
-                                        {
-                                            if (item.Name == curItem.Name)
-                                            {
-                                                player.Atk -= item.Atk;
-                                                player.Def -= item.Def;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    break;
-                                }
+                                RemoveEquipListItem(ref player, ref curItem, ItemType.Attack);
                             }
-                            Console.WriteLine("아이템 착용을 해제했습니다!");
+                            else if (curItem.ItemType == ItemType.Defense)
+                            {
+                                RemoveEquipListItem(ref player, ref curItem, ItemType.Defense);
+                            }
+                            Console.WriteLine($"{curItem.Name} 아이템 착용을 해제했습니다!");
                             break;
-                            
+
                     }
                 }
             }
@@ -370,7 +251,7 @@ namespace Text2DBattleGame
             Console.WriteLine("0. 나가기");
 
             input = Program.CheckValidInput(0, 1);
-            switch(input)
+            switch (input)
             {
                 case 0:
                     Program.scene = Scene.GameIntro;
@@ -381,17 +262,99 @@ namespace Text2DBattleGame
             }
 
         }
+
+        public void EquipCurItem(ref Character player, ref IItem curItem, ItemType itemType)
+        {
+            curItem.IsEquip = true;
+            switch(itemType)
+            {
+                case ItemType.Attack:
+                    List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
+                    foreach (AttackItem i in atkItemList)
+                    {
+                        if (i.Name == curItem.Name)
+                        {
+                            player.Atk += i.Atk;
+                            player.Def += i.Def;
+                            player.AtkEquipList.Add(i);
+                            break;
+                        }
+                    }
+                    break;
+                case ItemType.Defense:
+                    List<DefenseItem> defItemList = Program.itemGroup.GetDefList();
+                    foreach (DefenseItem i in defItemList)
+                    {
+                        if (i.Name == curItem.Name)
+                        {
+                            player.Atk += i.Atk;
+                            player.Def += i.Def;
+                            player.DefEquipList.Add(i);
+                            break;
+                        }
+                    }
+                    break;
+            }
+        }
+
+
+        public void RemoveEquipListItem(ref Character player, ref IItem curItem, ItemType itemType)
+        {
+            curItem.IsEquip = false;
+            switch (itemType)
+            {
+                case ItemType.Attack:
+                    for (int i = 0; i < player.AtkEquipList.Count(); i++)
+                    {
+                        if (player.AtkEquipList[i].Name == curItem.Name)
+                        {
+                            List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
+                            foreach (AttackItem removeItem in atkItemList)
+                            {
+                                if (removeItem.Name == curItem.Name)
+                                {
+                                    player.Atk -= removeItem.Atk;
+                                    player.Def -= removeItem.Def;
+                                    player.AtkEquipList.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case ItemType.Defense:
+                    for (int i = 0; i < player.DefEquipList.Count(); i++)
+                    {
+                        if (player.DefEquipList[i].Name == curItem.Name)
+                        {
+                            List<DefenseItem> defItemList = Program.itemGroup.GetDefList();
+                            foreach (DefenseItem removeItem in defItemList)
+                            {
+                                if (removeItem.Name == curItem.Name)
+                                {
+                                    player.Atk -= removeItem.Atk;
+                                    player.Def -= removeItem.Def;
+                                    player.DefEquipList.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+
         public void Use(Character player, int i)
         {
             PotionItem item = player.Inventory[i - 1] as PotionItem;
             Console.Clear();
             if (item.Hp != 0)
             {
+                /*
                 player.Hp += item.Hp;
                 if (player.Hp > player.MaxHp)
                 {
                     int overHp = player.Hp - player.MaxHp;
-                    player.Hp = player.MaxHp;
                     Console.WriteLine($"체력을 {Hp}회복 하였습니다.");
                     Console.WriteLine($"{player.Hp - overHp} -> {player.Hp}");
                 }
@@ -400,9 +363,27 @@ namespace Text2DBattleGame
                 Console.WriteLine($"체력을 {Hp}회복 하였습니다.");
                 Console.WriteLine($"{player.Hp - item.Hp} -> {player.Hp}");
                 }
+                */
+
+                // 먼저 회복량을 보여주고 후처리를 해주는것으로 변경했습니다.
+                if (player.Hp + item.Hp > player.MaxHp)
+                {
+                    Console.WriteLine($"체력을 {player.MaxHp - player.Hp}회복 하였습니다.");
+                    Console.WriteLine($"{player.Hp} -> {player.MaxHp}");
+
+                    player.Hp = player.MaxHp;
+                }
+                else
+                {
+                    Console.WriteLine($"체력을 {item.Hp}회복 하였습니다.");
+                    Console.WriteLine($"{player.Hp} -> {player.Hp + item.Hp}");
+
+                    player.Hp += item.Hp;
+                }
             }
             if (item.Mp != 0)
             {
+                /*
                 player.Mp += item.Mp;
                 if (player.Mp > player.MaxMp)
                 {
@@ -415,6 +396,22 @@ namespace Text2DBattleGame
                 {
                 Console.WriteLine($"마나를 {Mp}회복 하였습니다.");
                 Console.WriteLine($"{player.Mp - Mp} -> {player.Mp}");
+                }
+                */
+                // 먼저 회복량을 보여주고 후처리를 해주는것으로 변경했습니다.
+                if (player.Mp + item.Mp > player.MaxMp)
+                {
+                    Console.WriteLine($"마나를 {player.MaxMp - player.Mp}회복 하였습니다.");
+                    Console.WriteLine($"{player.Mp} -> {player.MaxMp}");
+
+                    player.Mp += player.MaxMp;
+                }
+                else
+                {
+                    Console.WriteLine($"마나를 {item.Mp}회복 하였습니다.");
+                    Console.WriteLine($"{player.Mp} -> {player.Mp + item.Mp}");
+
+                    player.Mp += item.Mp;
                 }
             }
             if (item.Atk != 0)

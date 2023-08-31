@@ -56,7 +56,7 @@ namespace Text2DBattleGame
                     }
                     else
                     {
-                    player.EquipItem(input-1, ref player);
+                    player.CheckInventoryItem(input-1, ref player);
                     }
                     break;
             }
