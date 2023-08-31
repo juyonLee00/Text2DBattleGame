@@ -31,7 +31,7 @@ namespace Text2DBattleGame
             {
                 Console.Write($"{i+1}. ");
 
-                if (item.IsEquip == true)
+                if (player.AtkEquipList.Exists(x => x.Name == item.Name) || player.DefEquipList.Exists(x => x.Name == item.Name))
                 {
                     Console.Write("[E] ");
                 }
@@ -46,7 +46,13 @@ namespace Text2DBattleGame
                 Console.Write($"| 방어 : {item.Def}");
                 Console.Write($"| 체력 : {item.Hp}");
                 Console.Write($"| 마력 : {item.Mp}");
-                Console.Write($"| {item.Count} 개");
+
+                int showItemCount = item.Count;
+                if(item.IsEquip == true)
+                {
+                    showItemCount = item.Count - 1;
+                }
+                Console.Write($"| {showItemCount} 개");
 
 
                 /*if (item.CanUse) 

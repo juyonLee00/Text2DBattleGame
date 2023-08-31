@@ -129,6 +129,7 @@ namespace Text2DBattleGame
             ItemType curItemType = curItem.ItemType;
             int input;
             bool haveSameTypeItem = false;
+
             
             if (curItemType == ItemType.Potion)
             {
@@ -295,23 +296,10 @@ namespace Text2DBattleGame
             switch (itemType)
             {
                 case ItemType.Attack:
-                    for (int i = 0; i < player.AtkEquipList.Count(); i++)
-                    {
-                        if (player.AtkEquipList[i].Name == curItem.Name)
-                        {
-                            
-                            player.AtkEquipList.RemoveAt(i);
-                        }
-                    }
+                    player.AtkEquipList.Remove(curItem);
                     break;
                 case ItemType.Defense:
-                    for (int i = 0; i < player.DefEquipList.Count(); i++)
-                    {
-                        if (player.DefEquipList[i].Name == curItem.Name)
-                        {
-                            player.AtkEquipList.RemoveAt(i);
-                        }
-                    }
+                    player.DefEquipList.Remove(curItem);
                     break;
             }
         }

@@ -58,9 +58,20 @@ namespace Text2DBattleGame
             {
                 // 장착중이라면 해제
                 //player.ChangeEquipment(item);
+                //atkItem / DefItem 여부에 따라 다름
+                item.IsEquip = false;
+                if(item.ItemType == ItemType.Attack)
+                {
+                    player.AtkEquipList.Remove(item);
+                }
+                else if(item.ItemType == ItemType.Defense)
+                {
+                    player.DefEquipList.Remove(item);
+                }
 
                 player.Inventory.Remove(item);
-                player.Gold += (int)(item.Price * 0.85f);
+                player.Gold += (int)(item.Price * 0.85f * item.Count);
+                Console.WriteLine($"{item.Name}을(를) {item.Count}개 판매했습니다.");
                 Console.WriteLine("판매를 완료했습니다.");
             }
             else
@@ -225,7 +236,7 @@ namespace Text2DBattleGame
                 IItem item = player.Inventory[i];
                 string itemName = item.Name.PadRight(20, ' ');
 
-                Console.WriteLine(string.Concat($"- {i + 1} {itemName} | {item.Description}".PadRight(30, ' '), " | ", item.Price));
+                Console.WriteLine(string.Concat($"- {i + 1} {itemName} | {item.Description}".PadRight(30, ' '), " | ", item.Price, " | ", item.Count, "개"));
             }
 
             Console.WriteLine();
