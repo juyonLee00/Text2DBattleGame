@@ -46,7 +46,7 @@ namespace Text2DBattleGame
         public List<IItem> Inventory { get; set; }
         public List<IItem> EquipList { get; set; }
         public List<Skill> Skills { get; set; }
-        public Character(string name, string job, int level, int atk, int def, int hp, int mp, int gold, List<Skill> skill, float criticalRate, float criticalAtk, float avoidability)
+        public Character(string name, string job, int level, int atk, int def, int hp, int mp, int gold, float criticalRate, float criticalAtk, float avoidability)
         {
             Name = name;
             Job = job;
@@ -63,6 +63,7 @@ namespace Text2DBattleGame
             Inventory = new List<IItem>();
             EquipList = new List<IItem>();
             Skills = skill;
+            Skills = new List<Skill>();
             CriticalRate = criticalRate;
             CriticalAtk = criticalAtk;
             Avoidability = avoidability;
@@ -375,6 +376,69 @@ namespace Text2DBattleGame
                     Program.scene = Scene.GameIntro;
                     break;
                 case 1:
+                    Program.scene = Scene.Inventory;
+                    break;
+            }
+
+        }
+        public void Use(Character player, int i)
+        {
+            PotionItem item = player.Inventory[i - 1] as PotionItem;
+            Console.Clear();
+            if (item.Hp != 0)
+            {
+                player.Hp += item.Hp;
+                if (player.Hp > player.MaxHp)
+                {
+                    int overHp = player.Hp - player.MaxHp;
+                    player.Hp = player.MaxHp;
+                    Console.WriteLine($"체력을 {Hp}회복 하였습니다.");
+                    Console.WriteLine($"{player.Hp - overHp} -> {player.Hp}");
+                }
+                else 
+                {
+                Console.WriteLine($"체력을 {Hp}회복 하였습니다.");
+                Console.WriteLine($"{player.Hp - item.Hp} -> {player.Hp}");
+                }
+            }
+            if (item.Mp != 0)
+            {
+                player.Mp += item.Mp;
+                if (player.Mp > player.MaxMp)
+                {
+                    int overMp = player.Mp - player.MaxMp;
+                    player.Mp = player.MaxMp;
+                    Console.WriteLine($"마나을 {Mp}회복 하였습니다.");
+                    Console.WriteLine($"{player.Mp - overMp} -> {player.Mp}");
+                }
+                else
+                {
+                Console.WriteLine($"마나를 {Mp}회복 하였습니다.");
+                Console.WriteLine($"{player.Mp - Mp} -> {player.Mp}");
+                }
+            }
+            if (item.Atk != 0)
+            {
+                player.Atk += item.Atk;
+                Console.WriteLine($"공격력이 {Atk}증가 하였습니다.");
+                Console.WriteLine($"{player.Atk - item.Atk} -> {player.Atk}");
+            }
+            if (item.Def != 0)
+            {
+                player.Def += item.Def;
+                Console.WriteLine($"방어력이 {Def}증가 하였습니다.");
+                Console.WriteLine($"{player.Def - item.Def} -> {player.Def}");
+            }
+            item.Count--;
+            if (item.Count <= 0)
+                player.Inventory.RemoveAt(i - 1);
+            Console.WriteLine();
+            Console.WriteLine("0. 인벤토리");
+
+            int input = Program.CheckValidInput(0, 0);
+            switch (input)
+            {
+                case 0:
                     Program.scene = Scene.Inventory;
                     break;
             }
