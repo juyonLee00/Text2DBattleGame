@@ -69,8 +69,20 @@ namespace Text2DBattleGame
             string playerName = "";
             do
             {
-                Console.WriteLine("원하는 이름을 설정하세요.");
-                playerName = Console.ReadLine();
+                try
+                {
+                    checked
+                    {
+                        Console.WriteLine("원하는 이름을 설정하세요.");
+                        playerName = Console.ReadLine().Trim();
+                    }
+                }
+                catch(OverflowException)
+                {
+                    Console.WriteLine("해당 이름은 사용하실 수 없습니다.");
+                    Console.WriteLine("다른 이름을 입력하세요.");
+                }
+
             } while (string.IsNullOrWhiteSpace(playerName));
 
 
