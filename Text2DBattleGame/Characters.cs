@@ -387,11 +387,11 @@ namespace Text2DBattleGame
             Console.Clear();
             if (item.Hp != 0)
             {
+                /*
                 player.Hp += item.Hp;
                 if (player.Hp > player.MaxHp)
                 {
                     int overHp = player.Hp - player.MaxHp;
-                    player.Hp = player.MaxHp;
                     Console.WriteLine($"체력을 {Hp}회복 하였습니다.");
                     Console.WriteLine($"{player.Hp - overHp} -> {player.Hp}");
                 }
@@ -400,9 +400,25 @@ namespace Text2DBattleGame
                 Console.WriteLine($"체력을 {Hp}회복 하였습니다.");
                 Console.WriteLine($"{player.Hp - item.Hp} -> {player.Hp}");
                 }
+                */
+
+                // 먼저 회복량을 보여주고 후처리를 해주는것으로 변경했습니다.
+                if (player.Hp + item.Hp > player.MaxHp)
+                {
+                    Console.WriteLine($"체력을 {player.MaxHp - player.Hp}회복 하였습니다.");
+                    Console.WriteLine($"{player.Hp} -> {player.MaxHp}");
+                }
+                else
+                {
+                    Console.WriteLine($"체력을 {item.Hp}회복 하였습니다.");
+                    Console.WriteLine($"{player.Hp} -> {player.Hp + item.Hp}");
+                }
+
+                player.Hp += item.Hp;
             }
             if (item.Mp != 0)
             {
+                /*
                 player.Mp += item.Mp;
                 if (player.Mp > player.MaxMp)
                 {
@@ -416,6 +432,20 @@ namespace Text2DBattleGame
                 Console.WriteLine($"마나를 {Mp}회복 하였습니다.");
                 Console.WriteLine($"{player.Mp - Mp} -> {player.Mp}");
                 }
+                */
+                // 먼저 회복량을 보여주고 후처리를 해주는것으로 변경했습니다.
+                if (player.Mp + item.Mp > player.MaxMp)
+                {
+                    Console.WriteLine($"마나를 {player.MaxMp - player.Mp}회복 하였습니다.");
+                    Console.WriteLine($"{player.Mp} -> {player.MaxMp}");
+                }
+                else
+                {
+                    Console.WriteLine($"마나를 {item.Mp}회복 하였습니다.");
+                    Console.WriteLine($"{player.Mp} -> {player.Mp + item.Mp}");
+                }
+
+                player.Mp += item.Mp;
             }
             if (item.Atk != 0)
             {
