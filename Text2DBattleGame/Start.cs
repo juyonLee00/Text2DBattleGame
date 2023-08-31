@@ -58,7 +58,7 @@ namespace Text2DBattleGame
         public void GameDataSetting(ref Character player, ref List<IItem> itemList)
         {
             PlayerDataSetting(ref player);
-            ItemDataSetting(ref itemList);
+            //ItemDataSetting(ref itemList);
         }
 
 

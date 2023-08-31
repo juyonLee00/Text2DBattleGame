@@ -82,11 +82,11 @@ namespace Text2DBattleGame
         {
             Console.Clear();
             IItem curItem = Inventory[itemIdx];
-            char curItemType = curItem.ItemType;
+            ItemType curItemType = curItem.ItemType;
             int input;
             bool haveSameTypeItem = false;
 
-            if(curItemType == 'p')
+            if(curItemType == ItemType.Potion)
             {
                 Console.WriteLine("포션은 장착할 수 없습니다!");
             }
@@ -116,7 +116,7 @@ namespace Text2DBattleGame
                                     item.IsEquip = false;
                                     curItem.IsEquip = true;
 
-                                    if(curItem.ItemType == 'a')
+                                    if(curItem.ItemType == ItemType.Attack)
                                     {
                                         List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
                                         foreach(AttackItem atkItem in atkItemList)
@@ -160,7 +160,7 @@ namespace Text2DBattleGame
                     {
                         curItem.IsEquip = true;
 
-                        if (curItem.ItemType == 'a')
+                        if (curItem.ItemType == ItemType.Attack)
                         {
                             List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
                             foreach (AttackItem atkItem in atkItemList)

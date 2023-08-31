@@ -5,7 +5,7 @@ namespace Text2DBattleGame
 {
     public enum Scene
     {
-        None, GameIntro, MyInfo, Battle,Inventory
+        None, GameIntro, MyInfo, Battle, Inventory, Shop, ShopBuyItem, ShopSellItem
     }
 
     internal class Program
@@ -19,6 +19,8 @@ namespace Text2DBattleGame
         public static ItemGroup itemGroup = new ItemGroup();
 
         public static SkillManager skillManager = new SkillManager();
+
+        public static Shop shop = new Shop();
 
         static void Main(string[] args)
         {
@@ -48,6 +50,15 @@ namespace Text2DBattleGame
                     case Scene.Inventory:
                         Inventory.DisplayInventory(ref player);
                         break;
+                    case Scene.Shop:
+                        Shop.DisplayShop(player);
+                        break;
+                    case Scene.ShopBuyItem:
+                        Shop.DisplayShopBuyItem(player);
+                        break;
+                    case Scene.ShopSellItem:
+                        Shop.DisplayShopSellItem(player);
+                        break;
                 }
             }
         }
@@ -63,11 +74,12 @@ namespace Text2DBattleGame
             Console.WriteLine("1. 상태보기");
             Console.WriteLine("2. 전투시작(현재 진행: " + player.DungeonLevel + "층)");
             Console.WriteLine("3. 인벤토리");
+            Console.WriteLine("4. 상점");
 
             Console.WriteLine();
             Console.WriteLine("원하시는 행동을 입력해주세요.");
 
-            int input = CheckValidInput(1, 3);
+            int input = CheckValidInput(1, 4);
             switch (input)
             {
                 case 1:
@@ -81,7 +93,9 @@ namespace Text2DBattleGame
                 case 3:
                     scene = Scene.Inventory;
                     break;
-
+                case 4:
+                    scene = Scene.Shop;
+                    break;
             }
         }
 
