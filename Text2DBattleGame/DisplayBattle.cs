@@ -9,7 +9,8 @@ namespace Text2DBattleGame
 {
     class DisplayBattle
     {
-      static List<IItem> itemTable1 = new List<IItem>() { new AttackItem("테스트 아이템", 0, 0, 0) };
+        
+        static List<IItem> itemTable1 = new List<IItem>() { new AttackItem("test","test",true,1,1,1,1,'a'), new PotionItem("테스트 모능물약", "테스트", false, 1, 1, 1, 1,'p')  };
         public static void Display(Character player)
         {
             int gold = player.Gold;
