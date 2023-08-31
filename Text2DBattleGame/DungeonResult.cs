@@ -11,7 +11,7 @@ namespace Text2DBattleGame
     internal class DungeonResult
     {
         //DungeonResult(player, getitemlist, savehp, saveexp, gold);
-        public static void Result(Character player, List<IItem> item, int savehp, int saveexp, int gold, int deadCount)
+        public static void Result(Character player, List<IItem> item, int savehp, int saveexp, int gold, int deadCount, int savemp)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -27,7 +27,7 @@ namespace Text2DBattleGame
                 Console.WriteLine("");
                 Console.WriteLine($"던전에서 몬스터 {deadCount} 마리를 잡았습니다.");
                 Console.WriteLine("[캐릭터 정보]");
-                LevelResult(player, savehp, saveexp);
+                LevelResult(player, savehp, saveexp,savemp);
                 GetItem(player, item, gold); //
 
             }
@@ -54,7 +54,7 @@ namespace Text2DBattleGame
 
         }
 
-        public static void LevelResult(Character player, int savehp, int saveexp)
+        public static void LevelResult(Character player, int savehp, int saveexp, int savemp)
 
         {
             float upAtk = 1f; // 발제 에서는 0.5 였으나 기본 설정이 int 이기에 우선 1로 설정함
@@ -94,6 +94,7 @@ namespace Text2DBattleGame
             {
                 Console.WriteLine($"Lv.{player.Level - 1} {player.Name} -> Lv.{player.Level} {player.Name} ");
                 Console.WriteLine($"HP.{savehp} -> {player.Hp} ");
+                Console.WriteLine($"HP.{savemp} -> {player.Mp} ");
                 Console.WriteLine($"Atk.{player.Atk-1f} -> {player.Atk} ");
                 Console.WriteLine($"Def.{player.Def-2f} -> {player.Def} ");
                 if (player.Level <= 4)
@@ -104,6 +105,7 @@ namespace Text2DBattleGame
             {
                 Console.WriteLine($"Lv.{player.Level} {player.Name} ");
                 Console.WriteLine($"HP.{savehp} -> {player.Hp} ");
+                Console.WriteLine($"HP.{savemp} -> {player.Mp} ");
                 if (player.Level <= 4)//만들 당시에는 예시가 만렙이 5 여서 4렙이하만 보여줬는데 계속 보여줘야 할지도 모르겠음
                     Console.WriteLine($"Exp.{saveexp} -> {player.Exp} ");
 
