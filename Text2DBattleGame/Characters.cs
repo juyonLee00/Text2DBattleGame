@@ -78,15 +78,17 @@ namespace Text2DBattleGame
                 Mp = 0;
         }
 
-        public void EquipItem(int itemIdx)
+        public void EquipItem(int itemIdx, ref Character player)
         {
+            Console.Clear();
             IItem curItem = Inventory[itemIdx];
             char curItemType = curItem.ItemType;
+            int input;
+            bool haveSameTypeItem = false;
 
             if(curItemType == 'p')
             {
                 Console.WriteLine("포션은 장착할 수 없습니다!");
-                Program.scene = Scene.Inventory;
             }
 
             else
@@ -97,26 +99,133 @@ namespace Text2DBattleGame
                     {
                         if (item.ItemType == curItemType && item.IsEquip)
                         {
-                            item.IsEquip = false;
-                            Console.WriteLine($"아이템이 {item.Name}에서 {curItem.Name}으로 교체되었습니다.");
-                            break;
+                            haveSameTypeItem = true;
+                            Console.WriteLine($"이미 동일한 속성의 아이템 {item.Name}을 장착하고 있습니다.");
+                            Console.WriteLine("아이템을 교체하시겠습니까?\n");
+
+                            Console.WriteLine("1. 예");
+                            Console.WriteLine("0. 아니오");
+
+                            input = Program.CheckValidInput(0, 1);
+                            switch (input)
+                            {
+                                case 0:
+                                    Program.scene = Scene.Inventory;
+                                    break;
+                                case 1:
+                                    item.IsEquip = false;
+                                    curItem.IsEquip = true;
+
+                                    if(curItem.ItemType == 'a')
+                                    {
+                                        List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
+                                        foreach(AttackItem atkItem in atkItemList)
+                                        {
+                                            if(atkItem.Name == curItem.Name)
+                                            {
+                                                player.Atk += atkItem.Atk;
+                                                player.Def += atkItem.Def;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    else
+                                    {
+                                        List<DefenseItem> defItemList = Program.itemGroup.GetDefList();
+                                        foreach (DefenseItem defItem in defItemList)
+                                        {
+                                            if (defItem.Name == curItem.Name)
+                                            {
+                                                player.Atk += defItem.Atk;
+                                                player.Def += defItem.Def;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    
+
+                                    Console.WriteLine($"\n아이템이 {item.Name}에서 {curItem.Name}으로 교체되었습니다.");
+                                    Console.WriteLine($"{curItem.Name}을 장착 성공했습니다.");
+                                    break;
+                            }
+
+                            if (input == 1)
+                                break;
                         }
                     }
-                    curItem.IsEquip = true;
+
+                    if(!haveSameTypeItem)
+                    {
+                        curItem.IsEquip = true;
+
+                        if (curItem.ItemType == 'a')
+                        {
+                            List<AttackItem> atkItemList = Program.itemGroup.GetAtkList();
+                            foreach (AttackItem atkItem in atkItemList)
+                            {
+                                if (atkItem.Name == curItem.Name)
+                                {
+                                    player.Atk += atkItem.Atk;
+                                    player.Def += atkItem.Def;
+                                    break;
+                                }
+                            }
+                        }
+
+                        else
+                        {
+                            List<DefenseItem> defItemList = Program.itemGroup.GetDefList();
+                            foreach (DefenseItem defItem in defItemList)
+                            {
+                                if (defItem.Name == curItem.Name)
+                                {
+                                    player.Atk += defItem.Atk;
+                                    player.Def += defItem.Def;
+                                    break;
+                                }
+                            }
+                        }
+
+                        Console.WriteLine($"{curItem.Name}을 장착 성공했습니다.");
+                    }
 
                 }
                 else
                 {
                     Console.WriteLine("이미 착용한 아이템입니다.");
+                    Console.WriteLine("아이템 착용을 해제하시겠습니까?\n");
+
+                    Console.WriteLine("1. 예");
+                    Console.WriteLine("0. 아니오");
+
+                    input = Program.CheckValidInput(0, 1);
+                    switch(input)
+                    {
+                        case 0:
+                            Program.scene = Scene.Inventory;
+                            break;
+                        case 1:
+                            curItem.IsEquip = false;
+                            Console.WriteLine("아이템 착용을 해제했습니다!");
+                            break;
+                            
+                    }
                 }
             }
-            Console.WriteLine("\n0. 나가기");
 
-            int input = Program.CheckValidInput(0, 0);
+            Console.WriteLine("\n1. 인벤토리");
+            Console.WriteLine("0. 나가기");
+
+            input = Program.CheckValidInput(0, 1);
             switch(input)
             {
                 case 0:
                     Program.scene = Scene.GameIntro;
+                    break;
+                case 1:
+                    Program.scene = Scene.Inventory;
                     break;
             }
 
