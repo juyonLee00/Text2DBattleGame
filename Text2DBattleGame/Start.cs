@@ -11,6 +11,7 @@ namespace Text2DBattleGame
 {
     public class Start
     {
+        public ItemGroup itemGroup;
 
         public class JobFormat
         {
@@ -123,7 +124,7 @@ namespace Text2DBattleGame
             strJson = File.ReadAllText(@"../../PotionItemDataList.json");
             List<PotionItem> potItemList = JsonSerializer.Deserialize<List<PotionItem>>(strJson, options3);
 
-            ItemGroup itemGroup = new ItemGroup(atkItemList, defItemList, potItemList);
+            itemGroup = new ItemGroup(atkItemList, defItemList, potItemList);
 
             AddAllItemData(atkItemList, defItemList, potItemList, ref itemList);
 

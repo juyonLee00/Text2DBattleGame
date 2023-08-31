@@ -15,9 +15,8 @@ namespace Text2DBattleGame
             Console.WriteLine("[인벤토리]");
             Console.WriteLine("");
             Console.WriteLine("아이템 목록");
-
-            Console.WriteLine("0. 나가기");
             int i = 1;
+
             foreach (IItem item in player.Inventory)
             {
                 Console.Write($"{i}. ");
@@ -27,10 +26,13 @@ namespace Text2DBattleGame
                     Console.Write("[E] ");
                 }
 
-                Console.Write($"{item.Name}");
+                Console.Write($"{item.Name}\n");
                 ++i;
             }
+
+            Console.WriteLine("\n0. 나가기");
             Console.WriteLine("원하시는 행동을 입력해주세요.");
+            Console.Write(">> ");
 
             int input = Program.CheckValidInput(0, i);
             switch (input)
@@ -40,7 +42,7 @@ namespace Text2DBattleGame
                     break;
 
                 default:
-                    player.EquipItem(input);
+                    player.EquipItem(input-1);
                     break;
             }
 
