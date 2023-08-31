@@ -94,9 +94,19 @@ namespace Text2DBattleGame
             {
                 IItem item = ShopItemList[i];
                 string itemName = item.Name.PadRight(20, ' ');
+
+                string itemPower = String.Empty;
+                if (item.ItemType != ItemType.Potion) {
+                    itemPower = $"공격력 : {item.Atk}, 방어력 : {item.Def}";
+                }
+                else
+                {
+                    itemPower = $"HP : {item.Hp}, MP : {item.Mp} 회복";
+                }
+
                 string itemPrice = (player.Inventory.Find(x => x.Name == item.Name) != null) ? "구매완료" : $"{item.Price} G";
 
-                Console.WriteLine(string.Concat($"- {itemName} | {item.Description}".PadRight(50, ' '), " | ", itemPrice));
+                Console.WriteLine(string.Concat($"- {itemName} | {itemPower} | {item.Description}".PadRight(50, ' '), " | ", itemPrice));
             }
 
             Console.WriteLine();
@@ -146,9 +156,20 @@ namespace Text2DBattleGame
             {
                 IItem item = ShopItemList[i];
                 string itemName = item.Name.PadRight(20, ' ');
+
+                string itemPower = String.Empty;
+                if (item.ItemType != ItemType.Potion)
+                {
+                    itemPower = $"공격력 : {item.Atk}, 방어력 : {item.Def}";
+                }
+                else
+                {
+                    itemPower = $"HP : {item.Hp}, MP : {item.Mp} 회복";
+                }
+
                 string itemPrice = (player.Inventory.Find(x => x.Name == item.Name) != null) ? "구매완료" : $"{item.Price}";
 
-                Console.WriteLine(string.Concat($"- {i + 1} {itemName} | {item.Description}".PadRight(30, ' '), " | ", itemPrice));
+                Console.WriteLine(string.Concat($"- {i + 1} {itemName} | {itemPower} | {item.Description}".PadRight(30, ' '), " | ", itemPrice));
             }
 
             Console.WriteLine();

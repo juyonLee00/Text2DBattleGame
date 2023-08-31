@@ -57,6 +57,7 @@ namespace Text2DBattleGame
 
         private void Warrior_DoubleStrike(Character player, Monster[] monsters, int useMp, List<IItem> getitem)
         {
+            /*
             player.UsingMp(useMp);
 
             List<Monster> hitMobs = new List<Monster>();
@@ -80,6 +81,22 @@ namespace Text2DBattleGame
                 randomNums.Add(n);
                 hitMobs.Add(monsters[n]);
             }
+            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 1.5f), getitem);
+            */
+
+            player.UsingMp(useMp);
+
+            List<Monster> hitMobs = GetAliveMonsters(monsters);
+
+            int n;
+
+            while (hitMobs.Count > 2)
+            {
+                n = new Random().Next(0, hitMobs.Count);
+
+                hitMobs.Remove(monsters[n]);
+            }
+
             DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 1.5f), getitem);
         }
 
@@ -134,6 +151,7 @@ namespace Text2DBattleGame
 
         private void Wizard_Meteor(Character player, Monster[] monsters, int useMp, List<IItem> getitem)
         {
+            /*
             player.UsingMp(useMp);
 
             List<Monster> hitMobs = new List<Monster>();
@@ -159,9 +177,38 @@ namespace Text2DBattleGame
             }
 
             DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 1.0f), getitem);
+            */
+
+            player.UsingMp(useMp);
+
+            List<Monster> hitMobs = GetAliveMonsters(monsters);
+
+            int n;
+
+            while (hitMobs.Count > 3)
+            {
+                n = new Random().Next(0, hitMobs.Count);
+
+                hitMobs.Remove(monsters[n]);
+            }
+
+            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 1.0f), getitem);
         }
 
         #endregion
 
+
+        private List<Monster> GetAliveMonsters(Monster[] monsters)
+        {
+            List<Monster> aliveMonsters = new List<Monster>();
+
+            for(int i = 0; i < monsters.Length; i++)
+            {
+                if (!monsters[i].IsDead)
+                    aliveMonsters.Add(monsters[i]);
+            }
+
+            return aliveMonsters;
+        }
     }
 }

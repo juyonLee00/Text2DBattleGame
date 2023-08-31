@@ -31,17 +31,13 @@ namespace Text2DBattleGame
             while (true)
             {
                 int flag = PlayersTurn(battleMonsters, player, getItem, console);
-
-                //3은 스레기값 2면 다시 실행 0은 승리
-                if (flag == 0)  
+                if (flag == 0) //3은 스레기값 2면 다시 실행 0은 승리 
                 {
                     player.DungeonLevel++;
                     break;
                 }
                 else if (flag == 2) continue;
-
-                //3은 스레기값 1은 패배 
-                if (MonstersTurn(battleMonsters, player, getItem, console) == 1) break;   
+                if (MonstersTurn(battleMonsters, player, getItem, console) == 1) break;  //3은 스레기값 1은 패배  
             }
         }
 
@@ -92,11 +88,11 @@ namespace Text2DBattleGame
                 Console.SetCursorPosition(originalLeft, originalTop);
 
             }
-            //스킬 사용 시
-            else
+            else //스킬 사용 시
             {
                 string str = "";
 
+                // 스킬 출력
                 for (int i = 0; i < player.Skills.Count; i++)
                 {
                     Skill skill = player.Skills[i];
@@ -119,7 +115,7 @@ namespace Text2DBattleGame
                     {
                         if (player.Mp >= player.Skills[skillNum - 1].Mp)
                         {
-                            if (skillNum == 1) console.PlayersTurnPausedDisplay(battleMonsters, player, true, "대상을 선택해주세요  0. 취소");
+                            if (skillNum == 1) console.PlayersTurnPausedDisplay(battleMonsters, player, true, "대상을 선택해주세요  0. 취소"); ////
                             player.Skills[skillNum - 1].UsingSkill(player, battleMonsters, player.Skills[skillNum - 1].Mp, getItem);
                             int originalLeft = Console.CursorLeft;
                             int originalTop = Console.CursorTop;
@@ -189,6 +185,14 @@ namespace Text2DBattleGame
         {
             Console.WriteLine("  Lv." + attacker.Level + " " + attacker.Name + " 의 공격!");
 
+            // 플레이어와 몬스터는 각각의 회피율을 가지게 설정했기 때문에 변경했습니다!
+            /*
+            if (attacker.GetType() == typeof(Character) && new Random().Next(1, 11) == 1) 
+            {
+                Console.WriteLine("Lv." + defender.Level + " " + defender.Name + "을(를) 공격했지만 아무일도 일어나지 않았습니다.");
+                return;
+            }
+            */
             if (new Random().Next(1, 101) <= defender.Avoidability)
             {
                 Console.WriteLine("  Lv." + defender.Level + " " + defender.Name + "을(를) 공격했지만 아무일도 일어나지 않았습니다.");
@@ -199,8 +203,12 @@ namespace Text2DBattleGame
 
             if (new Random().Next(1, 101) <= attacker.CriticalRate)
             {
+                // 임시 - damage는 float형으로 바뀌어야 할 것 같습니다.
                 damage = (int)(damage * attacker.CriticalAtk);
-            
+
+                // 요구사항
+                // damage *= 1.6f;
+
                 Console.WriteLine("  Lv." + defender.Level + " " + defender.Name + "을(를) 맞췄습니다. [데미지 : " + damage + "] - 치명타 공격!!");
             }
             else
@@ -214,9 +222,10 @@ namespace Text2DBattleGame
             if (defender.IsDead)
             {
                 Console.WriteLine("Dead");
+                //startTable = changeDropTabel(defender.Name);//디펜더=죽은 몬스터 = 죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
                 getItem.Add(Monster.Drop(changeDropTabel(defender.Name)));
-                attacker.Exp += defender.Level;
-                attacker.Gold += defender.Gold;
+                attacker.Exp += defender.Level;//경험치추가
+                attacker.Gold += defender.Gold;//골드추가
             }
             else
             {
@@ -226,7 +235,7 @@ namespace Text2DBattleGame
 
         public static void SkillAttack(Character attacker, List<Monster> defenders, int damage, List<IItem> getItem)
         {
-            //반복문 안에서 계속 같은수 뱉어서 빼냄
+            //반복문 안에서 계속 같은수뱉어서 빼냄
             Random rand = new Random();
 
             for (int i = 0; i < defenders.Count; i++)
@@ -236,6 +245,7 @@ namespace Text2DBattleGame
 
                 Console.WriteLine("  Lv." + attacker.Level + " " + attacker.Name + " 의 공격!");
 
+                // 일정확률로 치명타공격
                 if (rand.Next(1, 101) <= attacker.CriticalRate)
                 {
                     isCritical = true;
@@ -255,9 +265,10 @@ namespace Text2DBattleGame
                 if (defenders[i].IsDead)
                 {
                     Console.WriteLine("Dead");
-                    getItem.Add(Monster.Drop(changeDropTabel(defenders[i].Name)));
-                    attacker.Exp += defenders[i].Level;
-                    attacker.Gold += defenders[i].Gold;
+                    //Monster.Drop(itemTable1); 드랍은 아이템을 생성하는 함수
+                    getItem.Add(Monster.Drop(changeDropTabel(defenders[i].Name)));//죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
+                    attacker.Exp += defenders[i].Level;//경험치추가
+                    attacker.Gold += defenders[i].Gold;//골드추가
 
                 }
                 else
