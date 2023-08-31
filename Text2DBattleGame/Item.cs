@@ -16,6 +16,10 @@ namespace Text2DBattleGame
         public string Name { get; }
         public string Description { get; }
         public bool IsEquip { get; set; }
+        public int Atk { get; set; }
+        public int Def { get; set; }
+        public int Hp { get; set; }
+        public int Mp { get; set; }
         public ItemType ItemType { get; set; }
         public int Price { get; set; }
 

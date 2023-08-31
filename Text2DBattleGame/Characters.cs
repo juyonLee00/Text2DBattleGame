@@ -162,7 +162,7 @@ namespace Text2DBattleGame
                         {
                             haveSameTypeItem = true;
                             IItem equipedItem = EquipedItem;
-                            Console.WriteLine($"이미 동일한 속성의 아이템 {EquipedItem.Name}을 장착하고 있습니다.");
+                            Console.WriteLine($"이미 동일한 속성의 아이템 {EquipedItem.Name}을(를) 장착하고 있습니다.");
                             Console.WriteLine("아이템을 교체하시겠습니까?\n");
 
                             Console.WriteLine("1. 예");
@@ -190,8 +190,8 @@ namespace Text2DBattleGame
                                         EquipCurItem(ref player, ref curItem, ItemType.Defense);
                                     }
 
-                                    Console.WriteLine($"\n아이템이 {EquipedItem.Name}에서 {curItem.Name}으로 교체되었습니다.");
-                                    Console.WriteLine($"{curItem.Name}을 장착 성공했습니다.");
+                                    Console.WriteLine($"\n아이템이 {EquipedItem.Name}에서 {curItem.Name}(으)로 교체되었습니다.");
+                                    Console.WriteLine($"{curItem.Name}을(를) 장착 성공했습니다.");
                                     break;
                             }
 
@@ -213,7 +213,7 @@ namespace Text2DBattleGame
                         {
                             EquipCurItem(ref player, ref curItem, ItemType.Defense);
                         }
-                        Console.WriteLine($"{curItem.Name}을 장착 성공했습니다.");
+                        Console.WriteLine($"{curItem.Name}을(를) 장착 성공했습니다.");
                     }
 
                 }
@@ -240,7 +240,7 @@ namespace Text2DBattleGame
                             {
                                 RemoveEquipListItem(ref player, ref curItem, ItemType.Defense);
                             }
-                            Console.WriteLine($"{curItem.Name} 아이템 착용을 해제했습니다!");
+                            Console.WriteLine($"{curItem.Name} 아이템 장착을 해제했습니다!");
                             break;
 
                     }
@@ -350,22 +350,6 @@ namespace Text2DBattleGame
             Console.Clear();
             if (item.Hp != 0)
             {
-                /*
-                player.Hp += item.Hp;
-                if (player.Hp > player.MaxHp)
-                {
-                    int overHp = player.Hp - player.MaxHp;
-                    Console.WriteLine($"체력을 {Hp}회복 하였습니다.");
-                    Console.WriteLine($"{player.Hp - overHp} -> {player.Hp}");
-                }
-                else 
-                {
-                Console.WriteLine($"체력을 {Hp}회복 하였습니다.");
-                Console.WriteLine($"{player.Hp - item.Hp} -> {player.Hp}");
-                }
-                */
-
-                // 먼저 회복량을 보여주고 후처리를 해주는것으로 변경했습니다.
                 if (player.Hp + item.Hp > player.MaxHp)
                 {
                     Console.WriteLine($"체력을 {player.MaxHp - player.Hp}회복 하였습니다.");
@@ -383,22 +367,6 @@ namespace Text2DBattleGame
             }
             if (item.Mp != 0)
             {
-                /*
-                player.Mp += item.Mp;
-                if (player.Mp > player.MaxMp)
-                {
-                    int overMp = player.Mp - player.MaxMp;
-                    player.Mp = player.MaxMp;
-                    Console.WriteLine($"마나을 {Mp}회복 하였습니다.");
-                    Console.WriteLine($"{player.Mp - overMp} -> {player.Mp}");
-                }
-                else
-                {
-                Console.WriteLine($"마나를 {Mp}회복 하였습니다.");
-                Console.WriteLine($"{player.Mp - Mp} -> {player.Mp}");
-                }
-                */
-                // 먼저 회복량을 보여주고 후처리를 해주는것으로 변경했습니다.
                 if (player.Mp + item.Mp > player.MaxMp)
                 {
                     Console.WriteLine($"마나를 {player.MaxMp - player.Mp}회복 하였습니다.");
@@ -473,8 +441,7 @@ namespace Text2DBattleGame
         }
         static public IItem Drop(List<IItem> droptable1)
         {
-            //List<IItem> droptable = droptable1;
-            int persent = 100; //드랍확률
+            int persent = 100;
             Random random = new Random();
             int basic = random.Next(1, 100);
             int i = random.Next(0, droptable1.Count);

@@ -5,8 +5,6 @@ using System.Text.Json.Serialization;
 
 namespace Text2DBattleGame
 {
-    //[Serializable]
-    
     public class ItemGroup
     {
         public ItemGroup() { }

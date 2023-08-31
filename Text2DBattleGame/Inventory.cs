@@ -41,7 +41,6 @@ namespace Text2DBattleGame
             Console.WriteLine("원하시는 행동을 입력해주세요.");
             Console.Write(">> ");
             
-            // 1입력되는 버그 수정
             int input = Program.CheckValidInput(0, player.Inventory.Count);
             switch (input)
             {
@@ -50,7 +49,7 @@ namespace Text2DBattleGame
                     break;
 
                 default:
-                    if (player.Inventory[input - 1].CanUse)//캔유즈라면 소모 아니라면 장착
+                    if (player.Inventory[input - 1].CanUse)
                     {
                         player.Use(player, input);
                     }

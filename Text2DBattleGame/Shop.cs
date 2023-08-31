@@ -31,7 +31,6 @@ namespace Text2DBattleGame
 
         public static void BuyItem(Character player, int itemNum)
         {
-            // 상점 물품을 복제해서 생성
             IItem item = (IItem)ShopItemList[itemNum].CreateClone();
 
             if (player.Gold < item.Price)
@@ -134,7 +133,6 @@ namespace Text2DBattleGame
             Console.WriteLine($"{player.Gold} G");
             Console.WriteLine();
 
-            // 문자열길이를 내림차순 정렬, 같으면 사전 순
             ShopItemList.Sort((a, b) => {
                 if (a.Name.Length > b.Name.Length)
                     return -1;
@@ -192,7 +190,6 @@ namespace Text2DBattleGame
             Console.WriteLine($"{player.Gold} G");
             Console.WriteLine();
 
-            // 문자열길이를 내림차순 정렬, 같으면 사전 순
             player.Inventory.Sort((a, b) => {
                 if (a.Name.Length > b.Name.Length)
                     return -1;
