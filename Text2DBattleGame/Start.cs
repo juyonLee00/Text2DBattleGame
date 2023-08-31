@@ -22,8 +22,6 @@ namespace Text2DBattleGame
             public float CriticalAtk { get; set; }
             public float Avoidability { get; set; }
 
-            public List<Skill> Skills { get; set; }
-
 
             internal void AddJob(string jobName)
             {
@@ -37,7 +35,6 @@ namespace Text2DBattleGame
                     this.CriticalRate = 15f;
                     this.CriticalAtk = 1.6f;
                     this.Avoidability = 10f;
-                    this.Skills = Program.skillManager.GetWizardSkills();
                 }
                 else if (jobName == "Warrior")
                 {
@@ -49,7 +46,6 @@ namespace Text2DBattleGame
                     this.CriticalRate = 15f;
                     this.CriticalAtk = 1.6f;
                     this.Avoidability = 10f;
-                    this.Skills = Program.skillManager.GetWarriorSkills();
                 }
 
                 else
@@ -98,8 +94,23 @@ namespace Text2DBattleGame
                     break;
             }
 
-            player = new Character(playerName, jobData.JobName, 1, jobData.Atk, jobData.Def, jobData.MaxHp, jobData.MaxMp, 1500,
-                jobData.Skills, jobData.CriticalRate, jobData.CriticalAtk, jobData.Avoidability);
+            player = new Character(playerName, jobData.JobName, 1, jobData.Atk, jobData.Def, jobData.MaxHp,
+                jobData.MaxMp, 1500, jobData.CriticalRate, jobData.CriticalAtk, jobData.Avoidability);
+
+            CharacterSkillSetting(player);
+        }
+
+        public void CharacterSkillSetting(Character player)
+        {
+            switch(player.Job)
+            {
+                case "마법사":
+                    player.Skills = Program.skillManager.GetWizardSkills();
+                    break;
+                case "전사":
+                    player.Skills = Program.skillManager.GetWarriorSkills();
+                    break;
+            }
         }
 
         public void ItemDataSetting(ref List<IItem> itemList)
