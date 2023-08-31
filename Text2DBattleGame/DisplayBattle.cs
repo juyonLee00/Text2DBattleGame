@@ -10,7 +10,9 @@ namespace Text2DBattleGame
     class DisplayBattle
     {
         
-        static List<IItem> itemTable1 = new List<IItem>() { new AttackItem("test","test",true,1,1,1,1,'a'), new PotionItem("테스트 모능물약", "테스트", false, 1, 1, 1, 1,'p')  };
+        public static List<IItem> itemTable1 = new List<IItem>();
+
+        public static List<IItem> testTabel = new List<IItem>() { new AttackItem("test", "test", true, 1, 1, 1, 1, 'a'), new PotionItem("테스트 모능물약", "테스트", false, 1, 1, 1, 1, 'p') };
         public static void Display(Character player)
         {
             int gold = player.Gold;
@@ -140,7 +142,7 @@ namespace Text2DBattleGame
                     {
                         if (player.Mp >= player.Skills[skillNum - 1].Mp)
                         {
-                            player.Skills[skillNum - 1].UsingSkill(player, battleMonsters, player.Skills[skillNum - 1].Mp);
+                            player.Skills[skillNum - 1].UsingSkill(player, battleMonsters, player.Skills[skillNum - 1].Mp, itemTable1);
                             break;
                         }
                         else
@@ -239,6 +241,8 @@ namespace Text2DBattleGame
             if (defender.IsDead)
             {
                 Console.WriteLine("Dead");
+                itemTable1 = changeDropTabel(defender);//디펜더=죽은 몬스터 = 죽은몬스터의 이름을받아 몬스터등급별 테이블로 이동
+
                 getItem.Add(Monster.Drop(itemTable1));
                 attacker.Exp += defender.Level;//경험치추가
                 attacker.Gold += defender.Gold;//골드추가
@@ -249,7 +253,7 @@ namespace Text2DBattleGame
             }
         }
 
-        public static void SkillAttack(Character attacker, List<Monster> defenders, int damage)
+        public static void SkillAttack(Character attacker, List<Monster> defenders, int damage, List<IItem> getItem)
         {
             //반복문 안에서 계속 같은수뱉어서 빼냄
             Random rand = new Random();
@@ -282,7 +286,8 @@ namespace Text2DBattleGame
                 if (defenders[i].IsDead)
                 {
                     Console.WriteLine("Dead");
-                    Monster.Drop(itemTable1);
+                    //Monster.Drop(itemTable1); 드랍은 아이템을 생성하는 함수
+                    getItem.Add(Monster.Drop(itemTable1));
                     attacker.Exp += defenders[i].Level;//경험치추가
                     attacker.Gold += defenders[i].Gold;//골드추가
 
@@ -295,7 +300,42 @@ namespace Text2DBattleGame
                 Console.WriteLine();
             }
         }
+        public static List<IItem> changeDropTabel(ICharacter character) 
+        {
+            switch (character.Name)
+            {
+                case "미니언":
+                    return testTabel;    
+                    
+                case "공허충":
+                    return testTabel;
 
+                case "대포미니언":
+                    return testTabel;
+ 
+
+                case "타락한 거미":
+                    return testTabel;
+                    
+
+                case "그림자속무언가":
+                    return testTabel;
+
+                case "타락한 거미여왕":
+                    return testTabel;
+
+                case "수중뱀":
+                    return testTabel;
+
+                case "수중서펀트":
+                    return testTabel;
+
+                case "드래곤":
+                    return testTabel;
+                default:
+                    return testTabel;
+            }
+        }
 
         public static void WriteBattle()
         {

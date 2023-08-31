@@ -16,7 +16,7 @@ namespace Text2DBattleGame
 
         public Func<Character, string> ShowExplanation { get; set; }
 
-        public Action<Character, Monster[], int> UsingSkill { get; set; }
+        public Action<Character, Monster[], int, List<IItem>> UsingSkill { get; set; }
 
         public Skill(string name, int atk, int mp)
         {
