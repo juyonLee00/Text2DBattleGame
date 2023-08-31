@@ -473,8 +473,9 @@ namespace Text2DBattleGame
         {
             Hp -= damage;
         }
-        static public IItem Drop(List<IItem> droptable)
+        static public IItem Drop(List<IItem> droptable1)
         {
+            List<IItem> droptable = droptable1;
             int persent = 100; //드랍확률
             Random random = new Random();
             int basic = random.Next(1, 100);
@@ -486,7 +487,7 @@ namespace Text2DBattleGame
             }
             return null;
         }
-    
+
     }
     public class Minion : Monster
     {
