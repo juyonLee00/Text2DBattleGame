@@ -22,7 +22,7 @@
 
 <br/>
 
-### 3) Commit Convention
+### 2) Commit Convention
 - [type] body
 - type
     - feat : 새로운 파일 생성, 새로운 기능 추가
