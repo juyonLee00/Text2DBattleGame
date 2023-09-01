@@ -65,6 +65,7 @@ namespace Text2DBattleGame
                 //player.ChangeEquipment(item);
                 //atkItem / DefItem 여부에 따라 다름
                 item.IsEquip = false;
+                /*
                 if(item.ItemType == ItemType.Attack)
                 {
                     player.AtkEquipList.Remove(item);
@@ -73,6 +74,8 @@ namespace Text2DBattleGame
                 {
                     player.DefEquipList.Remove(item);
                 }
+                */
+                player.RemoveEquipListItem(ref player, ref item, item.ItemType);
 
                 player.Inventory.Remove(item);
                 player.Gold += (int)(item.Price * 0.85f * item.Count);

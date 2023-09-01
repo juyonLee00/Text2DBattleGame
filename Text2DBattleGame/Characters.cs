@@ -262,10 +262,13 @@ namespace Text2DBattleGame
             player.Hp += curItem.Hp;
             player.Mp += curItem.Mp;
 
+            // 빼도될듯합니다.
+            /*
             if(curItem.Count > 1)
             {
                 curItem.Count -= 1;
             }
+            */
 
             switch (itemType)
             {
@@ -288,10 +291,13 @@ namespace Text2DBattleGame
             player.Atk -= curItem.Atk;
             player.Def -= curItem.Def;
 
+            // 빼도될듯합니다.
+            /*
             if (curItem.Count > 1)
             {
                 curItem.Count += 1;
             }
+            */
 
             switch (itemType)
             {
