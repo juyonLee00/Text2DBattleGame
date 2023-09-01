@@ -79,7 +79,7 @@ namespace Text2DBattleGame
                 default:
                     if (player.Inventory[input - 1].CanUse)
                     {
-                        player.Use(player, input);
+                        player.Use(ref player, input);
                     }
                     else
                     {

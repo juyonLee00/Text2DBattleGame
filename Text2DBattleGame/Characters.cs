@@ -282,6 +282,7 @@ namespace Text2DBattleGame
 
         public void RemoveEquipListItem(ref Character player, ref IItem curItem, ItemType itemType)
         {
+            Console.WriteLine("Remove 들어옴");
             curItem.IsEquip = false;
             player.Atk -= curItem.Atk;
             player.Def -= curItem.Def;
@@ -304,7 +305,7 @@ namespace Text2DBattleGame
             }
         }
 
-        public void Use(Character player, int i)
+        public void Use(ref Character player, int i)
         {
             PotionItem item = player.Inventory[i - 1] as PotionItem;
             Console.Clear();
