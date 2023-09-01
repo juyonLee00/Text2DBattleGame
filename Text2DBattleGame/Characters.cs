@@ -264,6 +264,10 @@ namespace Text2DBattleGame
             player.Mp += curItem.Mp;
             player.MaxMp += curItem.Mp;
 
+            if (curItem.Count >= 1)
+            {
+                curItem.Count -= 1;
+            }
 
             switch (itemType)
             {
@@ -289,6 +293,11 @@ namespace Text2DBattleGame
             if (player.Hp > player.MaxHp) player.Hp = player.MaxHp;
             if (player.Mp > player.MaxMp) player.Mp = player.MaxMp;
 
+
+            if (curItem.Count >= 1)
+            {
+                curItem.Count += 1;
+            }
 
             switch (itemType)
             {

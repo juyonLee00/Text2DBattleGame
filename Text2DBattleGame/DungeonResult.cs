@@ -141,8 +141,7 @@ namespace Text2DBattleGame
             for (int i = 0; i < list.Count; ++i)
             {
                 Console.WriteLine($"{list[i].Name} - 1");
-                //if (list[i].CanUse)
-                //{
+                
                     string number = list[i].Name;
 
                     int num = player.Inventory.FindIndex(Item => Item.Name.Equals(number));
@@ -150,7 +149,6 @@ namespace Text2DBattleGame
                     {
                         if (player.Inventory[num] is PotionItem)
                         {
-                            //만약 a가 형변환이 가능하다면 a에 오른쪽 값이 들어옴
                             PotionItem a = player.Inventory[num] as PotionItem;
                             a.Count++;
                         }
@@ -168,16 +166,11 @@ namespace Text2DBattleGame
                         }
 
                     }
-                    //그 아이템이 처음 추가 되는경우
                     else
                     {
                         player.Inventory.Add(list[i]);
                     }
-                //}
-                /*else
-                {
-                    player.Inventory.Add(list[i]);
-                }*/
+                
             }
         }
 

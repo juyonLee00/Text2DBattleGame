@@ -145,39 +145,6 @@ namespace Text2DBattleGame
             List<PotionItem> potionItemList3 = new List<PotionItem>();
             string strJson = "";
 
-            //여기서부터 Json으로 변환
-            /*
-            string filePath = "../../AttackItemDataList.json";
-
-            atkItemList.Add(new AttackItem("낡은 검", "오래된 낡은 검입니다.", false, 2, 0, 0, 0, ItemType.Attack, 30));
-            atkItemList.Add(new AttackItem("나무 몽둥이", "주위에서 많이 보이는 몽둥이입니다.", false, 3, 0, 0, 0, ItemType.Attack, 20));
-            atkItemList.Add(new AttackItem("청동 도끼", "어디선가 사용됐던거 같은 도끼입니다.", false, 5, 0, 0, 0, ItemType.Attack, 50));
-            atkItemList.Add(new AttackItem("스파르타의 창", "스파르타의 전사들이 사용했다는 전설의 창입니다.", false, 7, 0, 0, 0, ItemType.Attack, 70));
-
-            strJson = JsonSerializer.Serialize<List<AttackItem>>(atkItemList, options3);
-            File.WriteAllText(filePath, strJson);
-
-
-            filePath = "../../DefenseItemDataList.json";
-            
-            defItemList.Add(new DefenseItem("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", false, 0, 5, 0, 0, ItemType.Defense, 20));
-            defItemList.Add(new DefenseItem("스파르타의 갑옷", "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", false, 0, 15, 0, 0, ItemType.Defense, 70));
-            defItemList.Add(new DefenseItem("수련자 갑옷", "수련에 도움을 주는 갑옷입니다.", false, 0, 5, 0, 0, ItemType.Defense, 40));
-
-            strJson = JsonSerializer.Serialize<List<DefenseItem>>(defItemList, options3);
-            File.WriteAllText(filePath, strJson);
-
-
-            filePath = "../../PotionItemDataList.json";
-            potionItemList.Add(new PotionItem("HP 회복 포션(소)", "소량의 HP를 회복할 수 있습니다.", false, 0, 0, 10, 0, ItemType.Potion, 1));
-            potionItemList.Add(new PotionItem("MP 회복 포션(소)", "소량의 MP를 회복할 수 있습니다.", false, 0, 0, 0, 10, ItemType.Potion, 1));
-
-            strJson = JsonSerializer.Serialize<List<PotionItem>>(potionItemList, options3);
-            File.WriteAllText(filePath, strJson);
-            */
-
-
-            //Json파일 게임 읽어오기
             strJson = File.ReadAllText(@"../../AttackItemDataList.json");
             atkItemList = JsonSerializer.Deserialize<List<AttackItem>>(strJson, options3);
 
@@ -205,7 +172,6 @@ namespace Text2DBattleGame
 
             Program.itemGroup = new ItemGroup(atkItemList, defItemList, potItemList);
 
-            //AddAllItemData(atkItemList, defItemList, potItemList, ref itemList);
             AddAllItemData(atkItemList, defItemList, potItemList, Program.normalTable);
             AddAllItemData(atkItemList2, defItemList2, potItemList2, Program.rareTable);
             AddAllItemData(atkItemList3, defItemList3, potItemList3, Program.UniqueTable);

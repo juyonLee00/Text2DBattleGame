@@ -136,34 +136,6 @@ namespace Text2DBattleGame
 
         private void Wizard_Meteor(Character player, Monster[] monsters, int useMp, List<IItem> getitem)
         {
-            /*
-            player.UsingMp(useMp);
-
-            List<Monster> hitMobs = new List<Monster>();
-
-
-            // 랜덤 3마리 뽑기
-            List<int> randomNums = new List<int>();
-
-            int num = (monsters.Length >= 3) ? 3 : monsters.Length;
-
-            for (int i = 0; i < num; i++)
-            {
-                int n;
-
-                do
-                {
-                    n = new Random().Next(0, monsters.Length);
-                }
-                while (randomNums.Contains(n));
-
-                randomNums.Add(n);
-                hitMobs.Add(monsters[n]);
-            }
-
-            DisplayBattle.SkillAttack(player, hitMobs, (int)(player.Atk * 1.0f), getitem);
-            */
-
             player.UsingMp(useMp);
 
             List<Monster> hitMobs = GetAliveMonsters(monsters);
