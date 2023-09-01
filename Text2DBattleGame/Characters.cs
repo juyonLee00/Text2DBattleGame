@@ -31,7 +31,7 @@ namespace Text2DBattleGame
         public int Def { get; set; }
         public int Hp { get; set; }
         public int Mp { get; set; }
-        public int MaxHp { get; }
+        public int MaxHp { get; set; } 
         public int MaxMp { get; set; }
         public bool IsDead => Hp <= 0;
         public int DungeonLevel { get; set; }
@@ -260,7 +260,9 @@ namespace Text2DBattleGame
             player.Atk += curItem.Atk;
             player.Def += curItem.Def;
             player.Hp += curItem.Hp;
+            player.MaxHp += curItem.Hp; 
             player.Mp += curItem.Mp;
+            player.MaxMp += curItem.Mp;
 
             if (curItem.Count > 1)
             {
@@ -283,10 +285,14 @@ namespace Text2DBattleGame
         public void RemoveEquipListItem(ref Character player, ref IItem curItem, ItemType itemType)
         {
             curItem.IsEquip = false;
+
             player.Atk -= curItem.Atk;
             player.Def -= curItem.Def;
-            player.Hp -= curItem.Hp;
-            player.Mp -= curItem.Mp;
+            player.MaxHp -= curItem.Hp; 
+            player.MaxMp -= curItem.Mp;
+            if (player.Hp > player.MaxHp) player.Hp = player.MaxHp;
+            if (player.Mp > player.MaxMp) player.Mp = player.MaxMp;
+
 
             if (curItem.Count > 1)
             {

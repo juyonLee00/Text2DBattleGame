@@ -14,11 +14,11 @@ namespace Text2DBattleGame
         {
             List<Skill> skills = new List<Skill>();
 
-            Skill warriorSkill1 = new Skill("알파 스트라이크", 2, 10);
+            Skill warriorSkill1 = new Skill("알파 스트라이크", 10);
             warriorSkill1.ShowExplanation = (Character player) => $"{player.Atk * 2f}의 데미지로 하나의 적을 공격합니다.";
             warriorSkill1.UsingSkill = Warrior_AlphaStrike;
 
-            Skill warriorSkill2 = new Skill("더블 스트라이크", 3, 15);
+            Skill warriorSkill2 = new Skill("더블 스트라이크", 15);
             warriorSkill2.ShowExplanation = (Character player) => $"{player.Atk * 1.5f}의 데미지로 2명의 적을 랜덤으로 공격합니다";
             warriorSkill2.UsingSkill = Warrior_DoubleStrike;
 
@@ -114,11 +114,11 @@ namespace Text2DBattleGame
         {
             List<Skill> skills = new List<Skill>();
 
-            Skill wizardSkill1 = new Skill("파이어볼", 2, 10);
+            Skill wizardSkill1 = new Skill("파이어볼", 10);
             wizardSkill1.ShowExplanation = (Character player) => $"{player.Atk * 3f}의 데미지로 하나의 적을 공격합니다.";
             wizardSkill1.UsingSkill = Wizard_FireBall;
 
-            Skill wizardSkill2 = new Skill("메테오", 3, 15);
+            Skill wizardSkill2 = new Skill("메테오", 15);
             wizardSkill2.ShowExplanation = (Character player) => $"{player.Atk * 1.0f}의 데미지로 3명의 적을 랜덤으로 공격합니다";
             wizardSkill2.UsingSkill = Wizard_Meteor;
 
