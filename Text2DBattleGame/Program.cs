@@ -120,8 +120,8 @@ namespace Text2DBattleGame
             Console.WriteLine($"{player.Name}({player.Job})");
             Console.WriteLine($"공격력 :{player.Atk} {player.ShowItemEffect(ref player, ref itemGroup, ItemType.Attack)}");
             Console.WriteLine($"방어력 : {player.Def} {player.ShowItemEffect(ref player, ref itemGroup, ItemType.Defense)}");
-            Console.WriteLine($"체력 : {player.Hp}");
-            Console.WriteLine($"마나 : {player.Mp}");
+            Console.WriteLine($"체력 : {player.Hp} / {player.MaxHp}");
+            Console.WriteLine($"마나 : {player.Mp} / {player.MaxMp}");
             Console.WriteLine($"Gold : {player.Gold} G");
             Console.WriteLine();
             Console.WriteLine("0. 나가기");
