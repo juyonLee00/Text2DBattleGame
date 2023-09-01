@@ -45,10 +45,10 @@ namespace Text2DBattleGame
                 Console.Write($"| 공격 : {item.Atk}");
                 Console.Write($"| 방어 : {item.Def}");
                 Console.Write($"| 체력 : {item.Hp}");
-                Console.Write($"| 마력 : {item.Mp}");
+                Console.Write($"| 마나 : {item.Mp}");
 
                 int showItemCount = item.Count;
-                if(item.IsEquip == true)
+                if(item.IsEquip == true && item.Count >= 2)
                 {
                     showItemCount = item.Count - 1;
                 }

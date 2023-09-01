@@ -169,6 +169,9 @@ namespace Text2DBattleGame
                                     EquipedItem.IsEquip = false;
                                     curItem.IsEquip = true;
 
+                                    Console.WriteLine($"\n아이템이 {EquipedItem.Name}에서 {curItem.Name}(으)로 교체되었습니다.");
+                                    Console.WriteLine($"{curItem.Name}을(를) 장착 성공했습니다.");
+
                                     if (curItem.ItemType == ItemType.Attack)
                                     {
                                         RemoveEquipListItem(ref player, ref equipedItem, ItemType.Attack);
@@ -181,14 +184,11 @@ namespace Text2DBattleGame
                                         EquipCurItem(ref player, ref curItem, ItemType.Defense);
                                     }
 
-                                    Console.WriteLine($"\n아이템이 {EquipedItem.Name}에서 {curItem.Name}(으)로 교체되었습니다.");
-                                    Console.WriteLine($"{curItem.Name}을(를) 장착 성공했습니다.");
+                                    
                                     break;
                             }
-
-                            if (input == 1)
-                                break;
                         }
+                        if (haveSameTypeItem == true) break;
                     }
 
                     if (!haveSameTypeItem)
@@ -262,7 +262,7 @@ namespace Text2DBattleGame
             player.Hp += curItem.Hp;
             player.Mp += curItem.Mp;
 
-            if(curItem.Count > 1)
+            if (curItem.Count > 1)
             {
                 curItem.Count -= 1;
             }
@@ -282,12 +282,11 @@ namespace Text2DBattleGame
 
         public void RemoveEquipListItem(ref Character player, ref IItem curItem, ItemType itemType)
         {
-            Console.WriteLine("Remove 들어옴");
             curItem.IsEquip = false;
             player.Atk -= curItem.Atk;
             player.Def -= curItem.Def;
-            player.Atk -= curItem.Atk;
-            player.Def -= curItem.Def;
+            player.Hp -= curItem.Hp;
+            player.Mp -= curItem.Mp;
 
             if (curItem.Count > 1)
             {
