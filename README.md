@@ -9,7 +9,6 @@
 
 ## 데모 영상
 유튜브에서 시연영상을 확인하실 수 있습니다 : [시연영상](https://youtu.be/lVmllD-2MiQ) 
-![Thumbnail](https://github.com/juyonLee00/Catch_JJH/assets/48848525/c5b64837-3fa2-420b-8f5e-95b562450b22)
 
 <br/>
 <br/>
@@ -106,8 +105,8 @@
 <br/>
 
 ## 사용 기술
-- C# 4.8
-- .NET 4.8.2
+- C# 8
+- .NET 4.8.1
 
 <br/>
 <br/>
