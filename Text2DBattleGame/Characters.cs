@@ -169,6 +169,9 @@ namespace Text2DBattleGame
                                     EquipedItem.IsEquip = false;
                                     curItem.IsEquip = true;
 
+                                    Console.WriteLine($"\n아이템이 {EquipedItem.Name}에서 {curItem.Name}(으)로 교체되었습니다.");
+                                    Console.WriteLine($"{curItem.Name}을(를) 장착 성공했습니다.");
+
                                     if (curItem.ItemType == ItemType.Attack)
                                     {
                                         RemoveEquipListItem(ref player, ref equipedItem, ItemType.Attack);
@@ -181,14 +184,11 @@ namespace Text2DBattleGame
                                         EquipCurItem(ref player, ref curItem, ItemType.Defense);
                                     }
 
-                                    Console.WriteLine($"\n아이템이 {EquipedItem.Name}에서 {curItem.Name}(으)로 교체되었습니다.");
-                                    Console.WriteLine($"{curItem.Name}을(를) 장착 성공했습니다.");
+                                    
                                     break;
                             }
-
-                            if (input == 1)
-                                break;
                         }
+                        if (haveSameTypeItem == true) break;
                     }
 
                     if (!haveSameTypeItem)
@@ -285,14 +285,14 @@ namespace Text2DBattleGame
         public void RemoveEquipListItem(ref Character player, ref IItem curItem, ItemType itemType)
         {
             curItem.IsEquip = false;
-            player.Atk -= curItem.Atk;
-            player.Def -= curItem.Def;
+
             player.Atk -= curItem.Atk;
             player.Def -= curItem.Def;
             player.MaxHp -= curItem.Hp; 
             player.MaxMp -= curItem.Mp;
             if (player.Hp > player.MaxHp) player.Hp = player.MaxHp;
             if (player.Mp > player.MaxMp) player.Mp = player.MaxMp;
+
 
             if (curItem.Count > 1)
             {
@@ -310,7 +310,7 @@ namespace Text2DBattleGame
             }
         }
 
-        public void Use(Character player, int i)
+        public void Use(ref Character player, int i)
         {
             PotionItem item = player.Inventory[i - 1] as PotionItem;
             Console.Clear();
