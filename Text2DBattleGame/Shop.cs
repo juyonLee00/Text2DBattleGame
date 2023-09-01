@@ -39,14 +39,19 @@ namespace Text2DBattleGame
             }
             else
             {
-                if (!player.Inventory.Exists(x => x.Name == item.Name))
+                if (player.Inventory.Exists(x => x.Name == item.Name))
                 {
-                    player.Inventory.Add(item);
-                    player.Gold -= item.Price;
-                    Console.WriteLine("구매를 완료했습니다.");
+                    item = player.Inventory.Find(x => x.Name == item.Name);
+                    item.Count += 1;
+                    Console.WriteLine($"구매를 완료했습니다. - 현재 갯수{item.Count}");
                 }
                 else
-                    Console.WriteLine("이미 구입한 아이템입니다.");
+                {
+                    player.Inventory.Add(item);
+                    Console.WriteLine("구매를 완료했습니다.");
+                }
+
+                player.Gold -= item.Price;
             }
         }
 
@@ -104,18 +109,11 @@ namespace Text2DBattleGame
             for (int i = 0; i < ShopItemList.Count; i++)
             {
                 IItem item = ShopItemList[i];
-                string itemName = item.Name.PadRight(20, ' ');
+                string itemName = item.Name.PadRight(15, ' ');
 
-                string itemPower = String.Empty;
-                if (item.ItemType != ItemType.Potion) {
-                    itemPower = $"공격력 : {item.Atk}, 방어력 : {item.Def}";
-                }
-                else
-                {
-                    itemPower = $"HP : {item.Hp}, MP : {item.Mp} 회복";
-                }
+                string itemPower = $"공격 : {item.Atk} | 방어 : {item.Def} | 체력 : {item.Hp} | 마력 : {item.Mp}";
 
-                string itemPrice = (player.Inventory.Find(x => x.Name == item.Name) != null) ? "구매완료" : $"{item.Price} G";
+                string itemPrice = $"{item.Price} G";
 
                 Console.WriteLine(string.Concat($"- {itemName} | {itemPower} | {item.Description}".PadRight(50, ' '), " | ", itemPrice));
             }
@@ -166,19 +164,13 @@ namespace Text2DBattleGame
             for (int i = 0; i < ShopItemList.Count; i++)
             {
                 IItem item = ShopItemList[i];
-                string itemName = item.Name.PadRight(20, ' ');
 
-                string itemPower = String.Empty;
-                if (item.ItemType != ItemType.Potion)
-                {
-                    itemPower = $"공격력 : {item.Atk}, 방어력 : {item.Def}";
-                }
-                else
-                {
-                    itemPower = $"HP : {item.Hp}, MP : {item.Mp} 회복";
-                }
+                string itemName = item.Name.PadRight(15, ' ');
 
-                string itemPrice = (player.Inventory.Find(x => x.Name == item.Name) != null) ? "구매완료" : $"{item.Price}";
+                string itemPower = $"공격 : {item.Atk} | 방어 : {item.Def} | 체력 : {item.Hp} | 마력 : {item.Mp}";
+
+                string itemPrice = $"{item.Price} G";
+
 
                 Console.WriteLine(string.Concat($"- {i + 1} {itemName} | {itemPower} | {item.Description}".PadRight(30, ' '), " | ", itemPrice));
             }
